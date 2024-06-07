@@ -1,0 +1,2 @@
+echo "🔍 Vérification des fichiers 💫"
+npx lint-staged
