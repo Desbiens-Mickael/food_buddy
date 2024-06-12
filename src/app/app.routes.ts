@@ -7,6 +7,15 @@ export const routes: Routes = [
       import('./layouts/layout-base/layout-base.component').then(
         m => m.LayoutBaseComponent,
       ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/public/home-page/home-page.component').then(
+            m => m.HomePageComponent,
+          ),
+      },
+    ],
   },
   {
     path: 'merchant',
@@ -14,5 +23,6 @@ export const routes: Routes = [
       import('./layouts/layout-admin/layout-admin.component').then(
         m => m.LayoutAdminComponent,
       ),
+    children: [],
   },
 ];
