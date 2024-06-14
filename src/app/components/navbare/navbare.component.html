@@ -1,0 +1,50 @@
+<header
+  class="h-[80px] md:h-[100px] w-full flex justify-center items-center bg-white/10 backdrop-blur-lg sticky shadow-md px-5 md:justify-between"
+>
+  <div class="flex items-center">
+    <div
+      class="h-14 w-14 md:h-20 md:w-20 flex justify-center items-center cursor-pointer displayed-logo"
+    >
+      <a routerlink="'/'">
+        <img
+          src="assets/logo-white.webp"
+          alt="Logo Food Buddy"
+          class="drop-shadow-2xl"
+        />
+      </a>
+    </div>
+    <div class="hidden ml-5 text-white md:flex md:flex-col">
+      <span class="text-5xl font-title drop-shadow-2xl translate-title">
+        Food Buddy
+      </span>
+      <span class="font-main text-xs mt-2 drop-shadow-2xl translate-sub-title"
+        >Pour que tout le monde puisse manger à sa faim</span
+      >
+    </div>
+  </div>
+  <nav class="hidden md:flex items-center">
+    <ul class="flex">
+      <li class="translate-link">
+        <a
+          routerlink="#"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
+          >Connexion</a
+        >
+      </li>
+      <li class="flex items-center translate-link">
+        <div class="mx-4 border-e-2 border-slate-800 h-5"></div>
+      </li>
+      <li class="translate-link">
+        <a
+          routerlink="#"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
+          >Créer un compte</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>

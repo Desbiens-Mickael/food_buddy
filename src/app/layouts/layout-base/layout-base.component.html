@@ -1,7 +1,34 @@
 <div class="min-h-screen flex flex-col">
-  <div class="h-[50px] w-full bg-primary">Header</div>
-  <main class="flex-grow">
+  <app-navbare></app-navbare>
+  <main class="flex-grow w-full max-w-screen-2xl mx-auto">
     <router-outlet />
   </main>
-  <div class="h-[50px] w-full bg-primary">Footer</div>
+  <div
+    class="h-[60px] md:hidden w-full flex justify-center items-center bg-white/10 backdrop-blur-lg sticky shadow-md px-5 md:justify-between"
+  >
+    <div class="flex items-center"></div>
+    <nav class="flex items-center">
+      <ul class="flex">
+        <li class="translate-link">
+          <a
+            routerlink="#"
+            routerLinkActive="active-link"
+            class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
+            >Connexion</a
+          >
+        </li>
+        <li class="flex items-center translate-link">
+          <div class="mx-4 border-e-2 border-slate-800 h-5"></div>
+        </li>
+        <li class="translate-link">
+          <a
+            routerlink="#"
+            routerLinkActive="active-link"
+            class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
+            >Créer un compte</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
