@@ -31,10 +31,6 @@
   animation-delay: 0.4s;
 }
 
-.active-link {
-  color: var(--secondary-color) !important;
-}
-
 @keyframes scale-and-opacity {
   0% {
     transform: scale(0);
