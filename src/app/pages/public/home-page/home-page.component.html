@@ -1,3 +1,14 @@
-<h1 class="text-6xl font-title drop-shadow-lg">
-  Bienvenue sur <span class="span-custom">Food Buddy</span>
-</h1>
+<div class="flex flex-col justify-center items-center h-screen">
+  <h1
+    class="text-6xl text-center font-title drop-shadow-lg w-[90%] sm:w-[60%] md:w-auto"
+  >
+    <span>
+      <span *ngFor="let letter of title" class="span-letter">{{ letter }}</span>
+    </span>
+    <span class="span-title span-custom">{{ appName }}</span>
+  </h1>
+</div>
+
+<!-- <section class="flex flex-col justify-center items-center h-screen">
+  <h2 class="text-6xl text-center font-title drop-shadow-lg">Test</h2>
+</section> -->
