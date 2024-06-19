@@ -25,25 +25,19 @@
   <nav class="hidden md:flex items-center">
     <ul class="flex">
       <li class="translate-link">
-        <a
-          routerlink="#"
-          routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
-          >Connexion</a
-        >
+        <app-link-navbar
+          [text]="'Connexion'"
+          [route]="'/merchant'"
+        ></app-link-navbar>
       </li>
       <li class="flex items-center translate-link">
         <div class="mx-4 border-e-2 border-slate-800 h-5"></div>
       </li>
       <li class="translate-link">
-        <a
-          routerlink="#"
-          routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="font-main text-2xl font-bold cursor-pointer hover:text-secondary transition-colors"
-          >Créer un compte</a
-        >
+        <app-link-navbar
+          [text]="'Créer un compte'"
+          [route]="'/register'"
+        ></app-link-navbar>
       </li>
     </ul>
   </nav>

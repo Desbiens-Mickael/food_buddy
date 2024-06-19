@@ -4,36 +4,20 @@
   <nav class="h-full w-full">
     <ul class="h-full w-full justify-evenly flex items-center">
       <li class="">
-        <a
-          routerlink="#"
-          routerLinkActive="active-link"
-          class="cursor-pointer hover:text-secondary transition-colors"
-        >
-          <div class="w-full h-full flex flex-col justify-center items-center">
-            <span class="material-symbols-outlined text-3xl text-white">
-              login
-            </span>
-            <span class="font-main text-xl font-bold text-white -mt-2"
-              >Connexion</span
-            >
-          </div></a
-        >
+        <app-link-navbar
+          [text]="'Connexion'"
+          [icon]="'login'"
+          [route]="'/login'"
+          [isMobile]="true"
+        ></app-link-navbar>
       </li>
       <li class="">
-        <a
-          routerlink="#"
-          routerLinkActive="active-link"
-          class="hover:text-secondary transition-colors"
-        >
-          <div class="w-full h-full flex flex-col justify-center items-center">
-            <span class="material-symbols-outlined text-3xl text-white">
-              person_add
-            </span>
-            <span class="font-main text-xl font-bold text-white -mt-2"
-              >Créer un compte</span
-            >
-          </div>
-        </a>
+        <app-link-navbar
+          [text]="'Créer un compte'"
+          [icon]="'person_add'"
+          [route]="'/register'"
+          [isMobile]="true"
+        ></app-link-navbar>
       </li>
     </ul>
   </nav>
