@@ -22,23 +22,31 @@
       >
     </div>
   </div>
-  <nav class="hidden md:flex items-center">
+  <nav class="hidden md:flex items-center me-12">
     <ul class="flex">
-      <li class="translate-link">
-        <app-link-navbar
-          [text]="'Connexion'"
-          [route]="'/merchant'"
-        ></app-link-navbar>
-      </li>
-      <li class="flex items-center translate-link">
-        <div class="mx-4 border-e-2 border-slate-800 h-5"></div>
-      </li>
-      <li class="translate-link">
-        <app-link-navbar
-          [text]="'Créer un compte'"
-          [route]="'/register'"
-        ></app-link-navbar>
-      </li>
+      @if (!isLogged) {
+        <li
+          *ngFor="let link of publicLinks"
+          class="translate-link flex items-center"
+        >
+          <app-link-navbar
+            [text]="link.text"
+            [route]="link.route"
+          ></app-link-navbar>
+          <div class="mx-4 border-e-2 border-neutral-500 h-5"></div>
+        </li>
+      } @else {
+        <li
+          *ngFor="let link of userLinks"
+          class="translate-link flex items-center"
+        >
+          <app-link-navbar
+            [text]="link.text"
+            [route]="link.route"
+          ></app-link-navbar>
+          <div class="mx-4 border-e-2 border-neutral-500 h-5"></div>
+        </li>
+      }
     </ul>
   </nav>
 </header>
