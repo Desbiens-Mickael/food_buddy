@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
+
+const titleBase = 'Food buddy';
 
 export const routes: Routes = [
   {
@@ -14,6 +17,8 @@ export const routes: Routes = [
           import('./pages/public/home-page/home-page.component').then(
             m => m.HomePageComponent,
           ),
+        title: `${titleBase} - Accueil`,
+        canActivate: [authGuard],
       },
     ],
   },
@@ -25,4 +30,6 @@ export const routes: Routes = [
       ),
     children: [],
   },
+
+  // { path: '**', redirectTo: '' },
 ];
