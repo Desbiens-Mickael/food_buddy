@@ -16,5 +16,5 @@ export class MobileNavbareComponent {
   userLinks: Link[] = userLinks;
 
   @Input()
-  isLogged = true;
+  isLogged = false;
 }
