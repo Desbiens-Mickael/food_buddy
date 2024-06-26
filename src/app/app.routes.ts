@@ -15,6 +15,13 @@ export const routes: Routes = [
             m => m.HomePageComponent,
           ),
       },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./pages/public/login/login.component').then(
+            m => m.LoginComponent,
+          ),
+      },
     ],
   },
   {
