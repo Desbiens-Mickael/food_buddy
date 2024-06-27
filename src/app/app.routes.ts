@@ -20,6 +20,13 @@ export const routes: Routes = [
         title: `${titleBase} - Accueil`,
         canActivate: [authGuard],
       },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./pages/public/login/login.component').then(
+            m => m.LoginComponent,
+          ),
+      },
     ],
   },
   {
