@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RegisterComponent } from './pages/register/register.component';
 import { authGuard } from './core/guards/auth.guard';
 
 const titleBase = 'Food buddy';
@@ -26,6 +27,10 @@ export const routes: Routes = [
           import('./pages/public/login/login.component').then(
             m => m.LoginComponent,
           ),
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
       },
     ],
   },

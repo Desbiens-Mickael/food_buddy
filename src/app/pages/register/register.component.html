@@ -1,0 +1,30 @@
+<div class="registerComponent">
+  <div class="choiceAccount">
+    <button
+      [disabled]="!buisnessChoice"
+      (click)="buisnessChoice()"
+      class="btn-warning"
+    >
+      Commercant
+    </button>
+    <button
+      [disabled]="!clientChoice"
+      (click)="clientChoice()"
+      class="btn-valid"
+    >
+      Donnateur/Utilisateur
+    </button>
+  </div>
+
+  <div class="allForms">
+    <div *ngIf="!choiceBuisness" id="userForm">
+      <h5>Crée mon profil</h5>
+      <app-user-form class="component"></app-user-form>
+    </div>
+    <div *ngIf="choiceBuisness" id="buisnessForm">
+      <h5>J'enregistre mon Etablissement</h5>
+
+      <app-buisness-form class="component"></app-buisness-form>
+    </div>
+  </div>
+</div>

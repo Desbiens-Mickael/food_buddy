@@ -1,0 +1,50 @@
+.registerComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2% auto;
+  width: 80%;
+}
+
+* {
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+.allForms {
+  display: flex;
+}
+
+.choiceAccount {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px auto;
+}
+.choiceAccount button {
+  width: 50%;
+  box-shadow: 2px 3px 3px rgb(125, 125, 125);
+  font-size: 11px;
+  transition: 0.2s;
+  font-weight: 500;
+  color: white;
+}
+.choiceAccount button:hover {
+  scale: 0.97;
+  transition: 0.2s;
+  box-shadow: 1px 1px 1px rgb(125, 125, 125);
+}
+
+#userForm,
+#buisnessForm {
+  text-align: center;
+  width: 100%;
+}
+h5 {
+  color: #605b5b;
+  font-weight: 500;
+}
+.btn-valid {
+  background-color: rgba(24, 119, 24, 0.633);
+}
+.btn-warning {
+  background-color: rgba(194, 155, 26, 0.772);
+}
