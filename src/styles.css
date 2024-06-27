@@ -7,19 +7,88 @@
 @layer base {
   :root {
     --font-title: 'Lobster', sans-serif;
+    --font-main: 'Saira Semi Condensed', sans-serif;
     --primary-color: #00c3b1;
     --secondary-color: #fb9803;
   }
 }
-* {
-  font-family: 'Saira Semi Condensed', sans-serif;
+
+.active-link {
+  color: var(--secondary-color) !important;
 }
 
-html,
-body {
-  height: 100%;
+body::before {
+  content: '';
+  position: fixed;
+  top: -430px;
+  left: -141px;
+  width: 1000px;
+  height: 1000px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 gradientTransform=%22rotate(45 .5 .5)%22%3E%3Cstop offset=%220%25%22 stop-color=%22%2316A085%22%2F%3E%3Cstop offset=%22100%25%22 stop-color=%22%23ee9f0a%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath id=%22a%22%3E%3Cpath fill=%22currentColor%22 d=%22M807 598.5q-36 98.5-139.5 99t-198.5 95Q374 887 334.5 768T186 574.5Q77 500 135.5 389t170-127Q417 246 519 187t157.5 42.5q55.5 101.5 111 186t19.5 183Z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg clip-path=%22url(%23a)%22%3E%3Cpath fill=%22url(%23b)%22 d=%22M807 598.5q-36 98.5-139.5 99t-198.5 95Q374 887 334.5 768T186 574.5Q77 500 135.5 389t170-127Q417 246 519 187t157.5 42.5q55.5 101.5 111 186t19.5 183Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+  z-index: -1;
 }
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -700px;
+  right: -204px;
+  z-index: -1;
+  width: 1000px;
+  height: 1000px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 gradientTransform=%22rotate(210 .5 .5)%22%3E%3Cstop offset=%220%25%22 stop-color=%22%2316A085%22%2F%3E%3Cstop offset=%22100%25%22 stop-color=%22%23ee9f0a%22%2F%3E%3C%2FlinearGradient%3E%3CclipPath id=%22a%22%3E%3Cpath fill=%22currentColor%22 d=%22M842.5 619q-15.5 119-108 219t-197-16Q433 706 382.5 664t-102-103Q229 500 220 395t62-225.5q71-120.5 179.5-3t248 99q139.5-18.5 144 108t-11 245.5Z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg clip-path=%22url(%23a)%22%3E%3Cpath fill=%22url(%23b)%22 d=%22M842.5 619q-15.5 119-108 219t-197-16Q433 706 382.5 664t-102-103Q229 500 220 395t62-225.5q71-120.5 179.5-3t248 99q139.5-18.5 144 108t-11 245.5Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+  transform: rotate(339deg);
+}
+
+/* Media queries */
+@media (max-width: 677px) {
+  body::before {
+    top: -744px;
+    transform: rotate(305deg);
+    left: -23%;
+    background-size: 127%;
+  }
+
+  body::after {
+    /* bottom: -100px; */
+    background-size: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  body::before {
+    top: -88vh;
+    transform: rotate(305deg);
+    left: -17%;
+    background-size: 129%;
+    height: 114%;
+    width: 149%;
+  }
+
+  body::after {
+    right: -23%;
+    background-size: 129%;
+    height: 171%;
+    width: 138%;
+  }
+}
+
+@media (max-width: 550px) {
+  body::before {
+    top: -79vh;
+    left: -16%;
+  }
+}
+
+@media (max-width: 476px) {
+  body::before {
+    top: -75vh;
+    left: -17%;
+  }
 }

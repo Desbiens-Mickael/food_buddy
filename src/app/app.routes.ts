@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './core/guards/auth.guard';
+
+const titleBase = 'Food buddy';
 
 export const routes: Routes = [
   {
@@ -14,6 +17,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/public/home-page/home-page.component').then(
             m => m.HomePageComponent,
+          ),
+        title: `${titleBase} - Accueil`,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./pages/public/login/login.component').then(
+            m => m.LoginComponent,
           ),
       },
       {
@@ -30,4 +42,6 @@ export const routes: Routes = [
       ),
     children: [],
   },
+
+  // { path: '**', redirectTo: '' },
 ];

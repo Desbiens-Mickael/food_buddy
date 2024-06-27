@@ -1,7 +1,8 @@
 <div class="min-h-screen flex flex-col">
-  <div class="h-[50px] w-full bg-primary">Header</div>
-  <main class="flex-grow">
+  <app-navbare-desktop></app-navbare-desktop>
+  <main class="flex-grow w-full max-w-screen-2xl mx-auto">
     <router-outlet />
   </main>
-  <div class="h-[50px] w-full bg-primary">Footer</div>
+  <app-mobile-navbare></app-mobile-navbare>
+  <app-footer></app-footer>
 </div>

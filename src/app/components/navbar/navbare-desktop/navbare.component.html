@@ -1,0 +1,52 @@
+<header
+  class="h-[80px] md:h-[100px] w-full flex justify-center items-center bg-white/10 backdrop-blur-lg fixed top-0 left-0 shadow-md px-5 md:justify-between z-50"
+>
+  <div class="flex items-center">
+    <div
+      class="h-14 w-14 md:h-20 md:w-20 flex justify-center items-center cursor-pointer displayed-logo"
+    >
+      <a routerlink="'/'">
+        <img
+          src="assets/logo-white.webp"
+          alt="Logo Food Buddy"
+          class="drop-shadow-2xl"
+        />
+      </a>
+    </div>
+    <div class="hidden ml-5 text-white md:flex md:flex-col">
+      <span class="text-5xl font-title drop-shadow-2xl translate-title">
+        Food Buddy
+      </span>
+      <span class="font-main text-xs mt-2 drop-shadow-2xl translate-sub-title"
+        >Pour que tout le monde puisse manger à sa faim</span
+      >
+    </div>
+  </div>
+  <nav class="hidden md:flex items-center me-12">
+    <ul class="flex">
+      @if (!isLogged) {
+        <li
+          *ngFor="let link of publicLinks"
+          class="translate-link flex items-center"
+        >
+          <app-link-navbar
+            [text]="link.text"
+            [route]="link.route"
+          ></app-link-navbar>
+          <div class="mx-4 border-e-2 border-neutral-500 h-5"></div>
+        </li>
+      } @else {
+        <li
+          *ngFor="let link of userLinks"
+          class="translate-link flex items-center"
+        >
+          <app-link-navbar
+            [text]="link.text"
+            [route]="link.route"
+          ></app-link-navbar>
+          <div class="mx-4 border-e-2 border-neutral-500 h-5"></div>
+        </li>
+      }
+    </ul>
+  </nav>
+</header>
