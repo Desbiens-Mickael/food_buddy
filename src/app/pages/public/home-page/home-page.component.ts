@@ -89,7 +89,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             {
               x: 0,
-              opacity: 1,
+              opacity: 5,
               scrollTrigger: {
                 trigger: section as HTMLElement,
                 start: 'top 50%',
@@ -101,6 +101,70 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         }
       });
+    });
+
+    gsap.from('.step', {
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.5,
+      ease: 'back',
+      scrollTrigger: {
+        trigger: '.step',
+        start: 'top 50%',
+        end: 'center 60%',
+        // markers: true,
+      },
+      x: 200,
+    });
+
+    const titles: HTMLElement[] = gsap.utils.toArray('.poec-title');
+    const masterTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: titles[0], // Déclenchement de l'animation basé sur le premier élément
+        start: 'top 50%',
+        end: 'center 60%',
+      },
+    });
+
+    // Animation des éléments .initial en premier
+    masterTl.from(
+      titles.map(title => title.querySelector('.initial')),
+      {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'back',
+        x: 100,
+        stagger: 0.3, // Ajuster le temps de décalage entre chaque .initial
+      },
+    );
+
+    // Ensuite, ajouter des timelines pour chaque groupe de titres
+    titles.forEach(title => {
+      const word = title.querySelector('.word');
+      const text = title.nextElementSibling;
+
+      const tl = gsap.timeline();
+      tl.from(
+        word,
+        {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'back',
+          x: -100,
+        },
+        'wordsAndTexts', // Etiquette de position commune
+      ).from(
+        text,
+        {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'back',
+          x: 100,
+        },
+        'wordsAndTexts', // Même étiquette pour garantir une animation simultanée
+      );
+
+      masterTl.add(tl);
     });
 
     ScrollTrigger.refresh();
