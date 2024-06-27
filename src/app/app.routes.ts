@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,10 @@ export const routes: Routes = [
           import('./pages/public/home-page/home-page.component').then(
             m => m.HomePageComponent,
           ),
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
       },
     ],
   },
