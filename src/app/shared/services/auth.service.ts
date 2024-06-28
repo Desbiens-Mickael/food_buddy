@@ -1,34 +1,40 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { map } from 'rxjs';
+import { UserInfo } from '../models/User-info.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthenticated = true;
-  private role = '';
-  private email = '';
+  private http = inject(HttpClient);
 
-  login() {
-    // TODO : Implement login whith api and add user info in localStorage
-    this.isAuthenticated = true;
+  /**
+   * Logs in a user with the provided email and password.
+   *
+   * @param {string} email - The email of the user.
+   * @param {string} password - The password of the user.
+   */
+  login(email: string, password: string) {
+    return this.http
+      .post<UserInfo>('https://food-buddy.olprog-b.fr/login', {
+        email: email,
+        password: password,
+      })
+      .pipe(
+        map(data => {
+          const userInfo: UserInfo = { ...data, isAuthenticated: true };
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        }),
+        // catchError(err => {
+        //   console.error('Erreur lors de la connexion:', err);
+        //   return throwError(() => new Error('Erreur lors de la connexion.')); // Renvoie l'erreur pour que le composant puisse la gérer.
+        // }),
+      );
   }
 
   logout() {
-    localStorage.clear();
-    this.isAuthenticated = false;
-    this.role = '';
-    this.email = '';
-  }
-
-  geIsAuthenticated(): boolean {
-    return this.isAuthenticated;
-  }
-
-  getRole(): string {
-    return this.role;
-  }
-
-  getEmail(): string {
-    return this.email;
+    this.http.post('https://food-buddy.olprog-b.fr/logout', {});
+    localStorage.removeItem('userInfo');
   }
 }

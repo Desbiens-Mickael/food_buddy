@@ -4,28 +4,34 @@ import {
   CanActivateFn,
   Router,
   RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
+import { Observable } from 'rxjs';
+import { UserInfo } from '../../shared/models/User-info.model';
 
-export const authGuard: CanActivateFn = async (
-  route: ActivatedRouteSnapshot,
+export const authGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-) => {
-  const authService = inject(AuthService);
+):
+  | Observable<boolean | UrlTree>
+  | Promise<boolean | UrlTree>
+  | boolean
+  | UrlTree => {
   const router: Router = inject(Router);
+  const userInfo = JSON.parse(
+    localStorage.getItem('userInfo') ?? '{}',
+  ) as UserInfo;
 
-  if (
-    !authService.geIsAuthenticated() &&
-    state.url !== '/login' &&
-    state.url !== '/'
-  ) {
-    await router.navigateByUrl('/login');
-    return false;
+  const routePublic = ['/', '/login', '/register'];
+
+  // access user not authenticated
+  if (!userInfo.isAuthenticated && !routePublic.includes(state.url)) {
+    return router.createUrlTree(['/login']);
   }
 
-  if (authService.geIsAuthenticated() && state.url === '/login') {
-    await router.navigateByUrl('/');
-    return false;
+  if (userInfo.isAuthenticated && state.url === routePublic[1]) {
+    return router.createUrlTree(['/']);
   }
+
   return true;
 };

@@ -1,24 +1,15 @@
 // demo.interceptor.ts
 
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
-export class CredentialInterceptor implements HttpInterceptor {
-  intercept(
-    request: HttpRequest<object>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<object>> {
-    const modifiedRequest = request.clone({
-      withCredentials: true,
-    });
+export function CredentialInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn,
+): Observable<HttpEvent<unknown>> {
+  const modifiedRequest = req.clone({
+    withCredentials: true,
+  });
 
-    return next.handle(modifiedRequest);
-  }
+  return next(modifiedRequest);
 }

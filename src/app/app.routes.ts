@@ -10,6 +10,7 @@ export const routes: Routes = [
       import('./layouts/layout-base/layout-base.component').then(
         m => m.LayoutBaseComponent,
       ),
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -18,7 +19,6 @@ export const routes: Routes = [
             m => m.HomePageComponent,
           ),
         title: `${titleBase} - Accueil`,
-        canActivate: [authGuard],
       },
       {
         path: 'login',
@@ -26,6 +26,7 @@ export const routes: Routes = [
           import('./pages/public/login/login.component').then(
             m => m.LoginComponent,
           ),
+        title: `${titleBase} - Connexion`,
       },
     ],
   },
@@ -35,6 +36,7 @@ export const routes: Routes = [
       import('./layouts/layout-admin/layout-admin.component').then(
         m => m.LayoutAdminComponent,
       ),
+    canActivateChild: [],
     children: [],
   },
 
