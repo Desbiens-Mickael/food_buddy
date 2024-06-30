@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { RegisterComponent } from './pages/register/register.component';
 
 const titleBase = 'Food buddy';
 
@@ -31,7 +30,11 @@ export const routes: Routes = [
       },
       {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () =>
+          import('./pages/register/register.component').then(
+            m => m.RegisterComponent,
+          ),
+        title: `${titleBase} - Inscription`,
       },
     ],
   },
@@ -44,6 +47,5 @@ export const routes: Routes = [
     canActivateChild: [],
     children: [],
   },
-
-  // { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' },
 ];

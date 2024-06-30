@@ -7,7 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserInfo } from '../../shared/models/User-info.model';
+// import { UserInfo } from '../../shared/models/User-info.model';
+import { AuthService } from '../../shared/services/auth.service';
 
 export const authGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
@@ -17,19 +18,27 @@ export const authGuard: CanActivateFn = (
   | Promise<boolean | UrlTree>
   | boolean
   | UrlTree => {
+  const authService = inject(AuthService);
   const router: Router = inject(Router);
-  const userInfo = JSON.parse(
-    localStorage.getItem('userInfo') ?? '{}',
-  ) as UserInfo;
+  let isLogged!: boolean;
+  authService.userInfo$.subscribe(
+    userInfo => (isLogged = userInfo.isAuthenticated),
+  );
 
-  const routePublic = ['/', '/login', '/register'];
+  const publicRoutes = ['/login', '/register'];
+  const userRoutes = ['/profile', '/map', '/logout', '/favorite'];
 
   // access user not authenticated
-  if (!userInfo.isAuthenticated && !routePublic.includes(state.url)) {
+  if (!isLogged && !publicRoutes.includes(state.url) && state.url !== '/') {
     return router.createUrlTree(['/login']);
   }
 
-  if (userInfo.isAuthenticated && state.url === routePublic[1]) {
+  // access user authenticated
+  if (
+    isLogged &&
+    publicRoutes.includes(state.url) &&
+    !userRoutes.includes(state.url)
+  ) {
     return router.createUrlTree(['/']);
   }
 
