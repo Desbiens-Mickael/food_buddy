@@ -7,7 +7,6 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-// import { UserInfo } from '../../shared/models/User-info.model';
 import { AuthService } from '../../shared/services/auth.service';
 
 export const authGuard: CanActivateFn = (
@@ -21,25 +20,34 @@ export const authGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router: Router = inject(Router);
   let isLogged!: boolean;
-  authService.userInfo$.subscribe(
-    userInfo => (isLogged = userInfo.isAuthenticated),
-  );
+  let userRole!: string;
+  authService.userInfo$.subscribe(userInfo => {
+    isLogged = userInfo.isAuthenticated;
+    userRole = userInfo.role;
+  });
 
   const publicRoutes = ['/login', '/register'];
-  const userRoutes = ['/profile', '/map', '/logout', '/favorite'];
+  const userRoutes = ['/profile', '/map', '/favorite'];
 
-  // access user not authenticated
-  if (!isLogged && !publicRoutes.includes(state.url) && state.url !== '/') {
+  // Unauthenticated user management
+  if (!isLogged && userRoutes.includes(state.url)) {
     return router.createUrlTree(['/login']);
   }
 
-  // access user authenticated
+  // Authenticated user management for the public route
+  if (isLogged && publicRoutes.includes(state.url)) {
+    if (userRole === 'merchant') return router.createUrlTree(['/merchant']);
+
+    return router.createUrlTree(['/']);
+  }
+
+  // Management of authenticated users who do not have the user role
   if (
     isLogged &&
-    publicRoutes.includes(state.url) &&
-    !userRoutes.includes(state.url)
+    userRole !== 'user' &&
+    (userRoutes.includes(state.url) || state.url === '/')
   ) {
-    return router.createUrlTree(['/']);
+    return router.createUrlTree(['/merchant']);
   }
 
   return true;
