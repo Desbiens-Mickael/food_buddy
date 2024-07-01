@@ -1,0 +1,117 @@
+h6 {
+  color: #605b5b;
+}
+
+input {
+  border: solid 1px rgba(153, 153, 153, 0.194);
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
+  text-align: center;
+  box-shadow: 2px 3px 3px rgb(125, 125, 125);
+}
+
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+}
+
+form div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  border-radius: 7px;
+  padding: 5px 15px;
+  color: white;
+  box-shadow: 2px 3px 3px rgb(125, 125, 125);
+}
+
+.btn-valid {
+  background-color: rgba(24, 119, 24, 0.633);
+}
+
+.btn-warning {
+  background-color: rgba(194, 155, 26, 0.772);
+}
+
+.btn-danger {
+  background-color: rgba(26, 148, 26, 0.772);
+}
+
+.control,
+.field,
+.blockForm {
+  width: 100%;
+}
+
+.formUser {
+  display: flex;
+  flex-direction: column;
+  min-height: 45vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar {
+  width: 50px !important;
+  height: 60px;
+  background-image: url(../../../assets/images/avatar.png);
+  filter: drop-shadow(2px 2px 2px rgb(123, 123, 123));
+  background-size: cover;
+  margin: auto;
+  font-weight: 400;
+  font-size: 9px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px hsla(47, 92%, 40%, 0.754);
+  transition: box-shadow 0.3s ease;
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.control {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important;
+}
+.errorPassword {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.controlPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.controlName {
+  display: flex;
+
+  width: 100%;
+  justify-content: space-between !important;
+}

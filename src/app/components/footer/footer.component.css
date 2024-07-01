@@ -1,0 +1,33 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 1px -8px 15px -3px,
+    rgba(0, 0, 0, 0.05) 1px -4px 6px -2px;
+}
+
+.boxlogo {
+  width: 140px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.boxlogo img {
+  height: 30px;
+  width: 35px;
+}
+
+footer p {
+  font-family: var(--font-main);
+  color: white;
+  line-height: 17px;
+  font-weight: lighter;
+}

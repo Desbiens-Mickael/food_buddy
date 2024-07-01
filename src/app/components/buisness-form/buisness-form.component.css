@@ -1,0 +1,125 @@
+.choiceAdress {
+  position: relative;
+}
+.adressForm {
+  position: relative;
+}
+h6 {
+  color: #605b5b;
+  margin-bottom: 10px;
+}
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  text-align: center;
+}
+ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1000;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f0f0f0;
+}
+.formBuisness {
+  display: flex;
+  flex-direction: column-reverse;
+  min-height: 45vh;
+  justify-content: space-between;
+  align-items: center;
+}
+input {
+  border: solid 1px black;
+  border-radius: 5px;
+}
+form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+form div {
+  width: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+button {
+  border-radius: 7px;
+  padding: 5px 15px;
+  color: white;
+}
+.btn-valid {
+  background-color: rgba(24, 119, 24, 0.633);
+}
+.btn-warning {
+  background-color: rgba(194, 155, 26, 0.772);
+}
+.btn-danger {
+  background-color: rgba(26, 148, 26, 0.772);
+}
+input {
+  border: solid 1px rgba(153, 153, 153, 0.194);
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 2px 3px 3px rgb(125, 125, 125);
+}
+.control,
+.field,
+.blockForm {
+  width: 100%;
+}
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px hsla(47, 92%, 40%, 0.754);
+  transition: box-shadow 0.3s ease;
+}
+.name {
+  display: flex;
+  justify-content: space-between !important;
+  width: 100%;
+}
+
+.avatar {
+  width: 100px !important;
+  height: 120px;
+  background-image: url(../../../assets/images/avatar.png);
+  filter: drop-shadow(2px 2px 2px rgb(123, 123, 123));
+  background-size: cover;
+  margin: auto;
+  font-weight: 800;
+}
+.adresse-input {
+  width: 100%;
+  flex-direction: column;
+}
+.control {
+  display: flex;
+  flex-direction: column;
+}
