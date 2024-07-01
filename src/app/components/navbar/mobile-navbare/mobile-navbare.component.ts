@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { Link } from '../../../shared/models/Link.model';
 import { publicLinks, userLinks } from '../../../shared/routes-config/routes';
 import { LinkNavbarComponent } from '../../ui/link-navbar/link-navbar.component';
+import { LogoutButtonComponent } from '../../ui/logout-button/logout-button.component';
 
 @Component({
   selector: 'app-mobile-navbare',
   standalone: true,
-  imports: [CommonModule, LinkNavbarComponent],
+  imports: [CommonModule, LinkNavbarComponent, LogoutButtonComponent],
   templateUrl: './mobile-navbare.component.html',
   styleUrl: './mobile-navbare.component.css',
 })
@@ -16,5 +17,5 @@ export class MobileNavbareComponent {
   userLinks: Link[] = userLinks;
 
   @Input()
-  isLogged = true;
+  isLogged = false;
 }

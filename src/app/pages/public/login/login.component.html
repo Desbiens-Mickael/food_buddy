@@ -1,0 +1,84 @@
+<div class="main">
+  <div class="container">
+    <p>
+      Avec <span class="font_foodbuddy">Food Buddy</span>, vous avez la
+      possibilité d'offrir un moment de partage et de bonheur à une famille et
+      des enfants dans le besoin.
+    </p>
+  </div>
+
+  <div class="box shadow-lg bg-white/10 backdrop-blur-lg">
+    <div class="container1">
+      <div class="livraison_picture">
+        <img src="assets/Livraison_kraft.jpg" alt="livraison_kraft" />
+      </div>
+    </div>
+
+    <div class="container2">
+      <div class="se_connecter">
+        <h1>Se connecter</h1>
+      </div>
+
+      <form #myform="ngForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="email_user">Votre adresse email </label>
+          <input
+            [ngClass]="
+              email?.invalid && (email?.dirty || email?.touched)
+                ? ' border border-red-600'
+                : ''
+            "
+            placeholder="Adresse email"
+            formControlName="email"
+            class="shadow-lg"
+            name="email_user"
+            type="email"
+          />
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+          >
+            <div *ngIf="email?.errors?.['required']">Email requis</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="motdepasse">Votre mot de passe </label>
+          <input
+            [ngClass]="
+              password?.invalid && (password?.dirty || password?.touched)
+                ? ' border border-red-600'
+                : ''
+            "
+            placeholder="Mot de passe"
+            formControlName="password"
+            class="shadow-lg"
+            name="motdepasse"
+            type="text"
+          />
+          <div
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+            class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+          >
+            <div *ngIf="password?.errors?.['required']">
+              Mot de passe requis
+            </div>
+          </div>
+        </div>
+
+        <button
+          [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
+          [disabled]="myform.invalid && true"
+          class="shadow-lg"
+          type="submit"
+        >
+          Connexion
+        </button>
+      </form>
+
+      <div class="deja_inscrit">
+        <p>Pas encore inscrit? Inscrivez-vous ici</p>
+      </div>
+    </div>
+  </div>
+</div>
