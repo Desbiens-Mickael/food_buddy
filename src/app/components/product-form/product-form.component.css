@@ -1,3 +1,20 @@
 /*
 pre commit : prise de tete ESLINT :(
 */
+
+form div {
+  margin-bottom: 15px;
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+button {
+  margin-top: 10px;
+}

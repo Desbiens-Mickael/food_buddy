@@ -1,1 +1,58 @@
-<p>product-form works!</p>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Nom du produit:</label>
+    <input
+      type="text"
+      formControlName="name"
+      class="form-control"
+      id="name"
+      placeholder="Entrez le nom du produit"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="price">Prix:</label>
+    <input
+      type="number"
+      formControlName="price"
+      class="form-control"
+      id="price"
+      placeholder="Entrez le prix du produit"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="image">Image:</label>
+    <input
+      type="text"
+      formControlName="image"
+      class="form-control"
+      id="image"
+      placeholder="Entrez l'url de l'image"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="allergens">Allergènes:</label>
+    <input
+      type="text"
+      formControlName="allergens"
+      class="form-control"
+      id="allergens"
+      placeholder="Entrez les allergènes (séparés par des virgules)"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea
+      formControlName="description"
+      class="form-control"
+      id="description"
+      rows="3"
+      placeholder="Entrez la description du produit"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Créer</button>
+</form>
