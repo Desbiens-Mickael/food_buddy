@@ -1,8 +1,7 @@
 .registerComponent {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 20% auto;
+  justify-content: center;
   width: 80%;
 }
 
