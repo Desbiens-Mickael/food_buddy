@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './pages/register/register.component';
+import { authMerchantGuard } from './core/guards/auth-merchant.guard';
 import { authGuard } from './core/guards/auth.guard';
 
 const titleBase = 'Food buddy';
@@ -11,6 +11,7 @@ export const routes: Routes = [
       import('./layouts/layout-base/layout-base.component').then(
         m => m.LayoutBaseComponent,
       ),
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -19,7 +20,6 @@ export const routes: Routes = [
             m => m.HomePageComponent,
           ),
         title: `${titleBase} - Accueil`,
-        canActivate: [authGuard],
       },
       {
         path: 'login',
@@ -27,10 +27,23 @@ export const routes: Routes = [
           import('./pages/public/login/login.component').then(
             m => m.LoginComponent,
           ),
+        title: `${titleBase} - Connexion`,
       },
       {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () =>
+          import('./pages/register/register.component').then(
+            m => m.RegisterComponent,
+          ),
+        title: `${titleBase} - Inscription`,
+      },
+      {
+        path: 'favorite',
+        loadComponent: () =>
+          import('./pages/register/register.component').then(
+            m => m.RegisterComponent,
+          ),
+        title: `${titleBase} - Inscription`,
       },
     ],
   },
@@ -40,8 +53,9 @@ export const routes: Routes = [
       import('./layouts/layout-admin/layout-admin.component').then(
         m => m.LayoutAdminComponent,
       ),
+    canActivate: [authMerchantGuard],
+    canActivateChild: [authMerchantGuard],
     children: [],
   },
-
-  // { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' },
 ];

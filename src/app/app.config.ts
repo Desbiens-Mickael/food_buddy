@@ -1,10 +1,13 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { routes } from './app.routes';
 import { CredentialInterceptor } from './core/interceptors/credential.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -13,11 +16,7 @@ export const appConfig: ApplicationConfig = {
     HttpClient,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideHttpClient(withInterceptors([CredentialInterceptor])),
     provideAnimationsAsync(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CredentialInterceptor,
-      multi: true,
-    },
   ],
 };

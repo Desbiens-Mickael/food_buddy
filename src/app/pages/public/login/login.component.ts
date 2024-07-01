@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -7,6 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +20,11 @@ import {
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  error: string | null = null;
 
   private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private authService = inject(AuthService);
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -36,6 +42,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    if (this.loginForm.valid) {
+      const email = this.email?.value as string;
+      const password = this.password?.value as string;
+
+      this.authService.login(email, password).subscribe({
+        next: () => {
+          void this.router.navigate(['/']);
+          this.loginForm.reset();
+          this.error = null;
+          console.log('tesst');
+        },
+        error: (err: HttpErrorResponse) => {
+          this.error = err.error as string;
+          console.log('Indentifiants invalides');
+        },
+        complete: () => {
+          console.log('complete');
+        },
+      });
+    }
   }
 }

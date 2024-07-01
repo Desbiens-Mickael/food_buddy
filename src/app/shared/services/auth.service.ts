@@ -1,34 +1,60 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { UserInfo } from '../models/User-info.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthenticated = true;
-  private role = '';
-  private email = '';
+  private userInfo = new BehaviorSubject<UserInfo>({
+    firstname: '',
+    lastname: '',
+    email: '',
+    role: '',
+    isAuthenticated: false,
+  });
+  public userInfo$: Observable<UserInfo> = this.userInfo.asObservable();
 
-  login() {
-    // TODO : Implement login whith api and add user info in localStorage
-    this.isAuthenticated = true;
+  private http = inject(HttpClient);
+
+  login(email: string, password: string) {
+    return this.http
+      .post<UserInfo>('https://food-buddy.olprog-b.fr/login', {
+        email: email,
+        password: password,
+      })
+      .pipe(
+        map(data => {
+          this.userInfo.next({ ...data, isAuthenticated: true });
+          localStorage.setItem(
+            'userInfo',
+            JSON.stringify({ ...data, isAuthenticated: true }),
+          );
+        }),
+        // catchError(err => {
+        //   console.error('Erreur lors de la connexion:', err);
+        //   return throwError(() => new Error('Erreur lors de la connexion.')); // Renvoie l'erreur pour que le composant puisse la gérer.
+        // }),
+      );
+  }
+
+  setUserInfo(userInfo: UserInfo) {
+    this.userInfo.next({ ...this.userInfo, ...userInfo });
   }
 
   logout() {
-    localStorage.clear();
-    this.isAuthenticated = false;
-    this.role = '';
-    this.email = '';
-  }
-
-  geIsAuthenticated(): boolean {
-    return this.isAuthenticated;
-  }
-
-  getRole(): string {
-    return this.role;
-  }
-
-  getEmail(): string {
-    return this.email;
+    return this.http.post('https://food-buddy.olprog-b.fr/logout', {}).pipe(
+      map(() => {
+        this.userInfo.next({
+          ...this.userInfo.getValue(),
+          isAuthenticated: false,
+        });
+        localStorage.setItem(
+          'userInfo',
+          JSON.stringify({ isAuthenticated: false }),
+        );
+      }),
+    );
   }
 }
