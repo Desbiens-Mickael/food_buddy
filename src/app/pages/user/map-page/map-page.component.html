@@ -1,7 +1,440 @@
-<div class="min-h-screen md:min-h-custom-height pt-8">
-  <h1 class="text-center text- text-5xl font-main font-bold">Map</h1>
-  <div class="flex flex-col items-center justify-center md:flex-row">
-    <div class=""></div>
-    <div class=""></div>
+<div class="pt-24 md:pt-0 md:min-h-custom-height md:mb-24">
+  <h1 class="text-center text- text-5xl font-main font-bold mb-4">Map</h1>
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="w-full h-[40vh] md:w-1/2 md:h-[70vh] shadow-md z-0">
+      <div
+        style="height: 100%; width: 100%"
+        leaflet
+        [leafletOptions]="options"
+        [leafletLayers]="markers"
+        (leafletMapReady)="onMapReady($event)"
+      >
+        <button
+          class="leaflet-bar leaflet-control leaflet-control-custom px-[.30rem] !cursor-pointer bg-slate-100 text-slate-800 top-20 left-[.70rem] absolute"
+          (click)="targetPosition()"
+        >
+          <span class="material-symbols-outlined text-lg"> my_location </span>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="w-full h-[40vh] mt-4 md:w-1/2 flex flex-col gap-4 md:h-[70vh] md:mt-0 overflow-auto"
+    >
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+      >
+        <div
+          class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+        >
+          <img
+            src="assets/default-busines.png"
+            alt="map-marker"
+            class="h-full w-auto"
+          />
+        </div>
+        <div class="flex ml-4 p-4 w-full">
+          <div class="w-full">
+            <h2 class="text-lg lg:text-2xl font-main font-bold">
+              Nom de l'entreprise
+            </h2>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                location_on
+              </span>
+              8 Rue Emest Deconynck, 75018 Paris
+            </p>
+            <p class="flex gap-2 mt-2 text-sm font-main">
+              <span class="material-symbols-outlined text-blue-600">
+                call
+              </span>
+              01 42 42 42 42
+            </p>
+          </div>
+          <div
+            [attr.aria-hidden]="true"
+            class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+            (click)="targetPosition()"
+          >
+            <span class="material-symbols-outlined text-2xl">
+              my_location
+            </span>
+            <span
+              class="text-sm font-main font-semibold text-center hidden sm:block"
+            >
+              Voir sur la carte
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
