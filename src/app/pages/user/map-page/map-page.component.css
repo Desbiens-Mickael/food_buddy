@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+::ng-deep .leaflet-routing-container {
+  display: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 2px;
