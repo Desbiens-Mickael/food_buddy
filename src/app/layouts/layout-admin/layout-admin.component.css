@@ -1,0 +1,19 @@
+.min-h-screen {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  margin-left: 25%;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}

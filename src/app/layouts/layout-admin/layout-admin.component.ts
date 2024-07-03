@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SideBarComponent } from '../../components/side-bar/side-bar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout-admin',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SideBarComponent, CommonModule],
   templateUrl: './layout-admin.component.html',
-  styleUrl: './layout-admin.component.css',
+  styleUrls: ['./layout-admin.component.css'],
 })
 export class LayoutAdminComponent {
-  test = 'test';
+  private test = 'test';
 }
