@@ -1,6 +1,13 @@
 <div class="pt-24 md:pt-0 md:min-h-custom-height md:mb-24">
-  <h1 class="text-center text- text-5xl font-main font-bold mb-4">Map</h1>
-  <div class="flex flex-col md:flex-row gap-4">
+  <h1 class="text-center text-5xl font-main font-bold mb-4">Map</h1>
+  <!-- TODO: ajouter le loader -->
+  <div
+    *ngIf="isLoading"
+    class="w-full h-custom-height flex justify-center items-center"
+  >
+    <span class="font-main text-5xl text-slate-800">Chargement...</span>
+  </div>
+  <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4">
     <div class="w-full h-[40vh] md:w-1/2 md:h-[70vh] shadow-md z-0">
       <div
         style="height: 100%; width: 100%"

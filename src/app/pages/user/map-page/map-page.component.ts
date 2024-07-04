@@ -3,7 +3,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import L, {
   Icon,
-  LatLngExpression,
   Map,
   MapOptions,
   Marker,
@@ -17,6 +16,16 @@ import { MapItemComponent } from '../../../components/map/map-item/map-item.comp
 import { EstablishmentAdress } from '../../../shared/models/EstablishmentAdress';
 import { EstablishmentAddressService } from '../../../shared/services/establishment-address.service';
 
+interface Route {
+  coordinates: L.LatLng[];
+  // Ajoutez d'autres propriétés pertinentes ici si nécessaire
+}
+
+interface RoutesFoundEvent {
+  routes: Route[];
+  // Ajoutez d'autres propriétés pertinentes ici si nécessaire
+}
+
 @Component({
   selector: 'app-map-page',
   standalone: true,
@@ -25,13 +34,15 @@ import { EstablishmentAddressService } from '../../../shared/services/establishm
   styleUrl: './map-page.component.css',
 })
 export class MapPageComponent implements OnInit {
-  options!: MapOptions;
-  establishmentAddresses: EstablishmentAdress[] = [];
-  markers: Marker[] = [];
-  userMarker!: Marker;
-  userIcon!: Icon;
-  merchantIcon!: Icon;
-  map!: Map;
+  private userMarker!: Marker;
+  private userIcon!: Icon;
+  private merchantIcon!: Icon;
+  private map!: Map;
+  private routingControl: L.Routing.Control | null = null;
+  public options!: MapOptions;
+  public establishmentAddresses: EstablishmentAdress[] = [];
+  public markers: Marker[] = [];
+  public isLoading = true;
 
   private establishmentAddressService = inject(EstablishmentAddressService);
 
@@ -66,13 +77,16 @@ export class MapPageComponent implements OnInit {
       iconRetinaUrl: 'assets/marker-merchant.png',
       shadowUrl: 'assets/marker-shadow.png',
     });
+
+    // Recherche des adresses
+    this.establishmentAddressService.findAllAddresses().subscribe(addresses => {
+      this.establishmentAddresses = addresses;
+      this.isLoading = false;
+    });
   }
 
   // initialisation de la carte quand la page est chargée
   onMapReady(map: Map) {
-    this.establishmentAddressService.findAllAddresses().subscribe(addresses => {
-      this.establishmentAddresses = addresses;
-    });
     this.map = map;
     // recuperation de la position de l'utilisateur
     navigator.geolocation.getCurrentPosition(
@@ -86,11 +100,11 @@ export class MapPageComponent implements OnInit {
         });
         this.markers.push(this.userMarker);
 
-        // Ajout des marqueur commerçant avec une popup
-        this.addMerchantMarkersInMap();
-
         // setView sert à centrer la carte sur la position de l'utilisateur
         map.setView(latLng(coords.latitude, coords.longitude), 16);
+
+        // Ajout des marqueur commerçant avec une popup
+        this.addMerchantMarkersInMap();
       },
       error => {
         console.error('Geolocation error: ', error);
@@ -125,13 +139,9 @@ export class MapPageComponent implements OnInit {
   }
 
   // pour ce déplcer sur l'emplacement de l'utilisateur
-  targetPosition(lat?: number, lng?: number) {
-    let coords: LatLngExpression;
-    if (lat && lng) {
-      coords = [lat, lng];
-    } else {
-      coords = this.userMarker.getLatLng();
-    }
+  targetPosition() {
+    const coords = this.userMarker.getLatLng();
+
     this.map.flyTo(coords, 13, {
       animate: true,
       duration: 1.5,
@@ -145,10 +155,14 @@ export class MapPageComponent implements OnInit {
 
   //pour tracer le chemin de la route à partir de l'utilisateur jusqu'à la destination
   onTraceBusiness(event: { lat: number; lng: number }) {
+    // Si un controle de routage existe, on le supprime
+    if (this.routingControl) {
+      this.map.removeControl(this.routingControl);
+    }
     const destination = latLng(event.lat, event.lng);
 
     // Ajouter le contrôle de routage
-    L.Routing.control({
+    this.routingControl = L.Routing.control({
       // Désactive les marqueurs de l'itinéraire puisque nous avons notre propre marqueur
       plan: L.Routing.plan([this.userMarker.getLatLng(), destination], {
         createMarker: () => {
@@ -157,6 +171,7 @@ export class MapPageComponent implements OnInit {
         addWaypoints: false,
       }),
       waypoints: [this.userMarker.getLatLng(), destination],
+      waypointMode: 'snap',
       routeWhileDragging: false,
       show: false,
       // style du tracé
@@ -167,7 +182,16 @@ export class MapPageComponent implements OnInit {
         missingRouteTolerance: 10,
       },
     })
-      .on('routesfound', () => {
+      .on('routesfound', (e: RoutesFoundEvent) => {
+        const route = e.routes[0];
+        const bounds = L.latLngBounds(route.coordinates);
+
+        // Appliquer l'effet de zoom arrière pour inclure tout l'itinéraire
+        this.map.flyToBounds(bounds, {
+          padding: [50, 50], // Ajustez le padding selon vos besoins
+          duration: 1.5, // Durée de l'animation en secondes
+        });
+
         // Rechercher et ouvrir le popup du marqueur de destination après la fin du routage
         this.map.eachLayer(layer => {
           if (layer instanceof L.Marker) {
