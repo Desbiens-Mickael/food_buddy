@@ -15,15 +15,16 @@ input {
   border: solid 1px rgba(153, 153, 153, 0.194);
   border-radius: 5px;
   height: 30px;
-  width: 450px; /*longueur input*/
+  width: 100%; /*longueur input*/
   margin-top: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
   text-align: center;
   line-height: 1;
   color: #3f3d3d;
+  background-color: red;
 }
 
 form {
-  width: 450px; /*longueur pr erreurs*/
+  width: 80%; /*longueur pr erreurs*/
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -149,22 +150,10 @@ invalid-btn {
     border: solid 1px rgba(153, 153, 153, 0.194);
     border-radius: 5px;
     height: 30px;
-    width: 370px; /*longueur input*/
-margin-top: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
-text-align: center;
+    width: 100%; /*longueur input*/
+    margin-top: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
+    text-align: center;
     line-height: 1;
     color: #3f3d3d;
-  }
-
-form {
-    width: 370px; /*longueur pr erreurs*/
-display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: auto;
-  }
-
-  .allboxes {
-    height: 100vh;
   }
 }
