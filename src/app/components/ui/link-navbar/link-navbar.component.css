@@ -1,0 +1,3 @@
+.active-link-mobile {
+  @apply text-secondary;
+}

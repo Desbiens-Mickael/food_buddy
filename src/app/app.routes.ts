@@ -45,6 +45,14 @@ export const routes: Routes = [
           ),
         title: `${titleBase} - Inscription`,
       },
+      {
+        path: 'map',
+        loadComponent: () =>
+          import('./pages/user/map-page/map-page.component').then(
+            m => m.MapPageComponent,
+          ),
+        title: `${titleBase} - Map`,
+      },
     ],
   },
   {

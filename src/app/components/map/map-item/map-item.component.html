@@ -1,0 +1,40 @@
+<div
+  class="flex h-[150px] w-full bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+>
+  <div
+    class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
+  >
+    <img
+      src="assets/default-busines.png"
+      alt="map-marker"
+      class="h-full w-auto"
+    />
+  </div>
+  <div class="flex ml-4 p-4 w-full">
+    <div class="w-full">
+      <h2 class="text-lg lg:text-2xl font-main font-bold">
+        {{ name }}
+      </h2>
+      <p class="flex gap-2 mt-2 text-sm font-main">
+        <span class="material-symbols-outlined text-blue-600">
+          location_on
+        </span>
+        {{ fullAddress }}
+      </p>
+      <p class="flex gap-2 mt-2 text-sm font-main">
+        <span class="material-symbols-outlined text-blue-600"> call </span>
+        {{ phoneNumber }}
+      </p>
+    </div>
+    <div
+      [attr.aria-hidden]="true"
+      class="flex flex-col items-center justify-center gap-2 sm:w-[150px] text-blue-600 cursor-pointer hover:text-blue-700 transition-colors duration-300"
+      (click)="onTraceBusiness()"
+    >
+      <span class="material-symbols-outlined text-2xl"> my_location </span>
+      <span class="text-sm font-main font-semibold text-center hidden sm:block">
+        Voir sur la carte
+      </span>
+    </div>
+  </div>
+</div>

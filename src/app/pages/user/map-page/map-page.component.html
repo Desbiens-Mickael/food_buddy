@@ -1,0 +1,67 @@
+<div class="pt-24 md:px-2 md:pt-0 md:min-h-custom-height md:mb-24 mb-[60px]">
+  <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">Map</h1>
+  <!-- TODO: ajouter le loader -->
+  <div
+    *ngIf="isLoading"
+    class="w-full h-custom-height flex justify-center items-center"
+  >
+    <span class="font-main text-5xl text-slate-800">Chargement...</span>
+  </div>
+  <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4">
+    <div class="w-full h-[40vh] md:w-1/2 md:h-[70vh] shadow-md z-0">
+      <div
+        style="height: 100%; width: 100%"
+        leaflet
+        [leafletOptions]="options"
+        [leafletLayers]="markers"
+        (leafletMapReady)="onMapReady($event)"
+      >
+        <button
+          class="leaflet-bar leaflet-control leaflet-control-custom px-[.30rem] !cursor-pointer bg-slate-100 text-slate-800 top-20 left-[.70rem] absolute"
+          (click)="targetPosition()"
+        >
+          <span class="material-symbols-outlined text-lg"> my_location </span>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="w-full px-2 h-[40vh] md:px-0 md:w-1/2 flex flex-col gap-4 md:h-[70vh] md:mt-0"
+    >
+      <app-search-bar (handleSearch)="onSearch($event)"></app-search-bar>
+      <!-- TODO: ajouter le loader -->
+      <div
+        *ngIf="isLoadingAddresses"
+        class="h-full w-full font-main text-3xl text-center text-slate-800"
+      >
+        Chargement...
+      </div>
+      <div
+        *ngIf="!isLoadingAddresses"
+        class="flex flex-col gap-4 overflow-auto"
+      >
+        @if (
+          establishmentAddresses === undefined ||
+          establishmentAddresses.length === 0
+        ) {
+          <div class="w-full text-3xl font-bold font-main text-center mt-12">
+            Aucun résultat
+          </div>
+        } @else {
+          <app-map-item
+            *ngFor="let address of establishmentAddresses"
+            [name]="address.establishment.name"
+            [streetNumber]="address.address.streetNumber"
+            [streetName]="address.address.streetName"
+            [zipCode]="address.address.zipCode"
+            [city]="address.address.city"
+            [phoneNumber]="address.establishment.phoneNumber"
+            [latitude]="address.address.latitude"
+            [longitude]="address.address.longitude"
+            (traceBusiness)="onTraceBusiness($event)"
+          ></app-map-item>
+        }
+      </div>
+    </div>
+  </div>
+</div>

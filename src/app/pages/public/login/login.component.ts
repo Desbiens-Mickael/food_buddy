@@ -51,14 +51,9 @@ export class LoginComponent implements OnInit {
           void this.router.navigate(['/']);
           this.loginForm.reset();
           this.error = null;
-          console.log('tesst');
         },
         error: (err: HttpErrorResponse) => {
           this.error = err.error as string;
-          console.log('Indentifiants invalides');
-        },
-        complete: () => {
-          console.log('complete');
         },
       });
     }
