@@ -1,0 +1,19 @@
+@if (buttonSyle) {
+  <button
+    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded flex justify-center items-center w-full"
+    (click)="handleLogout()"
+  >
+    Déconnexion
+    <span class="material-symbols-outlined ms-2"> logout </span>
+  </button>
+} @else {
+  <button
+    class="text-2xl font-main font-bold text-red-600 hover:text-red-800 flex items-center transition-colors"
+    (click)="handleLogout()"
+  >
+    <span *ngIf="!isMobile">Déconnexion</span>
+    <span *ngIf="isMobile" class="material-symbols-outlined ms-2">
+      logout
+    </span>
+  </button>
+}

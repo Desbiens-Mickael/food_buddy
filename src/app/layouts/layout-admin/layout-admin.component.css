@@ -11,6 +11,7 @@
 @media screen and (max-width: 768px) {
   .sidebar {
     width: 80%;
+    translate: 0%;
   }
 
   .content {

@@ -1,8 +1,11 @@
-<button class="hamburger" (click)="toggleSidebar()" *ngIf="isMobileView()">
+<button class="hamburger" (click)="toggleSidebar()">
   <span>&#9776;</span>
 </button>
 
-<div class="sidebar relative" [class.active]="toggle">
+<div
+  class="sidebar relative bg-white/10 backdrop-blur-lg"
+  [class.active]="toggle"
+>
   <div class="container">
     <section>
       <div>
@@ -33,6 +36,11 @@
         <li><a routerlink="'/'"> Options </a></li>
       </ul>
     </section>
-    <section>Deconnexion</section>
+    <section>
+      <app-logout-button
+        class="w-full text-center"
+        [buttonSyle]="true"
+      ></app-logout-button>
+    </section>
   </div>
 </div>

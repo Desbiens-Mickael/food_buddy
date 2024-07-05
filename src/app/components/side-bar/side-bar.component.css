@@ -17,7 +17,7 @@
 .container {
   padding: 0;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.201);
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,6 @@ section {
 }
 
 section:nth-child(3) {
-  background-color: rgba(208, 5, 5, 0.627);
   height: 7%;
 
   font-size: 1.5em;
@@ -95,11 +94,24 @@ h4 {
 .hamburger {
   position: fixed;
   top: 0;
-
   z-index: 10;
   border: none;
   padding: 10px;
   cursor: pointer;
   background-color: rgba(168, 168, 168, 0.713);
   border-radius: 7px;
+  display: flex;
+}
+@media screen and (min-width: 409px) {
+  .sidebar {
+    width: 400px;
+    transform: translate(0%);
+  }
+
+  .hamburger {
+    display: none;
+  }
+  .content {
+    margin-left: 0;
+  }
 }

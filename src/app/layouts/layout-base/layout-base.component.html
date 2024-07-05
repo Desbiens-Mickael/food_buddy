@@ -1,8 +1,8 @@
 <div class="min-h-screen flex flex-col">
-  <app-navbare-desktop></app-navbare-desktop>
-  <main class="flex-grow w-full max-w-screen-2xl mx-auto">
+  <app-navbare-desktop [isLogged]="isLogged"></app-navbare-desktop>
+  <main class="flex-grow w-full max-w-screen-2xl mx-auto md:pt-[100px]">
     <router-outlet />
   </main>
-  <app-mobile-navbare></app-mobile-navbare>
+  <app-mobile-navbare [isLogged]="isLogged"></app-mobile-navbare>
   <app-footer></app-footer>
 </div>
