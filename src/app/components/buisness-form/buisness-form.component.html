@@ -158,6 +158,19 @@
         </div>
       </form>
       <!-- FIN Informations client form#1-->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 1"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
+        </button>
+      </div> -->
     </div>
 
     <div class="boxblock2">
@@ -203,8 +216,22 @@
         </form>
       </div>
       <!-- FIN informations entreprise form#2 -->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 2"
+          (click)="nextStep()"
+          [ngClass]="
+            buisnessForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="buisnessForm.invalid && true"
+        >
+          Suivant
+        </button>
+      </div> -->
     </div>
-
     <div class="boxblock3">
       <!-- informations etablissement form#3 -->
       <div class="blockForm" *ngIf="currentStep === 3">
@@ -272,8 +299,20 @@
         </form>
       </div>
       <!-- FIN informations etablissement form#3 -->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 3"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
+        </button>
+      </div> -->
     </div>
-
     <div class="boxblock4">
       <!-- adresse etablissement form#4 -->
       <div class="blockForm" *ngIf="currentStep === 4">
@@ -358,38 +397,67 @@
         </form>
       </div>
       <!-- FIN adresse etablissement form#4 -->
-    </div>
-
-    <div class="allbuttons">
-      <button
-        *ngIf="currentStep !== 1"
-        class="button btn-warning"
-        (click)="prevStep()"
-        [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
-        [disabled]="userForm.invalid && true"
-      >
-        Précédent
-      </button>
-      <button
-        class="button btn-valid"
-        *ngIf="currentStep === 4"
-        (click)="createBuisness()"
-        [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
-        [disabled]="userForm.invalid && true"
-      >
-        Je valide mon compte
-      </button>
-      <button
-        class="button btn-valid"
-        *ngIf="currentStep !== 4"
-        (click)="nextStep()"
-        [ngClass]="
-          userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
-        "
-        [disabled]="userForm.invalid && true"
-      >
-        Suivant
-      </button>
+      <div class="buttons">
+        <button
+          *ngIf="currentStep !== 1"
+          class="button btn-warning"
+          (click)="prevStep()"
+          [ngClass]="buisnessForm.invalid ? 'cursor-not-allowed' : ''"
+          [disabled]="buisnessForm.invalid && true"
+        >
+          Précédent
+        </button>
+        <!-- form4 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 1"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form1 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 2"
+          (click)="nextStep()"
+          [ngClass]="
+            buisnessForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="buisnessForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form2         -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 3"
+          (click)="nextStep()"
+          [ngClass]="
+            establishmentForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="establishmentForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form3 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 4"
+          (click)="createBuisness()"
+          [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
+          [disabled]="userForm.invalid && true"
+        >
+          Je valide mon compte
+        </button>
+      </div>
     </div>
   </div>
 </div>

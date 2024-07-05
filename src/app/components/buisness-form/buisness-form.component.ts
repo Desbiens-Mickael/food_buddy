@@ -39,13 +39,16 @@ export class BuisnessFormComponent {
   currentStep = 1;
 
   userForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Valid.emailValidator()]],
+    firstName: ['a', Validators.required],
+    lastName: ['b', Validators.required],
+    email: ['a@b.fr', [Validators.required, Valid.emailValidator()]],
     password: this.formBuilder.group(
       {
-        password: ['', [Validators.required, Valid.passwordValidator()]],
-        confirmPassword: ['', Validators.required],
+        password: [
+          'Azerty.123456',
+          [Validators.required, Valid.passwordValidator()],
+        ],
+        confirmPassword: ['Azerty.123456', Validators.required],
       },
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
