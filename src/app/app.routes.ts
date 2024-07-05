@@ -63,7 +63,16 @@ export const routes: Routes = [
       ),
     canActivate: [authMerchantGuard],
     canActivateChild: [authMerchantGuard],
-    children: [],
+    children: [
+      {
+        path: 'new-product',
+        loadComponent: () =>
+          import(
+            './pages/merchant/create-product-page/create-product-page.component'
+          ).then(m => m.CreateProductPageComponent),
+        title: `${titleBase} - création de produit`,
+      },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

@@ -1,0 +1,61 @@
+<h1 class="text-5xl font-main font-bold text-center my-8">Créer un produit</h1>
+
+<form
+  class="flex flex-col gap-4 w-[600px] bg-white/10 backdrop-blur-lg p-4 rounded-md"
+>
+  <div class="flex flex-col gap-2">
+    <label for="name" class="text-neutral-500">Nom</label>
+    <input
+      type="text"
+      id="name"
+      placeholder="Nom du produit"
+      class="w-full shadow-lg rounded-md p-2"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="description" class="text-neutral-500">Description</label>
+    <textarea
+      placeholder="Description du produit"
+      form="description"
+      class="w-full shadow-lg rounded-md p-2"
+    ></textarea>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="price" class="text-neutral-500">Prix</label>
+    <input
+      type="number"
+      min="0"
+      id="price"
+      class="w-full shadow-lg rounded-md p-2"
+    />
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="type" class="text-neutral-500">Type du produit</label>
+    <select id="type" class="w-full shadow-lg rounded-md p-2">
+      <option value="drink">Boisson</option>
+      <option value="meal">Repas</option>
+      <option value="dessert">Dessert</option>
+    </select>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="status" class="text-neutral-500">Statut</label>
+    <select id="status" class="w-full shadow-lg rounded-md p-2">
+      <option value="disponible">Disponible</option>
+      <option value="indisponible">Indisponible</option>
+    </select>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="alergen" class="text-neutral-500">Allergène</label>
+    <select id="alergen" class="w-full shadow-lg rounded-md p-2">
+      <option value="gluten">Gluten</option>
+      <option value="soja">Soja</option>
+      <option value="lait">Lait</option>
+    </select>
+  </div>
+  <button
+    (submit)="submit()"
+    class="w-full bg-secondary-light text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary transition-colors"
+  >
+    Créer
+  </button>
+</form>
