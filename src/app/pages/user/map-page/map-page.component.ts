@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import L, {
   Icon,
@@ -12,7 +12,9 @@ import L, {
   tileLayer,
 } from 'leaflet';
 import 'leaflet-routing-machine';
+import { Subscription } from 'rxjs';
 import { MapItemComponent } from '../../../components/map/map-item/map-item.component';
+import { SearchBarComponent } from '../../../components/map/search-bar/search-bar.component';
 import { EstablishmentAdress } from '../../../shared/models/EstablishmentAdress';
 import { EstablishmentAddressService } from '../../../shared/services/establishment-address.service';
 
@@ -29,11 +31,11 @@ interface RoutesFoundEvent {
 @Component({
   selector: 'app-map-page',
   standalone: true,
-  imports: [LeafletModule, CommonModule, MapItemComponent],
+  imports: [LeafletModule, CommonModule, MapItemComponent, SearchBarComponent],
   templateUrl: './map-page.component.html',
   styleUrl: './map-page.component.css',
 })
-export class MapPageComponent implements OnInit {
+export class MapPageComponent implements OnInit, OnDestroy {
   private userMarker!: Marker;
   private userIcon!: Icon;
   private merchantIcon!: Icon;
@@ -41,10 +43,13 @@ export class MapPageComponent implements OnInit {
   private routingControl: L.Routing.Control | null = null;
   public options!: MapOptions;
   public establishmentAddresses: EstablishmentAdress[] = [];
+  public searchEstablishmentAddresses: EstablishmentAdress[] = [];
   public markers: Marker[] = [];
   public isLoading = true;
+  public isLoadingAddresses = false;
 
   private establishmentAddressService = inject(EstablishmentAddressService);
+  private subscription: Subscription = new Subscription();
 
   ngOnInit() {
     // options de la carte
@@ -85,6 +90,38 @@ export class MapPageComponent implements OnInit {
     });
   }
 
+  onSearch(searchValue: string | undefined) {
+    this.isLoadingAddresses = true;
+    this.establishmentAddressService
+      .findAllAddresses(searchValue)
+      .subscribe(addresses => {
+        this.establishmentAddresses = addresses;
+        this.isLoadingAddresses = false;
+      });
+  }
+
+  ngOnDestroy() {
+    // Annuler les abonnements
+    this.subscription.unsubscribe();
+
+    // Supprimer le contrôle de routage s'il existe
+    if (this.routingControl) {
+      this.map.removeControl(this.routingControl);
+      this.routingControl = null;
+    }
+
+    // Supprimer tous les marqueurs de la carte
+    this.markers.forEach(marker => {
+      this.map.removeLayer(marker);
+    });
+    this.markers = [];
+
+    // Autres nettoyages éventuels
+
+    this.map.off();
+    // this.map.remove();
+  }
+
   // initialisation de la carte quand la page est chargée
   onMapReady(map: Map) {
     this.map = map;
@@ -101,16 +138,16 @@ export class MapPageComponent implements OnInit {
         this.markers.push(this.userMarker);
 
         // setView sert à centrer la carte sur la position de l'utilisateur
-        map.setView(latLng(coords.latitude, coords.longitude), 16);
-
-        // Ajout des marqueur commerçant avec une popup
-        this.addMerchantMarkersInMap();
+        this.map.setView(latLng(coords.latitude, coords.longitude), 16);
       },
       error => {
         console.error('Geolocation error: ', error);
       },
       { enableHighAccuracy: true },
     );
+
+    // Ajout des marqueur commerçant avec une popup
+    this.addMerchantMarkersInMap();
   }
 
   // Ajout des marqueur commerçant avec une popup
@@ -120,18 +157,21 @@ export class MapPageComponent implements OnInit {
         const logo = address.business.logo
           ? address.business.logo
           : 'assets/default-busines.png';
+
         const marker = L.marker(
           latLng(address.address.latitude, address.address.longitude),
           {
             title: address.establishment.name,
             icon: this.merchantIcon,
           },
-        ).bindPopup(
-          `<div>
+        )
+          .bindPopup(
+            `<div>
             <img src="${logo}" alt="map-marker" />
             <a href="/establishments/${String(address.establishment.id)}" class="mt-4">Voir les produits</a>
           </div>`,
-        );
+          )
+          .addTo(this.map);
 
         this.markers.push(marker);
       });

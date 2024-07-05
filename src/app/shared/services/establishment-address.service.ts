@@ -9,9 +9,9 @@ import { EstablishmentAdress } from '../models/EstablishmentAdress';
 export class EstablishmentAddressService {
   private http = inject(HttpClient);
 
-  findAllAddresses(): Observable<EstablishmentAdress[]> {
+  findAllAddresses(keyword?: string): Observable<EstablishmentAdress[]> {
     return this.http.get<EstablishmentAdress[]>(
-      'https://food-buddy.olprog-b.fr/establishmentAddresses',
+      `https://food-buddy.olprog-b.fr/establishmentAddresses?keyword=${keyword ?? ''}`,
     );
   }
 }

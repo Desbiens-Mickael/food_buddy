@@ -32,10 +32,6 @@ export class AuthService {
             JSON.stringify({ ...data, isAuthenticated: true }),
           );
         }),
-        // catchError(err => {
-        //   console.error('Erreur lors de la connexion:', err);
-        //   return throwError(() => new Error('Erreur lors de la connexion.')); // Renvoie l'erreur pour que le composant puisse la gérer.
-        // }),
       );
   }
 
