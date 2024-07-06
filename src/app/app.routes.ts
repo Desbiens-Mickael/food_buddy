@@ -65,7 +65,15 @@ export const routes: Routes = [
     canActivateChild: [authMerchantGuard],
     children: [
       {
-        path: 'new-product',
+        path: 'establishment',
+        loadComponent: () =>
+          import(
+            './pages/merchant/create-product-page/create-product-page.component'
+          ).then(m => m.CreateProductPageComponent),
+        title: titleBase,
+      },
+      {
+        path: 'establishment/:id/new-product',
         loadComponent: () =>
           import(
             './pages/merchant/create-product-page/create-product-page.component'

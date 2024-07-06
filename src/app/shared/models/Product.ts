@@ -1,11 +1,9 @@
-import { Alergen } from './Alergen';
-
-export interface Product {
-  id: number;
+export interface CreateProduct {
   name: string;
   description: string;
   price: number;
   type: string;
   status: string;
-  alergen: Alergen[];
+  establishmentId: number;
+  allergensIds: number[];
 }

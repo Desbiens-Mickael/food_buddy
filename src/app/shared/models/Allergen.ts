@@ -1,4 +1,4 @@
-export interface Alergen {
+export interface Allergen {
   id: number;
   name: string;
 }

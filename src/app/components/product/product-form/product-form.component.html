@@ -1,6 +1,7 @@
 <h1 class="text-5xl font-main font-bold text-center my-8">Créer un produit</h1>
 
 <form
+  #myform="ngForm"
   [formGroup]="productForm"
   (ngSubmit)="submit()"
   class="flex flex-col gap-4 w-[600px] bg-white/10 backdrop-blur-lg p-4 rounded-md"
@@ -13,7 +14,18 @@
       id="name"
       placeholder="Nom du produit"
       class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getName?.invalid && (getName?.dirty || getName?.touched)
+          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
+          : ''
+      "
     />
+    <div
+      *ngIf="getName?.invalid && (getName?.dirty || getName?.touched)"
+      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+    >
+      <div *ngIf="getName?.errors?.['required']">Nom requis</div>
+    </div>
   </div>
   <div class="flex flex-col gap-2">
     <label for="description" class="text-neutral-500">Description</label>
@@ -21,7 +33,24 @@
       formControlName="description"
       placeholder="Description du produit"
       class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getDescription?.invalid &&
+        (getDescription?.dirty || getDescription?.touched)
+          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
+          : ''
+      "
     ></textarea>
+    <div
+      *ngIf="
+        getDescription?.invalid &&
+        (getDescription?.dirty || getDescription?.touched)
+      "
+      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+    >
+      <div *ngIf="getDescription?.errors?.['required']">
+        Description requise
+      </div>
+    </div>
   </div>
   <div class="flex flex-col gap-2">
     <label for="price" class="text-neutral-500">Prix</label>
@@ -31,14 +60,27 @@
       min="0"
       id="price"
       class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)
+          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
+          : ''
+      "
     />
+    <div
+      *ngIf="getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)"
+      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+    >
+      <div *ngIf="getPrice?.errors?.['required']">Prix requis</div>
+      <div *ngIf="getPrice?.errors?.['min']">Prix invalide</div>
+    </div>
   </div>
   <div class="flex flex-col gap-2">
     <label for="type" class="text-neutral-500">Type du produit</label>
     <select
       formControlName="type"
       id="type"
-      class="w-full shadow-lg rounded-md p-2"
+      class="w-full shadow-lg rounded-md p-2 bg-white border border-gray-300"
+      [value]="getType?.value"
     >
       <option value="drink">Boisson</option>
       <option value="meal">Repas</option>
@@ -50,30 +92,27 @@
     <select
       formControlName="status"
       id="status"
-      class="w-full shadow-lg rounded-md p-2"
+      class="w-full shadow-lg rounded-md p-2 bg-white border border-gray-300"
+      [value]="getStatus?.value"
     >
       <option value="disponible">Disponible</option>
       <option value="indisponible">Indisponible</option>
     </select>
   </div>
   <div class="flex flex-col gap-2">
-    <!-- <label for="alergen" class="text-neutral-500">Allergène</label>
-    <select id="alergen" class="w-full shadow-lg rounded-md p-2">
-      <option value="gluten">Gluten</option>
-      <option value="soja">Soja</option>
-      <option value="lait">Lait</option>
-    </select> -->
     <ng-multiselect-dropdown
-      [placeholder]="'Sélectionner'"
+      [placeholder]="'Sélectionner les allergènes'"
       [data]="dropdownList"
-      formControlName="alergen"
+      formControlName="allergens"
       [settings]="dropdownSettings"
     >
     </ng-multiselect-dropdown>
   </div>
   <button
-    (submit)="submit()"
+    type="submit"
     class="w-full bg-secondary-light text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary transition-colors"
+    [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
+    [disabled]="myform.invalid && true"
   >
     Créer
   </button>

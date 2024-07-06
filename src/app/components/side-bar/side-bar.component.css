@@ -60,7 +60,7 @@ section:nth-child(1) {
 
 li {
   width: 90%;
-  height: 10%;
+  height: 40px;
   background-color: rgb(45, 152, 52);
   border-radius: 7px;
   color: white;
@@ -69,6 +69,15 @@ li {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
 }
 
 .avatar {
