@@ -4,12 +4,18 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { InfosLinkEstablishment } from '../../shared/models/Establishment';
 import { EstablishmentService } from '../../shared/services/establishment.service';
+import { SideBareSkeletonComponent } from '../skeleton/side-bare-skeleton/side-bare-skeleton.component';
 import { LogoutButtonComponent } from '../ui/logout-button/logout-button.component';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [CommonModule, LogoutButtonComponent, RouterModule],
+  imports: [
+    CommonModule,
+    LogoutButtonComponent,
+    RouterModule,
+    SideBareSkeletonComponent,
+  ],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.css',
 })

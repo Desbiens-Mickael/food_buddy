@@ -117,15 +117,16 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
         type: this.productForm.value.type as string,
         status: this.productForm.value.status as string,
         allergensIds: allergenIdsArray,
-        establishmentId: Number(this.establishmentId),
       } as CreateProduct;
 
-      this.productService.createProduct(newProduct).subscribe({
-        next: product => {
-          this.productForm.reset();
-          console.log(product);
-        },
-      });
+      this.productService
+        .createProduct(newProduct, this.establishmentId)
+        .subscribe({
+          next: product => {
+            this.productForm.reset();
+            console.log(product);
+          },
+        });
     }
   }
 }

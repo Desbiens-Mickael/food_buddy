@@ -113,7 +113,7 @@ h4 {
 }
 @media screen and (min-width: 409px) {
   .sidebar {
-    width: 400px;
+    width: 350px;
     transform: translate(0%);
   }
 

@@ -7,7 +7,7 @@
   [class.active]="toggle"
 >
   <div *ngIf="isLodding" class="container">
-    <div class="text-3xl font-main font-bold text-center">Chargement...</div>
+    <app-side-bare-skeleton></app-side-bare-skeleton>
   </div>
   <div *ngIf="!isLodding" class="container">
     <section>
@@ -57,7 +57,7 @@
               'products',
             ]"
           >
-            Vos Produits
+            Mes Produits
           </a>
         </li>
         <li>

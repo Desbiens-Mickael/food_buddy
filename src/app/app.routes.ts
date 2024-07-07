@@ -65,11 +65,11 @@ export const routes: Routes = [
     canActivateChild: [authMerchantGuard],
     children: [
       {
-        path: 'establishment',
+        path: 'establishment/:id/products',
         loadComponent: () =>
-          import(
-            './pages/merchant/create-product-page/create-product-page.component'
-          ).then(m => m.CreateProductPageComponent),
+          import('./pages/merchant/products-page/products-page.component').then(
+            m => m.ProductsPageComponent,
+          ),
         title: titleBase,
       },
       {
