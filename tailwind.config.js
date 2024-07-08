@@ -13,6 +13,7 @@ module.exports = {
       colors: {
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color)',
+        'secondary-light': 'var(--secondary-color-light)',
       },
       fontFamily: {
         title: 'var(--font-title)',
