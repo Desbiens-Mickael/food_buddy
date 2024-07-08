@@ -70,7 +70,7 @@ export const routes: Routes = [
           import('./pages/merchant/products-page/products-page.component').then(
             m => m.ProductsPageComponent,
           ),
-        title: titleBase,
+        title: `${titleBase} - Mes produits`,
       },
       {
         path: 'establishment/:id/new-product',
@@ -79,6 +79,14 @@ export const routes: Routes = [
             './pages/merchant/create-product-page/create-product-page.component'
           ).then(m => m.CreateProductPageComponent),
         title: `${titleBase} - création de produit`,
+      },
+      {
+        path: 'establishment/:establishmentId/edit-product/:id',
+        loadComponent: () =>
+          import(
+            './pages/merchant/edit-product-page/edit-product-page.component'
+          ).then(m => m.EditProductPageComponent),
+        title: `${titleBase} - modification de produit`,
       },
     ],
   },

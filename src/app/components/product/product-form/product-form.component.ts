@@ -3,8 +3,11 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   inject,
+  Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -13,12 +16,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { Allergen } from '../../../shared/models/Allergen';
-import { CreateProduct } from '../../../shared/models/Product';
+import { CreateProduct, FullProduct } from '../../../shared/models/Product';
 import { AllergenService } from '../../../shared/services/allergen.service';
-import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -33,28 +34,31 @@ import { ProductService } from '../../../shared/services/product.service';
   styleUrl: './product-form.component.css',
 })
 export class ProductFormComponent implements OnInit, AfterViewInit {
+  @Input()
+  product?: FullProduct;
   productForm!: FormGroup;
   dropdownList: Allergen[] = [];
   dropdownSettings = {};
-  establishmentId!: string;
   isLoading = true;
+
+  @Output()
+  handleSubmit = new EventEmitter<CreateProduct>();
 
   private fb = inject(FormBuilder);
   private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
-  private router = inject(ActivatedRoute);
-  private productService = inject(ProductService);
   private allergenService = inject(AllergenService);
 
   ngOnInit() {
-    this.establishmentId = this.router.snapshot.paramMap.get('id') ?? '';
-
     this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      price: [0, [Validators.required, Validators.min(0)]],
-      description: ['', Validators.required],
-      type: ['drink', Validators.required],
-      status: ['indisponible', Validators.required],
-      allergens: [[]],
+      name: [this.product?.name ?? '', Validators.required],
+      price: [
+        this.product?.price ?? 0,
+        [Validators.required, Validators.min(0)],
+      ],
+      description: [this.product?.description ?? '', Validators.required],
+      type: [this.product?.type ?? 'drink', Validators.required],
+      status: [this.product?.status ?? 'indisponible', Validators.required],
+      allergens: [this.product?.allergens ?? []],
     });
 
     this.dropdownSettings = {
@@ -117,16 +121,11 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
         type: this.productForm.value.type as string,
         status: this.productForm.value.status as string,
         allergensIds: allergenIdsArray,
-      } as CreateProduct;
+      };
 
-      this.productService
-        .createProduct(newProduct, this.establishmentId)
-        .subscribe({
-          next: product => {
-            this.productForm.reset();
-            console.log(product);
-          },
-        });
+      this.handleSubmit.emit(newProduct);
+
+      this.productForm.reset();
     }
   }
 }

@@ -1,3 +1,5 @@
+import { Allergen } from './Allergen';
+
 export interface Product {
   name: string;
   description: string;
@@ -12,7 +14,8 @@ export interface CreateProduct extends Product {
 }
 
 export interface FullProduct extends Product {
-  id: number;
+  id: string;
+  allergens: Allergen[];
   number_available: number;
   createdAt: Date;
   updatedAt: Date;

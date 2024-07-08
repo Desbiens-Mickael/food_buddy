@@ -1,5 +1,3 @@
-<h1 class="text-5xl font-main font-bold text-center my-8">Créer un produit</h1>
-
 <form
   #myform="ngForm"
   [formGroup]="productForm"
@@ -114,6 +112,6 @@
     [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
     [disabled]="myform.invalid && true"
   >
-    Créer
+    {{ product ? 'Modifier' : 'Créer' }}
   </button>
 </form>

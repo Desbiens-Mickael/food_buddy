@@ -1,3 +1,6 @@
 <div class="flex min-h-screen flex-col items-center justify-center mb-8">
-  <app-product-form></app-product-form>
+  <h1 class="text-5xl font-main font-bold text-center my-8">
+    Créer un produit
+  </h1>
+  <app-product-form (handleSubmit)="createProduct($event)"></app-product-form>
 </div>
