@@ -6,34 +6,73 @@
   class="sidebar relative bg-white/10 backdrop-blur-lg"
   [class.active]="toggle"
 >
-  <div class="container">
+  <div *ngIf="isLodding" class="container">
+    <app-side-bare-skeleton></app-side-bare-skeleton>
+  </div>
+  <div *ngIf="!isLodding" class="container">
     <section>
       <div>
         <div class="avatar">S.C</div>
       </div>
-      <h4 class="text-3xl font-bold dark:text-white">Subway Company</h4>
+      <h4 class="text-3xl font-bold dark:text-white">
+        {{ establishmentActive.name }}
+      </h4>
       <h5 class="text-2xl font-bold dark:text-white">SubWay</h5>
       <h6 class="text-1xl font-bold dark:text-white">
-        Subway Gare Lille Flandres
+        {{ establishmentActive.name }}
       </h6>
-      <label for="ice-cream-choice">Changez l'etablissement</label>
-      <input
+      <label for="establishment-choice">Changez l'etablissement</label>
+      <select
+        class="bg-white font-main font-semibold text-center px-2 rounded-md"
+        name="establishment-choice"
+        (change)="changeEstablishment($event)"
+      >
+        <option
+          *ngFor="let establishment of establishments"
+          [value]="establishment.id"
+        >
+          {{ establishment.name }}
+        </option>
+      </select>
+      <!-- <input
+        (change)="changeEstablishment($event)"
         list="choice-etablishment"
         id="ice-cream-choice"
         name="ice-cream-choice"
+        value="{{ establishmentActive.id }}"
       />
 
       <datalist id="choice-etablishment">
-        <option value="Croix Centre"></option>
-        <option value="Roubaix Euroteleport"></option>
-      </datalist>
+        <option value="1">Croix Centre</option>
+        <option value="2">Roubaix Euroteleport</option>
+      </datalist> -->
     </section>
     <section>
       <ul>
-        <li><a routerlink="'/'"> Vos Produits </a></li>
-        <li><a routerlink="'/'"> Historiques des Dons </a></li>
-        <li><a routerlink="'/'"> Options </a></li>
-        <li><a routerlink="'/'"> Options </a></li>
+        <li>
+          <a
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'products',
+            ]"
+          >
+            Mes Produits
+          </a>
+        </li>
+        <li>
+          <a
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'new-product',
+            ]"
+          >
+            Créer un Produit
+          </a>
+        </li>
+        <li><a [routerLink]="['/']"> Options </a></li>
+        <li><a [routerLink]="['/']"> Options </a></li>
       </ul>
     </section>
     <section>

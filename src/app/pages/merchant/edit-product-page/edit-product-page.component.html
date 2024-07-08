@@ -1,0 +1,17 @@
+<div class="flex min-h-screen flex-col items-center justify-center mb-8">
+  <h1 *ngIf="!isLoading" class="text-5xl font-main font-bold text-center my-8">
+    Modifier mon produit
+  </h1>
+  <div
+    *ngIf="isLoading"
+    class="h-full w-full flex justify-center text-5xl font-main font-bold"
+  >
+    Chargement...
+  </div>
+
+  <app-product-form
+    *ngIf="!isLoading"
+    [product]="product"
+    (handleSubmit)="updateProduct($event)"
+  ></app-product-form>
+</div>
