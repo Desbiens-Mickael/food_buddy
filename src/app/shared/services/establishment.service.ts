@@ -11,7 +11,7 @@ export class EstablishmentService {
 
   getProductsByEstablishmentId(id: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `https://food-buddy.olprog-b.fr/products/${id}`,
+      `https://food-buddy.olprog-b.fr/establishments/${id}`,
     );
   }
 }
