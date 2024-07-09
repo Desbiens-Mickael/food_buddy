@@ -398,16 +398,16 @@
       </div>
       <!-- FIN adresse etablissement form#4 -->
       <div class="buttons">
+        <!-- form4 -->
         <button
           *ngIf="currentStep !== 1"
           class="button btn-warning"
           (click)="prevStep()"
-          [ngClass]="buisnessForm.invalid ? 'cursor-not-allowed' : ''"
-          [disabled]="buisnessForm.invalid && true"
         >
           Précédent
         </button>
         <!-- form4 -->
+        <!-- form1 -->
         <button
           class="button btn-valid"
           *ngIf="currentStep === 1"
@@ -420,6 +420,7 @@
           Suivant
         </button>
         <!-- form1 -->
+        <!-- form2 -->
         <button
           class="button btn-valid"
           *ngIf="currentStep === 2"
@@ -433,7 +434,8 @@
         >
           Suivant
         </button>
-        <!-- form2         -->
+        <!-- form2 -->
+        <!-- form3 -->
         <button
           class="button btn-valid"
           *ngIf="currentStep === 3"
@@ -448,6 +450,7 @@
           Suivant
         </button>
         <!-- form3 -->
+        <!-- form4 -->
         <button
           class="button btn-valid"
           *ngIf="currentStep === 4"
@@ -455,8 +458,9 @@
           [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
           [disabled]="userForm.invalid && true"
         >
-          Je valide mon compte
+          Valider
         </button>
+        <!-- form4 -->
       </div>
     </div>
   </div>

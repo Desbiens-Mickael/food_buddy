@@ -1,7 +1,7 @@
-.allboxes {
+/* .allboxes {
   height: 100vh;
   width: 100%;
-}
+} */
 h1 {
   text-align: center;
   color: #3f3d3d;
@@ -20,7 +20,6 @@ input {
   text-align: center;
   line-height: 1;
   color: #3f3d3d;
-  background-color: red;
 }
 
 form {
@@ -44,6 +43,12 @@ form {
   margin-top: 20px;
   margin-bottom: 140px;
   gap: 35px;
+}
+
+.buttons {
+  padding-top: 1.3rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 .btn-valid {
@@ -131,17 +136,17 @@ invalid-btn {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-top: 35px;
+    padding-top: 5px;
   }
   form {
-    width: 400px; /*longueur pr erreurs*/
+    width: 60%; /*longueur pr erreurs*/
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
-  .allboxes {
-    height: 100vh;
+  .buttons button {
+    width: 100px;
   }
 }
 
@@ -156,5 +161,12 @@ invalid-btn {
     line-height: 1;
     color: #3f3d3d;
   }
+  .buttons {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+  }
+  .buttons button {
+    width: 100px;
+  }
 }
-  
