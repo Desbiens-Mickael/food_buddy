@@ -1,32 +1,36 @@
-<div
-  class="registerComponent min-h-screen md:min-h-custom-height md:mb-16 mx-auto"
->
-  <div class="choiceAccount">
-    <button
-      [disabled]="!buisnessChoice"
-      (click)="buisnessChoice()"
-      class="btn-warning"
-    >
-      Commercant
-    </button>
-    <button
-      [disabled]="!clientChoice"
-      (click)="clientChoice()"
-      class="btn-valid"
-    >
-      Donnateur/Utilisateur
-    </button>
+<div class="main">
+  <div class="container">
+    <p>
+      Avec <span class="font_foodbuddy">Food Buddy</span>, vous avez la
+      possibilité d'offrir un moment de partage et de bonheur à une famille et
+      des enfants dans le besoin.
+    </p>
   </div>
-
-  <div class="allForms">
-    <div *ngIf="!choiceBuisness" id="userForm">
-      <h5>Crée mon profil</h5>
-      <app-user-form class="component"></app-user-form>
+  <div class="registerComponent shadow-lg bg-white/10 backdrop-blur-lg">
+    <div class="choiceAccount">
+      <button
+        [disabled]="!buisnessChoice"
+        (click)="buisnessChoice()"
+        class="btn-warning shadow-lg"
+      >
+        Commerçant
+      </button>
+      <button
+        [disabled]="!clientChoice"
+        (click)="clientChoice()"
+        class="btn-valid shadow-lg"
+      >
+        Donateur/Utilisateur
+      </button>
     </div>
-    <div *ngIf="choiceBuisness" id="buisnessForm">
-      <h5>J'enregistre mon Etablissement</h5>
 
-      <app-buisness-form class="component"></app-buisness-form>
+    <div class="allForms">
+      <div *ngIf="!choiceBuisness" id="userForm">
+        <app-user-form class="component"></app-user-form>
+      </div>
+      <div *ngIf="choiceBuisness" id="buisnessForm">
+        <app-buisness-form class="component"></app-buisness-form>
+      </div>
     </div>
   </div>
 </div>

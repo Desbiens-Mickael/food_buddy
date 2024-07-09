@@ -1,355 +1,467 @@
-<div class="formBuisness">
-  <div class="buttons">
-    <button
-      *ngIf="currentStep !== 1"
-      class="button btn-warning"
-      (click)="prevStep()"
-    >
-      Précédent
-    </button>
-    <button
-      class="button btn-valid"
-      *ngIf="currentStep === 4"
-      (click)="createBuisness()"
-    >
-      Valider
-    </button>
-    <button
-      class="button btn-valid"
-      *ngIf="currentStep !== 4"
-      (click)="nextStep()"
-    >
-      Suivant
-    </button>
-  </div>
-
-  <div class="blockForm" *ngIf="currentStep === 1">
-    <form [formGroup]="userForm" #myForm="ngForm" novalidate>
-      <div class="avatar">Avatar</div>
-
-      <div class="field">
-        <div class="control controlName">
-          <div
-            *ngIf="
-              userForm.get('firstName')?.invalid &&
-              (userForm.get('firstName')?.dirty ||
-                userForm.get('firstName')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('firstName')?.errors?.['required']"
-              >Prénom Requis.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="text"
-            placeholder="Prenom"
-            formControlName="firstName"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              userForm.get('lastName')?.invalid &&
-              (userForm.get('lastName')?.dirty ||
-                userForm.get('lastName')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('lastName')?.errors?.['required']"
-              >Nom Requis.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="text"
-            placeholder="Nom"
-            formControlName="lastName"
-          />
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              userForm.get('email')?.invalid &&
-              (userForm.get('email')?.dirty || userForm.get('email')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('email')?.errors?.['required']"
-              >Email Requis.</small
-            >
-            <small
-              class="error"
-              *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
-              >Email Invalide.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-          />
-        </div>
-      </div>
-
-      <div class="controlPassword" formGroupName="password">
+<div class="allboxes">
+  <div class="boxblock1">
+    <h1>Je crée mon compte</h1>
+    <!-- Informations client form#1-->
+    <div class="blockForm" *ngIf="currentStep === 1">
+      <form [formGroup]="userForm" #myForm="ngForm" novalidate>
         <div class="field">
-          <div class="control">
+          <div class="control controlName">
+            <input
+              class="input"
+              type="text"
+              placeholder="Votre prénom"
+              formControlName="firstName"
+            />
             <div
-              class="errorPassword"
               *ngIf="
-                userForm.get('password.password')?.invalid &&
-                (userForm.get('password.password')?.dirty ||
-                  userForm.get('password.password')?.touched)
+                userForm.get('firstName')?.invalid &&
+                (userForm.get('firstName')?.dirty ||
+                  userForm.get('firstName')?.touched)
               "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
-                *ngIf="
-                  userForm.get('password.password')?.errors?.['invalidPassword']
-                "
+                *ngIf="userForm.get('firstName')?.errors?.['required']"
+                >Prénom Requis.</small
               >
-                Le Mot de Passe doit contenir au moins 8
-                caractères,minuscule,chiffre et caractère spécial.
-              </small>
             </div>
-            <input
-              class="input"
-              type="password"
-              placeholder="Mot De Passe"
-              formControlName="password"
-            />
           </div>
         </div>
 
         <div class="field">
           <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Votre nom"
+              formControlName="lastName"
+            />
             <div
               *ngIf="
-                userForm.get('password.confirmPassword')?.invalid &&
-                (userForm.get('password.confirmPassword')?.dirty ||
-                  userForm.get('password.confirmPassword')?.touched)
+                userForm.get('lastName')?.invalid &&
+                (userForm.get('lastName')?.dirty ||
+                  userForm.get('lastName')?.touched)
               "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
-                *ngIf="
-                  userForm.get('password.confirmPassword')?.errors?.['required']
-                "
-                >Confirmation Mot de Passe Requise.</small
+                *ngIf="userForm.get('lastName')?.errors?.['required']"
+                >Nom Requis.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <input
+              class="input"
+              type="email"
+              placeholder="Votre adresse email"
+              formControlName="email"
+            />
+            <div
+              *ngIf="
+                userForm.get('email')?.invalid &&
+                (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="userForm.get('email')?.errors?.['required']"
+                >Email Requis.</small
               >
               <small
                 class="error"
-                *ngIf="userForm.get('password')?.errors?.['passwordsMismatch']"
-                >Les mots de passe ne correspondent pas.</small
+                *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
+                >Email Invalide.</small
               >
             </div>
-            <input
-              class="input"
-              type="password"
-              placeholder="Confirmez Mot de Passe"
-              formControlName="confirmPassword"
-            />
           </div>
         </div>
-      </div>
 
-      <div *ngIf="userForm.invalid && myForm.submitted">
-        <p>Formulaire incomplet !</p>
-      </div>
+        <div class="controlPassword" formGroupName="password">
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="password"
+                placeholder="Votre mot de passe"
+                formControlName="password"
+              />
+              <div
+                class="errorPassword"
+                *ngIf="
+                  userForm.get('password.password')?.invalid &&
+                  (userForm.get('password.password')?.dirty ||
+                    userForm.get('password.password')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password.password')?.errors?.[
+                      'invalidPassword'
+                    ]
+                  "
+                >
+                  Le mot de passe doit contenir min. 8 caractères, minuscule,
+                  chiffre et caractère spécial.
+                </small>
+              </div>
+            </div>
+          </div>
 
-      <div *ngIf="userForm.invalid">
-        <button [disabled]="userForm.invalid" class="button btn-warning">
-          Sauvegarder
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="password"
+                placeholder="Confirmez votre mot de passe"
+                formControlName="confirmPassword"
+              />
+              <div
+                *ngIf="
+                  userForm.get('password.confirmPassword')?.invalid &&
+                  (userForm.get('password.confirmPassword')?.dirty ||
+                    userForm.get('password.confirmPassword')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password.confirmPassword')?.errors?.[
+                      'required'
+                    ]
+                  "
+                  >Confirmation mot de passe requise.</small
+                >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password')?.errors?.['passwordsMismatch']
+                  "
+                  >Les mots de passe ne correspondent pas.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="userForm.invalid && myForm.submitted">
+          <p>Formulaire incomplet !</p>
+        </div>
+      </form>
+      <!-- FIN Informations client form#1-->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 1"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
         </button>
-      </div>
-      <div *ngIf="userForm.valid">
-        <button class="button btn-valid">Sauvegarder</button>
-      </div>
-    </form>
-  </div>
+      </div> -->
+    </div>
 
-  <div class="blockForm" *ngIf="currentStep === 2">
-    <form [formGroup]="buisnessForm">
-      <h6>Information Entreprise</h6>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Nom de l'entreprise"
-            formControlName="name"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              buisnessForm.get('siren')?.invalid &&
-              (buisnessForm.get('siren')?.dirty ||
-                buisnessForm.get('siren')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="buisnessForm.get('siren')?.errors?.['invalidSiren']"
-              >Siren Invalide (9 Chiffres)</small
-            >
+    <div class="boxblock2">
+      <!-- informations entreprise form#2 -->
+      <div class="blockForm" *ngIf="currentStep === 2">
+        <form [formGroup]="buisnessForm">
+          <h6>Informations Entreprise</h6>
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Nom de l'entreprise"
+                formControlName="name"
+              />
+            </div>
           </div>
-          <input
-            class="input"
-            type="number"
-            placeholder="N° Siren"
-            formControlName="siren"
-          />
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="blockForm" *ngIf="currentStep === 3">
-    <form [formGroup]="establishmentForm">
-      <h6>Informations Etablissement</h6>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Nom de l'établissement"
-            formControlName="name"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              establishmentForm.get('siret')?.invalid &&
-              (establishmentForm.get('siret')?.dirty ||
-                establishmentForm.get('siret')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="establishmentForm.get('siret')?.errors?.['invalidSiret']"
-              >NIC Invalide (5 Chiffres)</small
-            >
-          </div>
-          <input
-            class="input"
-            type="text"
-            placeholder="N° NIC"
-            formControlName="siret"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Téléphone"
-            formControlName="phoneNumber"
-          />
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="blockForm" *ngIf="currentStep === 4">
-    <form [formGroup]="addressForm">
-      <h6>Adresse Etablissement</h6>
-      <div class="field" class="adressform">
-        <div class="control">
-          <input
-            class="input"
-            autocomplete="off"
-            type="text"
-            id="adresse-input"
-            placeholder="Recherchez votre adresse"
-            name="adresse-input"
-            (input)="filter($event)"
-            (focus)="showSuggestions()"
-            (blur)="hideSuggestions()"
-          />
-          <div class="choiceAdress">
-            <ul
-              *ngIf="suggestionsVisible"
-              (mousedown)="keepSuggestionsVisible = true"
-              (mouseup)="keepSuggestionsVisible = false"
-            >
-              <li
-                *ngFor="let ville of filteredVilles"
-                (click)="selectAdress(ville)"
-                (keydown.enter)="selectAdress(ville)"
-                tabindex="0"
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="N° Siren"
+                formControlName="siren"
+              />
+              <div
+                *ngIf="
+                  buisnessForm.get('siren')?.invalid &&
+                  (buisnessForm.get('siren')?.dirty ||
+                    buisnessForm.get('siren')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
               >
-                {{ ville.properties.label }}
-              </li>
-            </ul>
+                <small
+                  class="error"
+                  *ngIf="buisnessForm.get('siren')?.errors?.['invalidSiren']"
+                  >Siren invalide (9 Chiffres)</small
+                >
+              </div>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="N° Rue"
-            formControlName="streetNumber"
-          />
-        </div>
+      <!-- FIN informations entreprise form#2 -->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 2"
+          (click)="nextStep()"
+          [ngClass]="
+            buisnessForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="buisnessForm.invalid && true"
+        >
+          Suivant
+        </button>
+      </div> -->
+    </div>
+    <div class="boxblock3">
+      <!-- informations etablissement form#3 -->
+      <div class="blockForm" *ngIf="currentStep === 3">
+        <form [formGroup]="establishmentForm">
+          <h6>Informations Etablissement</h6>
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Nom de l'établissement"
+                formControlName="name"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <div
+                *ngIf="
+                  establishmentForm.get('siret')?.invalid &&
+                  (establishmentForm.get('siret')?.dirty ||
+                    establishmentForm.get('siret')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    establishmentForm.get('siret')?.errors?.['invalidSiret']
+                  "
+                  >NIC Invalide (5 Chiffres)</small
+                >
+              </div>
+              <input
+                class="input"
+                type="text"
+                placeholder="N° NIC"
+                formControlName="siret"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="email"
+                placeholder="Votre adresse email professionel"
+                formControlName="email"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Votre numéro de téléphone"
+                formControlName="phoneNumber"
+              />
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Nom de la Rue"
-            formControlName="streetName"
-          />
-        </div>
+      <!-- FIN informations etablissement form#3 -->
+      <!-- <div class="buttons">
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 3"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
+        </button>
+      </div> -->
+    </div>
+    <div class="boxblock4">
+      <!-- adresse etablissement form#4 -->
+      <div class="blockForm" *ngIf="currentStep === 4">
+        <form [formGroup]="addressForm">
+          <h6>Adresse de l'établissement</h6>
+          <div class="field" class="adressform">
+            <div class="control">
+              <input
+                class="input"
+                autocomplete="off"
+                type="text"
+                id="adresse-input"
+                placeholder="Recherchez votre adresse"
+                name="adresse-input"
+                (input)="filter($event)"
+                (focus)="showSuggestions()"
+                (blur)="hideSuggestions()"
+              />
+              <div class="choiceAdress">
+                <ul
+                  *ngIf="suggestionsVisible"
+                  (mousedown)="keepSuggestionsVisible = true"
+                  (mouseup)="keepSuggestionsVisible = false"
+                >
+                  <li
+                    *ngFor="let ville of filteredVilles"
+                    (click)="selectAdress(ville)"
+                    (keydown.enter)="selectAdress(ville)"
+                    tabindex="0"
+                  >
+                    {{ ville.properties.label }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="N° rue"
+                formControlName="streetNumber"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Nom de la rue"
+                formControlName="streetName"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                placeholder="Code postal"
+                formControlName="zipCode"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                name="city"
+                placeholder="Ville"
+                formControlName="city"
+              />
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            placeholder="Code Postal"
-            formControlName="zipCode"
-          />
-        </div>
+      <!-- FIN adresse etablissement form#4 -->
+      <div class="buttons">
+        <!-- form4 -->
+        <button
+          *ngIf="currentStep !== 1"
+          class="button btn-warning"
+          (click)="prevStep()"
+        >
+          Précédent
+        </button>
+        <!-- form4 -->
+        <!-- form1 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 1"
+          (click)="nextStep()"
+          [ngClass]="
+            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+          "
+          [disabled]="userForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form1 -->
+        <!-- form2 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 2"
+          (click)="nextStep()"
+          [ngClass]="
+            buisnessForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="buisnessForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form2 -->
+        <!-- form3 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 3"
+          (click)="nextStep()"
+          [ngClass]="
+            establishmentForm.invalid
+              ? 'cursor-not-allowed btn-warning'
+              : 'btn-valid'
+          "
+          [disabled]="establishmentForm.invalid && true"
+        >
+          Suivant
+        </button>
+        <!-- form3 -->
+        <!-- form4 -->
+        <button
+          class="button btn-valid"
+          *ngIf="currentStep === 4"
+          (click)="createBuisness()"
+          [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
+          [disabled]="userForm.invalid && true"
+        >
+          Valider
+        </button>
+        <!-- form4 -->
       </div>
-      <div class="field">
-        <div class="control">
-          <input
-            class="input"
-            type="text"
-            name="city"
-            placeholder="Ville"
-            formControlName="city"
-          />
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
