@@ -1,28 +1,27 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { EstablishmentService } from '../../../../shared/services/establishment.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../../../shared/models/Product';
+import { FullProduct } from '../../../../shared/models/Product';
+import { ProductService } from '../../../../shared/services/product.service';
+import { ProductCardUserComponent } from '../../product-card-user/product-card-user.component';
 
 @Component({
   selector: 'app-establishment-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardUserComponent],
   templateUrl: './establishment-products.component.html',
-  styleUrl: './establishment-products.component.css',
+  styleUrls: ['./establishment-products.component.css'],
 })
 export class EstablishmentProductsComponent implements OnInit {
-  private establishmentService = inject(EstablishmentService);
+  private productService = inject(ProductService);
   private router = inject(ActivatedRoute);
   id!: string;
-  products!: Product[];
+  products!: FullProduct[];
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get('id') ?? '';
 
-    this.establishmentService
-      .getProductsByEstablishmentId(this.id)
-      .subscribe(data => (this.products = data));
-    console.log(this.products);
+    this.productService.getAllProductsByEstablishmentId(this.id);
+    this.productService.productList$.subscribe(data => (this.products = data));
   }
 }

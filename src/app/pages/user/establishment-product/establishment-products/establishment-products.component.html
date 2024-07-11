@@ -1,3 +1,7 @@
-<div class="products" *ngFor="let item of products">
-  <p>{{ item.name }}</p>
+<div class="allProduct">
+  <app-product-card-user
+    *ngFor="let product of products"
+    class="card-product"
+    [product]="product"
+  ></app-product-card-user>
 </div>

@@ -111,7 +111,7 @@ h4 {
   border-radius: 7px;
   display: flex;
 }
-@media screen and (min-width: 409px) {
+@media screen and (min-width: 1020px) {
   .sidebar {
     width: 350px;
     transform: translate(0%);

@@ -1,0 +1,18 @@
+.allProduct {
+  margin: 100px auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  color: white;
+  padding: 30px;
+}
+@media (min-width: 644px) and (max-width: 931px) {
+  .allProduct {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 932px) {
+  .allProduct {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
