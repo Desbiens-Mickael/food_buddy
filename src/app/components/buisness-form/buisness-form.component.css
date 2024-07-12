@@ -1,19 +1,110 @@
-.choiceAdress {
-  position: relative;
-}
-.adressForm {
-  position: relative;
+/* .allboxes {
+  height: 100vh;
+  width: 100%;
+} */
+h1 {
+  text-align: center;
+  color: #3f3d3d;
+  font-size: 25px;
+  padding-top: 5px;
 }
 h6 {
   color: #605b5b;
-  margin-bottom: 10px;
 }
+input {
+  border: solid 1px rgba(153, 153, 153, 0.194);
+  border-radius: 5px;
+  height: 30px;
+  width: 100%; /*longueur input*/
+  margin-top: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
+  text-align: center;
+  line-height: 1;
+  color: #3f3d3d;
+}
+
+form {
+  width: 80%; /*longueur pr erreurs*/
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+}
+
 .error {
-  color: red;
-  font-size: 0.8em;
-  margin-bottom: 5px;
+  color: #fff;
+  font-size: 0.7em;
   text-align: center;
 }
+
+.allbuttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 140px;
+  gap: 35px;
+}
+
+.buttons {
+  padding-top: 1.3rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-valid {
+  background-color: #61a05a;
+  width: 200px;
+  border-radius: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.btn-valid:hover {
+  background-color: #518e4a;
+}
+
+.btn-warning {
+  background-color: #ffb054;
+  width: 200px;
+  border-radius: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background: #fb9c2f;
+}
+
+.btn-danger {
+  background-color: rgba(26, 148, 26, 0.772);
+  width: 200px;
+  border-radius: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.name {
+  display: flex;
+  justify-content: space-between !important;
+  width: 100%;
+}
+
+.adresse-input {
+  width: 100%;
+  flex-direction: column;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px rgb(220, 38, 38);
+}
+
 ul {
   position: absolute;
   top: 100%;
@@ -37,89 +128,45 @@ li {
 li:hover {
   background-color: #f0f0f0;
 }
-.formBuisness {
-  display: flex;
-  flex-direction: column-reverse;
-  min-height: 45vh;
-  justify-content: space-between;
-  align-items: center;
+invalid-btn {
+  background-color: orange;
 }
-input {
-  border: solid 1px black;
-  border-radius: 5px;
-}
-form {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-form div {
-  width: 100%;
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-}
-.buttons {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-button {
-  border-radius: 7px;
-  padding: 5px 15px;
-  color: white;
-}
-.btn-valid {
-  background-color: rgba(24, 119, 24, 0.633);
-}
-.btn-warning {
-  background-color: rgba(194, 155, 26, 0.772);
-}
-.btn-danger {
-  background-color: rgba(26, 148, 26, 0.772);
-}
-input {
-  border: solid 1px rgba(153, 153, 153, 0.194);
-  border-radius: 5px;
-  height: 40px;
-  width: 100%;
-  margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 2px 3px 3px rgb(125, 125, 125);
-}
-.control,
-.field,
-.blockForm {
-  width: 100%;
-}
-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px hsla(47, 92%, 40%, 0.754);
-  transition: box-shadow 0.3s ease;
-}
-.name {
-  display: flex;
-  justify-content: space-between !important;
-  width: 100%;
+@media (max-width: 676px) {
+  h1 {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 5px;
+  }
+  form {
+    width: 60%; /*longueur pr erreurs*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .buttons button {
+    width: 100px;
+  }
 }
 
-.avatar {
-  width: 100px !important;
-  height: 120px;
-  background-image: url(../../../assets/images/avatar.png);
-  filter: drop-shadow(2px 2px 2px rgb(123, 123, 123));
-  background-size: cover;
-  margin: auto;
-  font-weight: 800;
-}
-.adresse-input {
-  width: 100%;
-  flex-direction: column;
-}
-.control {
-  display: flex;
-  flex-direction: column;
+@media (max-width: 390px) {
+  input {
+    border: solid 1px rgba(153, 153, 153, 0.194);
+    border-radius: 5px;
+    height: 30px;
+    width: 100%; /*longueur input*/
+    margin-top: 20px; /* Ajusté pour laisser de la place aux messages d'erreur */
+    text-align: center;
+    line-height: 1;
+    color: #3f3d3d;
+  }
+  .buttons {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+  }
+  .buttons button {
+    width: 100px;
+  }
 }

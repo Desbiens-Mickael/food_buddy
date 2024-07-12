@@ -1,162 +1,183 @@
-<div class="formUser">
-  <div class="blockForm">
-    <form
-      [formGroup]="userForm"
-      (ngSubmit)="createUser()"
-      #myForm="ngForm"
-      novalidate
-    >
-      <div class="avatar">Avatar</div>
-
-      <div class="field">
-        <div class="control controlName">
-          <div
-            *ngIf="
-              userForm.get('firstName')?.invalid &&
-              (userForm.get('firstName')?.dirty ||
-                userForm.get('firstName')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('firstName')?.errors?.['required']"
-              >Prénom Requis.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="text"
-            placeholder="Prenom"
-            formControlName="firstName"
-          />
-        </div>
-      </div>
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              userForm.get('lastName')?.invalid &&
-              (userForm.get('lastName')?.dirty ||
-                userForm.get('lastName')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('lastName')?.errors?.['required']"
-              >Nom Requis.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="text"
-            placeholder="Nom"
-            formControlName="lastName"
-          />
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <div
-            *ngIf="
-              userForm.get('email')?.invalid &&
-              (userForm.get('email')?.dirty || userForm.get('email')?.touched)
-            "
-          >
-            <small
-              class="error"
-              *ngIf="userForm.get('email')?.errors?.['required']"
-              >Email Requis.</small
-            >
-            <small
-              class="error"
-              *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
-              >Email Invalide.</small
-            >
-          </div>
-          <input
-            class="input"
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-          />
-        </div>
-      </div>
-
-      <div class="controlPassword" formGroupName="password">
+<div class="main">
+  <div class="formUser">
+    <div class="blockForm">
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="createUser()"
+        #myForm="ngForm"
+        novalidate
+      >
+        <!-- input error FIRSTNAME -->
+        <h1>Je crée mon profil</h1>
+        <input
+          class="input"
+          type="text"
+          placeholder="Votre prénom"
+          formControlName="firstName"
+        />
         <div class="field">
-          <div class="control">
+          <div class="control controlName">
             <div
-              class="errorPassword"
               *ngIf="
-                userForm.get('password.password')?.invalid &&
-                (userForm.get('password.password')?.dirty ||
-                  userForm.get('password.password')?.touched)
+                userForm.get('firstName')?.invalid &&
+                (userForm.get('firstName')?.dirty ||
+                  userForm.get('firstName')?.touched)
               "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
-                *ngIf="
-                  userForm.get('password.password')?.errors?.['invalidPassword']
-                "
-              >
-                Le Mot de Passe doit contenir au moins 8
-                caractères,minuscule,chiffre et caractère spécial.
+                *ngIf="userForm.get('firstName')?.errors?.['required']"
+                >Prénom Requis.
               </small>
             </div>
-            <input
-              class="input"
-              type="password"
-              placeholder="Mot De Passe"
-              formControlName="password"
-            />
           </div>
         </div>
-
+        <!-- input error NAME -->
+        <input
+          class="input"
+          type="text"
+          placeholder="Votre nom"
+          formControlName="lastName"
+        />
         <div class="field">
           <div class="control">
             <div
               *ngIf="
-                userForm.get('password.confirmPassword')?.invalid &&
-                (userForm.get('password.confirmPassword')?.dirty ||
-                  userForm.get('password.confirmPassword')?.touched)
+                userForm.get('lastName')?.invalid &&
+                (userForm.get('lastName')?.dirty ||
+                  userForm.get('lastName')?.touched)
               "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
-                *ngIf="
-                  userForm.get('password.confirmPassword')?.errors?.['required']
-                "
-                >Confirmation Mot de Passe Requise.</small
+                *ngIf="userForm.get('lastName')?.errors?.['required']"
+                >Nom Requis.</small
+              >
+            </div>
+          </div>
+        </div>
+        <!-- input error EMAIL -->
+        <input
+          class="input"
+          type="email"
+          placeholder="Votre adresse email"
+          formControlName="email"
+        />
+        <div class="field">
+          <div class="control">
+            <div
+              *ngIf="
+                userForm.get('email')?.invalid &&
+                (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="userForm.get('email')?.errors?.['required']"
+                >Email Requis.</small
               >
               <small
                 class="error"
-                *ngIf="userForm.get('password')?.errors?.['passwordsMismatch']"
-                >Les mots de passe ne correspondent pas.</small
+                *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
+                >Email Invalide.</small
               >
             </div>
-            <input
-              class="input"
-              type="password"
-              placeholder="Confirmez Mot de Passe"
-              formControlName="confirmPassword"
-            />
           </div>
         </div>
-      </div>
 
-      <div *ngIf="userForm.invalid && myForm.submitted">
-        <p>Formulaire incomplet !</p>
-      </div>
+        <div class="controlPassword" formGroupName="password">
+          <!-- input error PASSWORD -->
+          <input
+            class="input"
+            type="password"
+            placeholder="Votre mot de passe"
+            formControlName="password"
+          />
+          <div class="field">
+            <div class="control">
+              <div
+                class="errorPassword"
+                *ngIf="
+                  userForm.get('password.password')?.invalid &&
+                  (userForm.get('password.password')?.dirty ||
+                    userForm.get('password.password')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password.password')?.errors?.[
+                      'invalidPassword'
+                    ]
+                  "
+                >
+                  Le mot de passe doit contenir au moins 8
+                  caractères,minuscule,chiffre et caractère spécial.
+                </small>
+              </div>
+            </div>
+          </div>
+          <!-- input error CONFIRM PASSWORD -->
+          <input
+            class="input"
+            type="password"
+            placeholder="Confirmez votre mot de passe"
+            formControlName="confirmPassword"
+          />
+          <div class="field">
+            <div class="control">
+              <div
+                *ngIf="
+                  userForm.get('password.confirmPassword')?.invalid &&
+                  (userForm.get('password.confirmPassword')?.dirty ||
+                    userForm.get('password.confirmPassword')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password.confirmPassword')?.errors?.[
+                      'required'
+                    ]
+                  "
+                  >Confirmation mot de passe requise.</small
+                >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password')?.errors?.['passwordsMismatch']
+                  "
+                  >Les mots de passe ne correspondent pas.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div *ngIf="userForm.invalid">
-        <button [disabled]="userForm.invalid" class="button btn-warning">
-          Sauvegarder
-        </button>
-      </div>
-      <div *ngIf="userForm.valid">
-        <button class="button btn-valid">Sauvegarder</button>
-      </div>
-    </form>
+        <div *ngIf="userForm.invalid && myForm.submitted">
+          <p>Formulaire incomplet !</p>
+        </div>
+
+        <div *ngIf="userForm.invalid">
+          <button
+            [disabled]="userForm.invalid"
+            class="button btn-warning shadow-lg"
+            [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
+            [disabled]="userForm.invalid && true"
+            type="submit"
+          >
+            Validez mon profil
+          </button>
+        </div>
+        <div *ngIf="userForm.valid">
+          <button class="button btn-valid">Sauvegarder</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
