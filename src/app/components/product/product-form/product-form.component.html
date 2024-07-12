@@ -5,7 +5,7 @@
   class="flex flex-col gap-4 w-[600px] bg-white/10 backdrop-blur-lg p-4 rounded-md"
 >
   <div class="flex flex-col gap-2">
-    <label for="name" class="text-neutral-500">Nom</label>
+    <label for="name" class="text-neutral-600 font-semibold">Nom</label>
     <input
       formControlName="name"
       type="text"
@@ -20,13 +20,15 @@
     />
     <div
       *ngIf="getName?.invalid && (getName?.dirty || getName?.touched)"
-      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getName?.errors?.['required']">Nom requis</div>
     </div>
   </div>
   <div class="flex flex-col gap-2">
-    <label for="description" class="text-neutral-500">Description</label>
+    <label for="description" class="text-neutral-600 font-semibold"
+      >Description</label
+    >
     <textarea
       formControlName="description"
       placeholder="Description du produit"
@@ -43,7 +45,7 @@
         getDescription?.invalid &&
         (getDescription?.dirty || getDescription?.touched)
       "
-      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getDescription?.errors?.['required']">
         Description requise
@@ -51,7 +53,7 @@
     </div>
   </div>
   <div class="flex flex-col gap-2">
-    <label for="price" class="text-neutral-500">Prix</label>
+    <label for="price" class="text-neutral-600 font-semibold">Prix</label>
     <input
       formControlName="price"
       type="number"
@@ -66,14 +68,16 @@
     />
     <div
       *ngIf="getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)"
-      class="text-white text-center bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getPrice?.errors?.['required']">Prix requis</div>
       <div *ngIf="getPrice?.errors?.['min']">Prix invalide</div>
     </div>
   </div>
   <div class="flex flex-col gap-2">
-    <label for="type" class="text-neutral-500">Type du produit</label>
+    <label for="type" class="text-neutral-600 font-semibold"
+      >Type du produit</label
+    >
     <select
       formControlName="type"
       id="type"
@@ -86,7 +90,7 @@
     </select>
   </div>
   <div class="flex flex-col gap-2">
-    <label for="status" class="text-neutral-500">Statut</label>
+    <label for="status" class="text-neutral-600 font-semibold">Statut</label>
     <select
       formControlName="status"
       id="status"
