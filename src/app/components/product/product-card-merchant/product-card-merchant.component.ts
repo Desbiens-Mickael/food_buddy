@@ -24,6 +24,8 @@ export class ProductCardMerchantComponent implements OnDestroy {
   maxOffset!: number;
   actionTriggered = false;
   middleDiv: HTMLElement | null = null;
+  holdStartTime: number | null = null;
+  TIMER = 700;
 
   constructor() {
     this.onMouseMove = this.onMouseMove.bind(this);
@@ -31,6 +33,11 @@ export class ProductCardMerchantComponent implements OnDestroy {
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onTouchEnd = this.onTouchEnd.bind(this);
+  }
+
+  deleteProduct() {
+    this.productService.deleteProduct(this.product.id, this.establishmentId);
+    console.log(this.product.id, this.establishmentId);
   }
 
   onMouseDown(event: MouseEvent) {
@@ -46,6 +53,7 @@ export class ProductCardMerchantComponent implements OnDestroy {
       this.maxOffset = parseFloat(getComputedStyle(this.middleDiv).width) / 3;
       this.isDragging = true;
       this.actionTriggered = false;
+      this.holdStartTime = Date.now();
       this.middleDiv.classList.remove('transition');
 
       this.middleDiv.addEventListener('mousemove', this.onMouseMove);
@@ -67,6 +75,7 @@ export class ProductCardMerchantComponent implements OnDestroy {
       this.maxOffset = parseFloat(getComputedStyle(this.middleDiv).width) / 3;
       this.isDragging = true;
       this.actionTriggered = false;
+      this.holdStartTime = Date.now();
       this.middleDiv.classList.remove('transition');
 
       this.middleDiv.addEventListener('touchmove', this.onTouchMove);
@@ -86,25 +95,27 @@ export class ProductCardMerchantComponent implements OnDestroy {
 
     const parentElement = this.middleDiv.parentElement;
     if (parentElement && !this.actionTriggered) {
-      if (deltaX > parentElement.clientWidth * 0.25) {
-        console.log('editer');
-
-        this.actionTriggered = true;
-      }
-      if (deltaX < parentElement.clientWidth * -0.25) {
-        console.log('suprimer');
-        this.actionTriggered = true;
+      const currentTime = Date.now();
+      if (
+        this.holdStartTime &&
+        currentTime - this.holdStartTime >= this.TIMER
+      ) {
+        if (deltaX > parentElement.clientWidth * 0.25) {
+          this.actionTriggered = true;
+          void this.router.navigate([
+            '/merchant/establishment',
+            this.establishmentId,
+            'edit-product',
+            this.product.id,
+          ]);
+        }
+        if (deltaX < parentElement.clientWidth * -0.25) {
+          this.deleteProduct();
+          this.actionTriggered = true;
+        }
       }
     }
     this.middleDiv.style.transform = `translateX(${newLeft.toString()}px)`;
-  }
-
-  onMouseUp() {
-    this.resetCard();
-  }
-
-  onMouseLeave() {
-    this.resetCard();
   }
 
   onTouchMove(event: TouchEvent) {
@@ -119,16 +130,35 @@ export class ProductCardMerchantComponent implements OnDestroy {
 
     const parentElement = this.middleDiv.parentElement;
     if (parentElement && !this.actionTriggered) {
-      if (deltaX > parentElement.clientWidth * 0.25) {
-        this.text = 'edit';
-        this.actionTriggered = true;
-      }
-      if (deltaX < parentElement.clientWidth * -0.25) {
-        this.text = 'remove';
-        this.actionTriggered = true;
+      const currentTime = Date.now();
+      if (
+        this.holdStartTime &&
+        currentTime - this.holdStartTime >= this.TIMER
+      ) {
+        if (deltaX > parentElement.clientWidth * 0.25) {
+          this.actionTriggered = true;
+          void this.router.navigate([
+            '/merchant/establishment',
+            this.establishmentId,
+            'edit-product',
+            this.product.id,
+          ]);
+        }
+        if (deltaX < parentElement.clientWidth * -0.25) {
+          this.deleteProduct();
+          this.actionTriggered = true;
+        }
       }
     }
     this.middleDiv.style.transform = `translateX(${newLeft.toString()}px)`;
+  }
+
+  onMouseUp() {
+    this.resetCard();
+  }
+
+  onMouseLeave() {
+    this.resetCard();
   }
 
   onTouchEnd() {
@@ -138,6 +168,7 @@ export class ProductCardMerchantComponent implements OnDestroy {
   resetCard() {
     if (!this.isDragging || !this.middleDiv) return;
 
+    this.holdStartTime = null;
     this.middleDiv.classList.add('transition');
     this.middleDiv.style.transform = 'translateX(0px)';
 
