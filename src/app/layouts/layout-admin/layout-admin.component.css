@@ -1,8 +1,8 @@
-.min-h-screen {
+/* .min-h-screen {
   display: flex;
   height: 70vh;
   overflow: scroll;
-}
+} */
 .allCard {
   z-index: 0;
   display: flex;

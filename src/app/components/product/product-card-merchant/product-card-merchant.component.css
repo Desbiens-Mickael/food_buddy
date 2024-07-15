@@ -38,7 +38,7 @@ img {
 
 .action1 {
   background-color: rgba(0, 128, 0, 0.42);
-  z-index: 10;
+  z-index: -1;
   width: calc(var(--width-btn) / 2);
   left: 0;
 }
@@ -46,12 +46,12 @@ img {
 .card {
   background-color: rgb(198, 198, 199);
   touch-action: none;
-  z-index: 12;
+  z-index: 0;
 }
 
 .action2 {
   background-color: rgba(255, 0, 0, 0.436);
-  z-index: 11;
+  z-index: -1;
   width: calc(var(--width-btn) / 2.2);
   right: 0;
   top: 0;
@@ -98,7 +98,6 @@ img {
   width: 75px;
   height: 75px;
   background-color: green;
-  z-index: 20;
   top: 55px;
   border-radius: 50%;
 }
