@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -6,18 +7,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {
-  Buisness,
-  User,
-  Establishment,
-  Address,
-  Business,
-} from '../../shared/models/Buisness';
-import * as Valid from '../../shared/validator/validator';
-import { AdresseService } from '../../shared/services/adresse.service';
+import { Router } from '@angular/router';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
+import {
+  Address,
+  Buisness,
+  Business,
+  Establishment,
+  User,
+} from '../../shared/models/Buisness';
+import { AdresseService } from '../../shared/services/adresse.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
-import { CommonModule } from '@angular/common';
+import * as Valid from '../../shared/validator/validator';
 
 @Component({
   selector: 'app-buisness-form',
@@ -30,6 +31,7 @@ export class BuisnessFormComponent {
   private formBuilder = inject(FormBuilder);
   private adresseService = inject(AdresseService);
   private buisnessService = inject(BuisnessService);
+  private router = inject(Router);
   myControl = new FormControl('');
   villes!: AdresseJson;
   filteredVilles: Feature[] = [];
@@ -198,14 +200,16 @@ export class BuisnessFormComponent {
 
         console.log('Formulaire envoyé avec succès !', buisness);
 
-        this.buisnessService.createBuisness(buisness).subscribe(
-          response => {
+        this.buisnessService.createBuisness(buisness).subscribe({
+          next: response => {
             console.log('Requête POST réussie :', response);
+            this.userForm.reset();
+            void this.router.navigate(['/login']);
           },
-          error => {
+          error: error => {
             console.error('Erreur lors de la requête POST :', error);
           },
-        );
+        });
       } else {
         console.log('Formulaire incomplet');
       }

@@ -8,6 +8,7 @@
   bottom: 0;
   z-index: 9;
   overflow-y: auto;
+  box-shadow: 5px 0 3px -3px #00000030;
 }
 
 .sidebar.active {
@@ -17,12 +18,12 @@
 .container {
   padding: 0;
   height: 100vh;
-
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  font-family: 'Saira Semi Condensed', sans-serif;
 }
 
 ul {
@@ -61,9 +62,8 @@ section:nth-child(1) {
 li {
   width: 90%;
   height: 40px;
-  background-color: rgb(45, 152, 52);
   border-radius: 7px;
-  color: white;
+  color: #fb9c2f;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -78,17 +78,32 @@ li a {
   text-decoration: none;
   height: 100%;
   width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-family: 'Saira Semi Condensed', sans-serif;
+  box-shadow:
+    rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+li a:hover,
+li a.active {
+  color: #fff;
+  background-color: #61a05a;
 }
 
 .avatar {
   width: 70px;
   height: 70px;
-  background-color: rgb(53, 162, 60);
+  background-color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
+  font-weight: bold;
   color: var(--secondary-color);
 }
 
@@ -111,7 +126,7 @@ h4 {
   border-radius: 7px;
   display: flex;
 }
-@media screen and (min-width: 409px) {
+@media screen and (min-width: 1020px) {
   .sidebar {
     width: 350px;
     transform: translate(0%);

@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import * as Valid from '../../shared/validator/validator';
+import { Router } from '@angular/router';
 import { User } from '../../shared/models/User';
-import { CommonModule } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
+import * as Valid from '../../shared/validator/validator';
 
 @Component({
   selector: 'app-user-form',
@@ -15,6 +16,7 @@ import { UserService } from '../../shared/services/user.service';
 export class UserFormComponent {
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
+  private router = inject(Router);
 
   userForm = this.formBuilder.group({
     firstName: ['', Validators.required],
@@ -31,10 +33,10 @@ export class UserFormComponent {
     ),
   });
   createUser(): void {
-    const password = this.userForm.controls.password.get('password')?.value;
-    const lastname = this.userForm.controls.password.get('password')?.value;
-    const email = this.userForm.controls.password.get('password')?.value;
-    const firstname = this.userForm.controls.password.get('password')?.value;
+    const password = this.userForm.get('password.password')?.value;
+    const lastname = this.userForm.get('lastName')?.value;
+    const email = this.userForm.get('email')?.value;
+    const firstname = this.userForm.get('firstName')?.value;
     if (this.userForm.valid && password && lastname && firstname && email) {
       const user: User = {
         firstname: firstname,
@@ -42,16 +44,17 @@ export class UserFormComponent {
         email: email,
         password: password,
       };
-      console.log('Formulaire envoyé avec succès !', user);
 
-      this.userService.createUser(user).subscribe(
-        response => {
+      this.userService.createUser(user).subscribe({
+        next: response => {
           console.log('Requête POST réussie :', response);
+          this.userForm.reset();
+          void this.router.navigate(['/login']);
         },
-        error => {
+        error: error => {
           console.error('Erreur lors de la requête POST :', error);
         },
-      );
+      });
     } else {
       console.log('Formulaire incomplet');
     }

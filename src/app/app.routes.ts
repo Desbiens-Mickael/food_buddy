@@ -61,6 +61,14 @@ export const routes: Routes = [
           ).then(m => m.ReservationsUserComponent),
         title: `${titleBase} - Reservations`,
       },
+      {
+        path: 'establishments/:id',
+        loadComponent: () =>
+          import(
+            './pages/user/establishment-product/establishment-products/establishment-products.component'
+          ).then(m => m.EstablishmentProductsComponent),
+        title: `${titleBase} - Produits`,
+      },
     ],
   },
   {
