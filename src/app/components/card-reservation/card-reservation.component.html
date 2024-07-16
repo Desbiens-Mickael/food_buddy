@@ -1,3 +1,59 @@
-<div class="card">
-  <p></p>
+<div class="card-reservation">
+  <div class="info-place">
+    <div class="img-reservation">
+      <img src="assets/Merci_kraft.webp" alt="thankyou" />
+    </div>
+    <div class="details-reservation my-3">
+      <h3>nom du restaurant</h3>
+      <h4>nom du produit</h4>
+    </div>
+  </div>
+
+  <div class="info-reservation">
+    <div class="createdate bg-green-100 text-green-600 px-4 py-1 rounded-md">
+      <p>date de création</p>
+      <p>01.01.2024</p>
+    </div>
+
+    <div class="collectdate bg-red-100 text-red-600 px-4 py-1 rounded-md">
+      <p>date de collecte</p>
+      <p>12.12.2024</p>
+    </div>
+  </div>
+
+  <div class="validcode my-3">
+    <p>code de validation</p>
+    <div class="secretcode d-flex flex-row w-full">
+      <div
+        [ngClass]="!isHidden ? 'after:backdrop-blur-sm' : ''"
+        class="code relative after:absolute after:top-0 after:left-0 after:w-full after:h-full"
+      >
+        <p>ABCD1234</p>
+      </div>
+
+      <div class="eyes">
+        <span
+          [attr.aria-hidden]="true"
+          title="afficher le code"
+          class="material-symbols-outlined cursor-pointer"
+          *ngIf="!isHidden"
+          (keyup)="toggle()"
+          (click)="toggle()"
+        >
+          visibility
+        </span>
+
+        <span
+          [attr.aria-hidden]="true"
+          title="cacher le code"
+          class="material-symbols-outlined cursor-pointer"
+          *ngIf="isHidden"
+          (keyup)="toggle()"
+          (click)="toggle()"
+        >
+          visibility_off
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
