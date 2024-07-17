@@ -92,27 +92,29 @@
                 placeholder="Votre mot de passe"
                 formControlName="password"
               />
-              <div
-                class="errorPassword"
+            </div>
+
+            <div
+              class="errorPassword"
+              *ngIf="
+                userForm.get('password.password')?.invalid &&
+                (userForm.get('password.password')?.dirty ||
+                  userForm.get('password.password')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
                 *ngIf="
-                  userForm.get('password.password')?.invalid &&
-                  (userForm.get('password.password')?.dirty ||
-                    userForm.get('password.password')?.touched)
+                  userForm.get('password.password')?.errors?.['invalidPassword']
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
               >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password.password')?.errors?.[
-                      'invalidPassword'
-                    ]
-                  "
-                >
-                  Le mot de passe doit contenir min. 8 caractères, minuscule,
-                  chiffre et caractère spécial.
-                </small>
-              </div>
+                Le mot de passe doit contenir min. 8 caractères, minuscule,
+                chiffre et caractère spécial.
+              </small>
+            </div>
+            <div class="eyes">
+              <span class="material-symbols-outlined"> visibility </span>
             </div>
           </div>
 
@@ -124,6 +126,7 @@
                 placeholder="Confirmez votre mot de passe"
                 formControlName="confirmPassword"
               />
+
               <div
                 *ngIf="
                   userForm.get('password.confirmPassword')?.invalid &&
@@ -149,6 +152,9 @@
                   >Les mots de passe ne correspondent pas.</small
                 >
               </div>
+            </div>
+            <div class="eyes">
+              <span class="material-symbols-outlined"> visibility </span>
             </div>
           </div>
         </div>

@@ -21,6 +21,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error: string | null = null;
+  isHidden = true;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -57,5 +58,8 @@ export class LoginComponent implements OnInit {
         },
       });
     }
+  }
+  toggle() {
+    this.isHidden = !this.isHidden;
   }
 }

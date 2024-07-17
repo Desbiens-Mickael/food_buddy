@@ -7,7 +7,7 @@
     </p>
   </div>
 
-  <div class="box shadow-lg bg-white/10 backdrop-blur-lg">
+  <div class="box">
     <div class="container1">
       <div class="livraison_picture">
         <img src="assets/Livraison_kraft.jpg" alt="livraison_kraft" />
@@ -20,17 +20,17 @@
       </div>
 
       <form #myform="ngForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div>
+        <div class="email">
           <label for="email_user">Votre adresse email </label>
           <input
             [ngClass]="
               email?.invalid && (email?.dirty || email?.touched)
-                ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
+                ? 'text-red-600 placeholder:text-red-600 border border-red-600 rounded-md'
                 : ''
             "
             placeholder="Adresse email"
             formControlName="email"
-            class="shadow-lg"
+            class="shadow-lg bg-white/10 backdrop-blur-lg rounded-md"
             name="email_user"
             type="email"
           />
@@ -42,20 +42,55 @@
           </div>
         </div>
 
-        <div>
+        <div class="password">
           <label for="motdepasse">Votre mot de passe </label>
-          <input
-            [ngClass]="
-              password?.invalid && (password?.dirty || password?.touched)
-                ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
-                : ''
-            "
-            placeholder="Mot de passe"
-            formControlName="password"
-            class="shadow-lg"
-            name="motdepasse"
-            type="text"
-          />
+
+          <div class="eyespassword relative">
+            <input
+              [ngClass]="
+                password?.invalid && (password?.dirty || password?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 border border-red-600 rounded-md'
+                  : ''
+              "
+              placeholder="Mot de passe"
+              formControlName="password"
+              class="shadow-lg"
+              name="motdepasse"
+              [type]="isHidden ? 'password' : 'text'"
+            />
+
+            <div
+              class="eyes"
+              [ngClass]="
+                password?.invalid && (password?.dirty || password?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
+            >
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHidden"
+                (keyup)="toggle()"
+                (click)="toggle()"
+              >
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHidden"
+                (keyup)="toggle()"
+                (click)="toggle()"
+              >
+                visibility_off
+              </span>
+            </div>
+          </div>
+
           <div
             *ngIf="password?.invalid && (password?.dirty || password?.touched)"
             class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
@@ -64,23 +99,50 @@
               Mot de passe requis
             </div>
           </div>
+
+          <button
+            [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
+            [disabled]="myform.invalid && true"
+            class="shadow-lg"
+            type="submit"
+          >
+            Connexion
+          </button>
+          <!-- </form> -->
+
+          <div class="deja_inscrit">
+            <a [routerLink]="['/register']"
+              >Pas encore inscrit? Inscrivez-vous ici</a
+            >
+          </div>
         </div>
-
-        <button
-          [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
-          [disabled]="myform.invalid && true"
-          class="shadow-lg"
-          type="submit"
-        >
-          Connexion
-        </button>
+        <!-- </div> -->
+        <!-- </div> -->
       </form>
-
-      <div class="deja_inscrit">
-        <a [routerLink]="['/register']"
-          >Pas encore inscrit? Inscrivez-vous ici</a
-        >
-      </div>
     </div>
   </div>
 </div>
+
+<!-- <div class="eyes bg-white/10 backdrop-blur-lg rounded-sm">
+  <span
+    [attr.aria-hidden]="true"
+    title="afficher le code"
+    class="material-symbols-outlined cursor-pointer"
+    *ngIf="isHidden"
+    (keyup)="toggle()"
+    (click)="toggle()"
+  >
+    visibility
+  </span>
+
+  <span
+    [attr.aria-hidden]="true"
+    title="cacher le code"
+    class="material-symbols-outlined cursor-pointer"
+    *ngIf="!isHidden"
+    (keyup)="toggle()"
+    (click)="toggle()"
+  >
+    visibility_off
+  </span>
+  </div> -->
