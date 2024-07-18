@@ -6,7 +6,9 @@ import {
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { CredentialInterceptor } from './core/interceptors/credential.interceptor';
 
@@ -18,5 +20,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([CredentialInterceptor])),
     provideAnimationsAsync(),
+    provideAnimations(),
+    provideToastr({
+      progressBar: true,
+      positionClass: 'toast-custom-position',
+    }),
   ],
 };

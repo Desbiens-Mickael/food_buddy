@@ -1,0 +1,44 @@
+<div class="card w-full">
+  <div class="imgcard">
+    <img
+      [src]="
+        product.imageUrl ? product.imageUrl : 'assets/defautImageCard.jpeg'
+      "
+      alt=""
+    />
+  </div>
+  <div class="logoEtablissement">
+    <img
+      [src]="product.imageUrl ? product.imageUrl : 'assets/default-busines.png'"
+      alt=""
+    />
+  </div>
+  <div class="cardBody">
+    <div class="flex flex-col gap-2 text-neutral-600 pt-8 px-4">
+      <h3 class="text-xl font-bold font-main">{{ product.name }}</h3>
+      <p class="truncate">{{ product.description }}</p>
+      <p class="text-lg font-bold font-main">{{ product.price }} €</p>
+    </div>
+    <div class="allButtons">
+      <button
+        class="w-1/2 bg-primary py-2 hover:bg-primary-dark transition-colors font-main text-lg font-bold text-white"
+        [hidden]="userInfos.isEligible"
+      >
+        Offrir
+      </button>
+      <button
+        class="w-1/2 bg-secondary py-2 hover:bg-secondary-dark transition-colors font-main text-lg font-bold text-white"
+        [hidden]="userInfos.isEligible"
+      >
+        Participer
+      </button>
+      <button
+        class="w-full bg-primary py-2 hover:bg-primary-dark transition-colors font-main text-lg font-bold text-white"
+        [hidden]="!userInfos.isEligible"
+        (click)="sendProduct(product.id)"
+      >
+        Reserver
+      </button>
+    </div>
+  </div>
+</div>

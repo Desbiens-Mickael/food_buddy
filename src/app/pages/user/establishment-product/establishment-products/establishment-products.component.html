@@ -1,7 +1,10 @@
-<div class="allProduct">
+<h1 class="text-center text-3xl md:text-5xl font-main font-bold">
+  Tout nos produits
+</h1>
+<div class="allProduct mt-8">
   <app-product-card-user
     *ngFor="let product of products"
-    class="card-product"
+    class="card-product w-[95%] sm:w-[350px]"
     [product]="product"
   ></app-product-card-user>
 </div>

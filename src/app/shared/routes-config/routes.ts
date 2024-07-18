@@ -5,7 +5,7 @@ export const publicLinks: Link[] = [
   { route: '/register', text: 'Créer un compte', icon: 'person_add' },
 ];
 export const userLinks: Link[] = [
-  { route: '/favorite', text: 'Favoris', icon: 'favorite' },
+  { route: '/reservations', text: 'Mes réservations', icon: 'favorite' },
   { route: '/map', text: 'Carte', icon: 'map' },
   { route: '/profile', text: 'Profil', icon: 'person' },
   { route: '/logout', text: 'Déconnexion', icon: 'logout' },

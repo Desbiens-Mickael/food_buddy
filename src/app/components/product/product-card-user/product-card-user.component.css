@@ -9,12 +9,9 @@
   border-radius: 5px;
   box-shadow: 2px 5px 5px rgb(128, 128, 128);
   z-index: 10;
-}
-ul {
-  padding-top: 2rem;
+  overflow: hidden;
 }
 .cardBody {
-  padding: 7px;
   width: 100%;
 }
 .imgcard {
@@ -39,23 +36,9 @@ ul {
   top: 55px;
   border-radius: 50%;
 }
-button {
-  border-radius: 7px;
-  padding: 5px 15px;
-  color: white;
-}
 .allButtons {
   width: 100%;
   display: flex;
-  justify-content: space-around;
   margin-top: 5px;
-}
-.btn-valid {
-  background-color: rgba(24, 119, 24, 0.633);
-}
-.btn-warning {
-  background-color: rgba(194, 155, 26, 0.772);
-}
-.btn-danger {
-  background-color: rgba(185, 34, 34, 0.772);
+  gap: 1px;
 }
