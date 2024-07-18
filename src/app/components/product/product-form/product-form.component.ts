@@ -56,8 +56,8 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
         [Validators.required, Validators.min(0)],
       ],
       description: [this.product?.description ?? '', Validators.required],
-      type: [this.product?.type ?? 'drink', Validators.required],
-      status: [this.product?.status ?? 'indisponible', Validators.required],
+      type: [this.product?.type ?? 'DRINK', Validators.required],
+      status: [this.product?.status ?? 'UNAVAILABLE', Validators.required],
       allergens: [this.product?.allergens ?? []],
     });
 

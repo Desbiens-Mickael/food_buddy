@@ -14,7 +14,6 @@ export class ProductCardUserComponent implements OnInit {
   userInfos!: User;
   ngOnInit(): void {
     this.userInfos = JSON.parse(localStorage.getItem('userInfo') ?? '') as User;
-    console.log(this.userInfos);
   }
 
   sendProduct(id: string) {

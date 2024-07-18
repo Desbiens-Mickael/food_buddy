@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Buisness } from '../../shared/models/Buisness';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BuisnessService {
-  private apiUrl = 'https://food-buddy.olprog-b.fr/merchants/';
+  private apiUrl = `${environment.apiUrl}/auth/merchants/register`;
 
   constructor(private http: HttpClient) {}
 

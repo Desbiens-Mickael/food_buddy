@@ -37,7 +37,6 @@ export class ProductCardMerchantComponent implements OnDestroy {
 
   deleteProduct() {
     this.productService.deleteProduct(this.product.id, this.establishmentId);
-    console.log(this.product.id, this.establishmentId);
   }
 
   onMouseDown(event: MouseEvent) {

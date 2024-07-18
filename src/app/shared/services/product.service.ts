@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { CreateProduct, FullProduct } from '../models/Product';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class ProductService {
     establishmentId: string,
   ): Observable<CreateProduct> {
     return this.http.post<CreateProduct>(
-      `https://food-buddy.olprog-b.fr/establishment/${establishmentId}/products`,
+      `${environment.apiUrl}/establishments/${establishmentId}/products`,
       product,
     );
   }
@@ -26,7 +27,7 @@ export class ProductService {
     this.http
       .get<
         FullProduct[]
-      >(`https://food-buddy.olprog-b.fr/establishment/${establishmentId}/products`)
+      >(`${environment.apiUrl}/establishments/${establishmentId}/products`)
       .subscribe(products => {
         this.productList.next(products);
       });
@@ -37,7 +38,7 @@ export class ProductService {
     establishmentId: string,
   ): Observable<FullProduct> {
     return this.http.get<FullProduct>(
-      `https://food-buddy.olprog-b.fr/establishment/${establishmentId}/products/${productId}`,
+      `${environment.apiUrl}/establishments/${establishmentId}/products/${productId}`,
     );
   }
 
@@ -47,7 +48,7 @@ export class ProductService {
     establishmentId: string,
   ): Observable<CreateProduct> {
     return this.http.put<CreateProduct>(
-      `https://food-buddy.olprog-b.fr/establishment/${establishmentId}/products/${productId}`,
+      `${environment.apiUrl}/establishments/${establishmentId}/products/${productId}`,
       product,
     );
   }
@@ -55,7 +56,7 @@ export class ProductService {
   deleteProduct(productId: string, establishmentId: string): void {
     this.http
       .delete<string>(
-        `https://food-buddy.olprog-b.fr/establishment/${establishmentId}/products/${productId}`,
+        `${environment.apiUrl}/establishments/${establishmentId}/products/${productId}`,
       )
       .subscribe(() => {
         this.getAllProductsByEstablishmentId(establishmentId);

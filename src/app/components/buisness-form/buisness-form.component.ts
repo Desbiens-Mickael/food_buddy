@@ -41,16 +41,13 @@ export class BuisnessFormComponent {
   currentStep = 1;
 
   userForm = this.formBuilder.group({
-    firstName: ['a', Validators.required],
-    lastName: ['b', Validators.required],
-    email: ['a@b.fr', [Validators.required, Valid.emailValidator()]],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.required, Valid.emailValidator()]],
     password: this.formBuilder.group(
       {
-        password: [
-          'Azerty.123456',
-          [Validators.required, Valid.passwordValidator()],
-        ],
-        confirmPassword: ['Azerty.123456', Validators.required],
+        password: ['', [Validators.required, Valid.passwordValidator()]],
+        confirmPassword: ['', Validators.required],
       },
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
@@ -81,13 +78,11 @@ export class BuisnessFormComponent {
 
   filter(event: Event): void {
     const newValue = (event.target as HTMLInputElement).value;
-    console.log(newValue);
     if (newValue.length > 5) {
       this.adresseService.getAdresse(newValue, '10').subscribe(data => {
         this.villes = data;
         this.filteredVilles = this.villes.features;
         this.suggestionsVisible = this.filteredVilles.length > 0;
-        console.log(this.suggestionsVisible);
       });
     } else {
       this.filteredVilles = [];
@@ -118,7 +113,6 @@ export class BuisnessFormComponent {
       latitude: ville.geometry.coordinates[1],
       longitude: ville.geometry.coordinates[0],
     });
-    console.log(this.addressForm.value);
   }
 
   nextStep(): void {
@@ -158,10 +152,10 @@ export class BuisnessFormComponent {
       this.establishmentForm.valid &&
       this.addressForm.valid
     ) {
-      const password = this.userForm.controls.password.get('password')?.value;
-      const lastname = this.userForm.controls.password.get('password')?.value;
-      const email = this.userForm.controls.password.get('password')?.value;
-      const firstname = this.userForm.controls.password.get('password')?.value;
+      const password = this.userForm.get('password.password')?.value;
+      const lastname = this.userForm.get('lastName')?.value;
+      const email = this.userForm.get('email')?.value;
+      const firstname = this.userForm.get('firstName')?.value;
       if (password && lastname && firstname && email) {
         const newUser: User = {
           firstname: firstname,
@@ -198,11 +192,8 @@ export class BuisnessFormComponent {
           address,
         };
 
-        console.log('Formulaire envoyé avec succès !', buisness);
-
         this.buisnessService.createBuisness(buisness).subscribe({
-          next: response => {
-            console.log('Requête POST réussie :', response);
+          next: () => {
             this.userForm.reset();
             void this.router.navigate(['/login']);
           },
@@ -210,8 +201,6 @@ export class BuisnessFormComponent {
             console.error('Erreur lors de la requête POST :', error);
           },
         });
-      } else {
-        console.log('Formulaire incomplet');
       }
     }
   }
