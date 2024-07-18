@@ -65,6 +65,32 @@
   padding-right: 0.5rem;
 }
 
+/* .eyespassword {
+  width: 100%;
+  position: relative;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+} */
+
+.eyespassword > input {
+  border-radius: 5px;
+}
+
+.shadow-lg1 {
+  position: relative;
+}
+
+.material-symbols-outlined {
+  position: absolute;
+}
+
+.eyes {
+  position: absolute;
+  top: 0;
+  right: 12%;
+  padding-top: 0.6rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -73,7 +99,6 @@ form {
 
 form div > input {
   width: 100%;
-  border-radius: 5px;
   padding: 0.5rem;
 }
 
@@ -87,6 +112,7 @@ button {
   color: white;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  margin-top: 0.5rem;
   font-weight: bold;
   font-size: 1rem;
 }

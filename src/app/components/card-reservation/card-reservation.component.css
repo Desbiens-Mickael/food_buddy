@@ -1,0 +1,85 @@
+.card-reservation {
+  user-select: none;
+  color: #3f3d3d;
+  font-family: var(--font-main);
+  width: 330px;
+  border-radius: 5px;
+  background-color: white;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.img-reservation {
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.info-reservation {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h3 {
+  font-size: larger;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: large;
+  font-weight: 600;
+}
+
+.secretcode {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 767px) {
+  .card-reservation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 90px;
+  }
+
+  h3 {
+    font-size: medium;
+    font-weight: bold;
+  }
+
+  h4 {
+    font-size: small;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: small;
+    font-weight: 400;
+  }
+}

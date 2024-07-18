@@ -54,6 +54,14 @@ export const routes: Routes = [
         title: `${titleBase} - Map`,
       },
       {
+        path: 'reservations',
+        loadComponent: () =>
+          import(
+            './pages/user/reservations-user/reservations-user.component'
+          ).then(m => m.ReservationsUserComponent),
+        title: `${titleBase} - Reservations`,
+      },
+      {
         path: 'establishments/:id',
         loadComponent: () =>
           import(

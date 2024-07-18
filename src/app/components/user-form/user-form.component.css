@@ -81,6 +81,7 @@ button {
   width: 80%;
 }
 
+/* cursor in input error */
 input:focus {
   outline: none;
   box-shadow: 0 0 0 1px rgb(220, 38, 38);
@@ -116,6 +117,21 @@ input:focus {
   display: flex;
   width: 100%;
   justify-content: space-between !important;
+}
+
+.addeyes {
+  position: relative;
+  width: 100%;
+  display: flex;
+  border-radius: 5px;
+  border-color: #3f3d3d;
+}
+.eyes {
+  position: absolute;
+  right: 1.5%;
+  padding-top: 1.5rem;
+  cursor: pointer;
+  color: hsl(0, 1%, 63%);
 }
 
 @media (min-width: 410px) and (max-width: 676px) {
