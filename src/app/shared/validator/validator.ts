@@ -16,7 +16,6 @@ export function sirenValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valeur: string = control.value as string;
     const valid = valeur.length === 9;
-    console.log(valid);
     return valid ? null : { invalidSiren: true };
   };
 }
@@ -24,7 +23,6 @@ export function siretValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valeur: string = control.value as string;
     const valid = valeur.length === 5;
-    console.log(valid);
     return valid ? null : { invalidSiret: true };
   };
 }

@@ -38,7 +38,6 @@ export class SideBarComponent implements OnInit {
 
   changeEstablishment(event: Event): void {
     const id = (event.target as HTMLInputElement).value;
-    console.log(id);
     const establishment = this.establishments.find(e => e.id === Number(id));
     if (establishment) {
       this.establishmentActive = establishment;
