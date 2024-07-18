@@ -14,6 +14,8 @@ import * as Valid from '../../shared/validator/validator';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent {
+  isHidden = true;
+
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
