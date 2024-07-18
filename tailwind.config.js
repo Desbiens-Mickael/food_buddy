@@ -12,8 +12,10 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--primary-color)',
+        'primary-dark': 'var(--primary-color-dark)',
         secondary: 'var(--secondary-color)',
         'secondary-light': 'var(--secondary-color-light)',
+        'secondary-dark': 'var(--secondary-dark-color)',
       },
       fontFamily: {
         title: 'var(--font-title)',
