@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -8,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
 import {
   Address,
@@ -28,10 +30,15 @@ import * as Valid from '../../shared/validator/validator';
   styleUrls: ['./buisness-form.component.css'],
 })
 export class BuisnessFormComponent {
+  isHiddenConfirmPassword = true;
+  isHiddenPassword = true;
+
   private formBuilder = inject(FormBuilder);
   private adresseService = inject(AdresseService);
   private buisnessService = inject(BuisnessService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
+
   myControl = new FormControl('');
   villes!: AdresseJson;
   filteredVilles: Feature[] = [];
@@ -41,13 +48,16 @@ export class BuisnessFormComponent {
   currentStep = 1;
 
   userForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Valid.emailValidator()]],
+    firstName: ['ttt', Validators.required],
+    lastName: ['ttt', Validators.required],
+    email: ['test@gmail.com', [Validators.required, Valid.emailValidator()]],
     password: this.formBuilder.group(
       {
-        password: ['', [Validators.required, Valid.passwordValidator()]],
-        confirmPassword: ['', Validators.required],
+        password: [
+          'Azerty1@',
+          [Validators.required, Valid.passwordValidator()],
+        ],
+        confirmPassword: ['Azerty1@', Validators.required],
       },
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
@@ -56,15 +66,15 @@ export class BuisnessFormComponent {
   });
 
   buisnessForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    siren: ['', [Validators.required, Valid.sirenValidator()]],
+    name: ['ff', Validators.required],
+    siren: ['123456789', [Validators.required, Valid.sirenValidator()]],
   });
 
   establishmentForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    siret: ['', [Validators.required, Valid.siretValidator()]],
-    email: ['', [Validators.required, Valid.emailValidator()]],
-    phoneNumber: ['', Validators.required],
+    name: ['fgsg', Validators.required],
+    siret: ['12345', [Validators.required, Valid.siretValidator()]],
+    email: ['testr@gmail.com', [Validators.required, Valid.emailValidator()]],
+    phoneNumber: ['0623569865', Validators.required],
   });
 
   addressForm = this.formBuilder.group({
@@ -75,6 +85,14 @@ export class BuisnessFormComponent {
     latitude: [0, Validators.required],
     longitude: [0, Validators.required],
   });
+
+  togglePassword(): void {
+    this.isHiddenPassword = !this.isHiddenPassword;
+  }
+
+  toggleConfirmPassword(): void {
+    this.isHiddenConfirmPassword = !this.isHiddenConfirmPassword;
+  }
 
   filter(event: Event): void {
     const newValue = (event.target as HTMLInputElement).value;
@@ -107,7 +125,7 @@ export class BuisnessFormComponent {
     this.suggestionsVisible = false;
     this.addressForm.patchValue({
       streetNumber: ville.properties.housenumber,
-      streetName: ville.properties.name,
+      streetName: ville.properties.street,
       zipCode: ville.properties.postcode,
       city: ville.properties.city,
       latitude: ville.geometry.coordinates[1],
@@ -196,9 +214,10 @@ export class BuisnessFormComponent {
           next: () => {
             this.userForm.reset();
             void this.router.navigate(['/login']);
+            this.toastr.success('Création de compte réussie');
           },
-          error: error => {
-            console.error('Erreur lors de la requête POST :', error);
+          error: (error: HttpErrorResponse) => {
+            this.toastr.error(error.error.error_message as string);
           },
         });
       }

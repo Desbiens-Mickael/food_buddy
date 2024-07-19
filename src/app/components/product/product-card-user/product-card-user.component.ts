@@ -29,7 +29,7 @@ export class ProductCardUserComponent implements OnInit {
         this.toastr.success('Produit réservé avec succès');
       },
       error: (e: HttpErrorResponse) => {
-        this.toastr.error(e.error.error_message);
+        this.toastr.error(e.error.error_message as string);
       },
     });
   }

@@ -16,14 +16,14 @@ h6 {
 }
 
 input {
-  border: solid 1px rgba(153, 153, 153, 0.194);
+  /* border: solid 1px rgba(153, 153, 153, 0.194); */
   border-radius: 5px;
   height: 30px;
   width: 100%; /*longueur des inputs*/
-  margin-top: 20px; /* Ajuster pour laisser de la place aux messages d'erreur */
   text-align: center;
   line-height: 1.5;
   color: #3f3d3d;
+  padding: 0.5rem;
 }
 
 form {
@@ -44,7 +44,10 @@ button {
   padding-bottom: 0.5rem;
   font-size: 1rem;
   color: white;
-  margin-top: 20px;
+}
+
+.m-top-input {
+  margin-top: 2rem;
 }
 
 .btn-valid {
@@ -72,6 +75,10 @@ button {
   width: 100%;
 }
 
+.field {
+  margin-top: 0.5rem;
+}
+
 .formUser {
   display: flex;
   flex-direction: column;
@@ -79,12 +86,6 @@ button {
   justify-content: space-between;
   align-items: center;
   width: 80%;
-}
-
-/* cursor in input error */
-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 1px rgb(220, 38, 38);
 }
 
 .error {
@@ -128,10 +129,13 @@ input:focus {
 }
 .eyes {
   position: absolute;
-  right: 1.5%;
-  padding-top: 1.5rem;
-  cursor: pointer;
-  color: hsl(0, 1%, 63%);
+  top: 0;
+  right: 10px;
+  padding-top: 2px;
+}
+
+.eyespassword > input {
+  border-radius: 5px;
 }
 
 @media (min-width: 410px) and (max-width: 676px) {
@@ -143,11 +147,10 @@ input:focus {
     align-items: center;
   }
   input {
-    border: solid 1px rgba(153, 153, 153, 0.194);
+    /* border: solid 1px rgba(153, 153, 153, 0.194); */
     border-radius: 5px;
     height: 30px;
     width: 100%; /*longueur des inputs*/
-    margin-top: 20px; /* Ajuster pour laisser de la place aux messages d'erreur */
     text-align: center;
     line-height: 1.5;
     color: #3f3d3d;

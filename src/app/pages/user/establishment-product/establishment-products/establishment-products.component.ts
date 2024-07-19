@@ -24,7 +24,6 @@ export class EstablishmentProductsComponent implements OnInit {
     this.productService.getAllProductsByEstablishmentId(this.id);
     this.productService.productList$.subscribe(data => {
       this.products = data;
-      console.log(this.products);
     });
   }
 }

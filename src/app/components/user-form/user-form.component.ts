@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../../shared/models/User';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
@@ -14,11 +16,13 @@ import * as Valid from '../../shared/validator/validator';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent {
-  isHidden = true;
+  isHiddenPassword = true;
+  isHiddenConfirmPassword = true;
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
   userForm = this.formBuilder.group({
     firstName: ['', Validators.required],
@@ -34,6 +38,7 @@ export class UserFormComponent {
       },
     ),
   });
+
   createUser(): void {
     const password = this.userForm.get('password.password')?.value;
     const lastname = this.userForm.get('lastName')?.value;
@@ -51,11 +56,20 @@ export class UserFormComponent {
         next: () => {
           this.userForm.reset();
           void this.router.navigate(['/login']);
+          this.toastr.success('Création de compte réussie');
         },
-        error: error => {
-          console.error('Erreur lors de la requête POST :', error);
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error as string);
         },
       });
     }
+  }
+
+  togglePassword(): void {
+    this.isHiddenPassword = !this.isHiddenPassword;
+  }
+
+  toggleConfirmPassword(): void {
+    this.isHiddenConfirmPassword = !this.isHiddenConfirmPassword;
   }
 }
