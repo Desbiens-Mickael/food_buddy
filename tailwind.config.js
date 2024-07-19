@@ -14,7 +14,9 @@ module.exports = {
         primary: 'var(--primary-color)',
         'primary-dark': 'var(--primary-color-dark)',
         secondary: 'var(--secondary-color)',
-        'secondary-light': 'var(--secondary-color-light)',
+        'secondary-light': 'var(--secondary-light-color)',
+        tertiary: 'var(--tertiary-color)',
+        'tertiary-light': 'var(--tertiary-light-color)',
         'secondary-dark': 'var(--secondary-dark-color)',
       },
       fontFamily: {
