@@ -10,8 +10,8 @@ import { EstablishmentAdress } from '../models/EstablishmentAdress';
 export class EstablishmentAddressService {
   private http = inject(HttpClient);
 
-  findAllAddresses(keyword?: string): Observable<EstablishmentAdress[]> {
-    return this.http.get<EstablishmentAdress[]>(
+  findAllAddresses(keyword?: string): Observable<EstablishmentAdress[] | null> {
+    return this.http.get<EstablishmentAdress[] | null>(
       `${environment.apiUrl}/establishmentAddresses?keyword=${keyword ?? ''}`,
     );
   }

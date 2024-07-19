@@ -75,56 +75,6 @@
           </div>
         </div>
 
-        <!-- <div class="field">
-          <div class="control controlName">
-            <input
-              class="input"
-              type="text"
-              placeholder="Votre prénom"
-              formControlName="firstName"
-            />
-            <div
-              *ngIf="
-                userForm.get('firstName')?.invalid &&
-                (userForm.get('firstName')?.dirty ||
-                  userForm.get('firstName')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('firstName')?.errors?.['required']"
-                >Prénom Requis.</small
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              placeholder="Votre nom"
-              formControlName="lastName"
-            />
-            <div
-              *ngIf="
-                userForm.get('lastName')?.invalid &&
-                (userForm.get('lastName')?.dirty ||
-                  userForm.get('lastName')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('lastName')?.errors?.['required']"
-                >Nom Requis.</small
-              >
-            </div>
-          </div>
-        </div> -->
-
         <div class="field">
           <div class="control">
             <input
@@ -147,7 +97,7 @@
                     (userForm.get('email')?.dirty ||
                       userForm.get('email')?.touched)
                   "
-                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  class="flex flex-col gap-2text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
                 >
                   <small
                     class="error"
@@ -326,100 +276,11 @@
           </div>
         </div>
 
-        <!-- <div class="controlPassword" formGroupName="password">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="Votre mot de passe"
-                formControlName="password"
-              />
-            </div>
-
-            <div
-              class="errorPassword"
-              *ngIf="
-                userForm.get('password.password')?.invalid &&
-                (userForm.get('password.password')?.dirty ||
-                  userForm.get('password.password')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="
-                  userForm.get('password.password')?.errors?.['invalidPassword']
-                "
-              >
-                Le mot de passe doit contenir min. 8 caractères, minuscule,
-                chiffre et caractère spécial.
-              </small>
-            </div>
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="Confirmez votre mot de passe"
-                formControlName="confirmPassword"
-              />
-
-              <div
-                *ngIf="
-                  userForm.get('password.confirmPassword')?.invalid &&
-                  (userForm.get('password.confirmPassword')?.dirty ||
-                    userForm.get('password.confirmPassword')?.touched)
-                "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-              >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password.confirmPassword')?.errors?.[
-                      'required'
-                    ]
-                  "
-                  >Confirmation mot de passe requise.</small
-                >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password')?.errors?.['passwordsMismatch']
-                  "
-                  >Les mots de passe ne correspondent pas.</small
-                >
-              </div>
-            </div>
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
-            </div>
-          </div>
-        </div> -->
-
         <div *ngIf="userForm.invalid && myForm.submitted">
           <p>Formulaire incomplet !</p>
         </div>
       </form>
       <!-- FIN Informations client form#1-->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 1"
-          (click)="nextStep()"
-          [ngClass]="
-            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
-          "
-          [disabled]="userForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
 
     <div class="boxblock2">
@@ -452,7 +313,7 @@
               >
                 <small
                   class="error"
-                  *ngIf="buisnessForm.get('siren')?.errors?.['invalidSiren']"
+                  *ngIf="buisnessForm.get('name')?.errors?.['required']"
                   >Nom de l'entreprise requis.</small
                 >
               </div>
@@ -493,21 +354,6 @@
         </form>
       </div>
       <!-- FIN informations entreprise form#2 -->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 2"
-          (click)="nextStep()"
-          [ngClass]="
-            buisnessForm.invalid
-              ? 'cursor-not-allowed btn-warning'
-              : 'btn-valid'
-          "
-          [disabled]="buisnessForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
     <div class="boxblock3">
       <!-- informations etablissement form#3 -->
@@ -600,7 +446,7 @@
                 (establishmentForm.get('email')?.dirty ||
                   establishmentForm.get('email')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="flex flex-col gap-2 text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -651,19 +497,6 @@
         </form>
       </div>
       <!-- FIN informations etablissement form#3 -->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 3"
-          (click)="nextStep()"
-          [ngClass]="
-            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
-          "
-          [disabled]="userForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
     <div class="boxblock4">
       <!-- adresse etablissement form#4 -->

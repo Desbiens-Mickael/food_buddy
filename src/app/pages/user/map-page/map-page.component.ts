@@ -85,7 +85,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
     // Recherche des adresses
     this.establishmentAddressService.findAllAddresses().subscribe(addresses => {
-      this.establishmentAddresses = addresses;
+      this.establishmentAddresses = addresses ?? [];
       this.isLoading = false;
     });
   }
@@ -95,7 +95,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
     this.establishmentAddressService
       .findAllAddresses(searchValue)
       .subscribe(addresses => {
-        this.establishmentAddresses = addresses;
+        this.establishmentAddresses = addresses ?? [];
         this.isLoadingAddresses = false;
       });
   }

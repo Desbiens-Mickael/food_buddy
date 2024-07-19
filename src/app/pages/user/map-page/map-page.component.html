@@ -7,7 +7,7 @@
   >
     <span class="font-main text-5xl text-slate-800">Chargement...</span>
   </div>
-  <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4">
+  <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4 md:px-4">
     <div class="w-full h-[40vh] md:w-1/2 md:h-[65vh] shadow-md z-0">
       <div
         style="height: 100%; width: 100%"
@@ -26,7 +26,7 @@
     </div>
 
     <div
-      class="w-full px-2 h-[40vh] md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
+      class="w-full px-2 h-[40vh] md:h-full md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
     >
       <app-search-bar (handleSearch)="onSearch($event)"></app-search-bar>
       <!-- TODO: ajouter le loader -->

@@ -217,7 +217,7 @@ export class BuisnessFormComponent {
             this.toastr.success('Création de compte réussie');
           },
           error: (error: HttpErrorResponse) => {
-            this.toastr.error(error.error.error_message as string);
+            this.toastr.error(error.error as string);
           },
         });
       }
