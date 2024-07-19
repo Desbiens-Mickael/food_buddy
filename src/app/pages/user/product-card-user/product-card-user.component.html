@@ -1,24 +1,27 @@
 <div class="card">
-  <div class="imgcard">
-    <img
-      [src]="
-        product.imageUrl ? product.imageUrl : 'assets/defautImageCard.jpeg'
-      "
-      alt=""
-    />
-  </div>
   <div class="logoEtablissement">
     <img
       [src]="product.imageUrl ? product.imageUrl : 'assets/default-busines.png'"
       alt=""
     />
   </div>
+
+  <div class="imgcard">
+    <img
+      [src]="
+        product.imageUrl ? product.imageUrl : 'assets/hamburger-foodie-2.webp'
+      "
+      alt=""
+    />
+  </div>
+
   <div class="cardBody">
-    <ul class="text-neutral-600">
-      <li class="text-lg font-bold">{{ product.name }}</li>
-      <li>{{ product.description }}</li>
-      <li>{{ product.price }} €</li>
-    </ul>
+    <div class="text-neutral-600">
+      <h3>{{ product.name }} {{ product.price }}</h3>
+      <p>
+        nom du restaurant <span class="material-symbols-outlined">... </span>
+      </p>
+    </div>
     <div class="allButtons">
       <button class="btn-valid" [hidden]="userInfos.isEligible">Offrir</button>
       <button class="btn-warning" [hidden]="userInfos.isEligible">
@@ -29,8 +32,15 @@
         [hidden]="!userInfos.isEligible"
         (click)="sendProduct(product.id)"
       >
-        Reserver
+        Réserver
       </button>
     </div>
   </div>
 </div>
+
+<!-- <div class="logoEtablissement">
+  <img
+    [src]="product.imageUrl ? product.imageUrl : 'assets/default-busines.png'"
+    alt=""
+  />
+</div> -->

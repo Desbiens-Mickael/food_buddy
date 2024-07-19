@@ -11,6 +11,8 @@
     --primary-color: #00c3b1;
     --secondary-color: #fb9803;
     --secondary-color-light: #ffb054;
+    --tertiary-color: #518e4a;
+    --tertiary-color-light: #61a05a;
   }
 }
 
@@ -57,7 +59,6 @@ body::after {
   }
 
   body::after {
-    /* bottom: -100px; */
     background-size: 100%;
   }
 }

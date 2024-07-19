@@ -1,7 +1,10 @@
+<h1>Les Produits</h1>
+
 <div class="allProduct">
   <app-product-card-user
     *ngFor="let product of products"
     class="card-product"
     [product]="product"
   ></app-product-card-user>
+  <app-details-card-product></app-details-card-product>
 </div>

@@ -4,11 +4,16 @@ import { CommonModule } from '@angular/common';
 import { FullProduct } from '../../../../shared/models/Product';
 import { ProductService } from '../../../../shared/services/product.service';
 import { ProductCardUserComponent } from '../../product-card-user/product-card-user.component';
+import { DetailsCardProductComponent } from '../../../../components/details-card-product/details-card-product.component';
 
 @Component({
   selector: 'app-establishment-products',
   standalone: true,
-  imports: [CommonModule, ProductCardUserComponent],
+  imports: [
+    CommonModule,
+    ProductCardUserComponent,
+    DetailsCardProductComponent,
+  ],
   templateUrl: './establishment-products.component.html',
   styleUrls: ['./establishment-products.component.css'],
 })

@@ -13,7 +13,9 @@ module.exports = {
       colors: {
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color)',
-        'secondary-light': 'var(--secondary-color-light)',
+        'secondary-light': 'var(--secondary-light-color)',
+        tertiary: 'var(--tertiary-color)',
+        'tertiary-light': 'var(--tertiary-light-color)',
       },
       fontFamily: {
         title: 'var(--font-title)',
