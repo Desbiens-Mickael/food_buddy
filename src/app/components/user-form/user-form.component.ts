@@ -48,8 +48,7 @@ export class UserFormComponent {
       };
 
       this.userService.createUser(user).subscribe({
-        next: response => {
-          console.log('Requête POST réussie :', response);
+        next: () => {
           this.userForm.reset();
           void this.router.navigate(['/login']);
         },
@@ -57,8 +56,6 @@ export class UserFormComponent {
           console.error('Erreur lors de la requête POST :', error);
         },
       });
-    } else {
-      console.log('Formulaire incomplet');
     }
   }
 }

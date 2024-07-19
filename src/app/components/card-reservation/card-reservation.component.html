@@ -4,20 +4,20 @@
       <img src="assets/Merci_kraft.webp" alt="thankyou" />
     </div>
     <div class="details-reservation my-3">
-      <h3>nom du restaurant</h3>
-      <h4>nom du produit</h4>
+      <h3>{{ reservation.establishmentname }}</h3>
+      <h4>{{ reservation.productname }}</h4>
     </div>
   </div>
 
   <div class="info-reservation">
     <div class="createdate bg-green-100 text-green-600 px-4 py-1 rounded-md">
       <p>date de création</p>
-      <p>01.01.2024</p>
+      <p>{{ reservation.createdAt | date: 'dd.MM.yyyy' }}</p>
     </div>
 
     <div class="collectdate bg-red-100 text-red-600 px-4 py-1 rounded-md">
       <p>date de collecte</p>
-      <p>12.12.2024</p>
+      <p>{{ reservation.validUntil | date: 'dd.MM.yyyy' }}</p>
     </div>
   </div>
 
@@ -25,10 +25,12 @@
     <p>code de validation</p>
     <div class="secretcode d-flex flex-row w-full">
       <div
-        [ngClass]="!isHidden ? 'after:backdrop-blur-sm' : ''"
-        class="code relative after:absolute after:top-0 after:left-0 after:w-full after:h-full"
+        [ngClass]="
+          !isHidden ? 'after:backdrop-blur-sm after:w-full' : 'after:hidden'
+        "
+        class="code px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
       >
-        <p>ABCD1234</p>
+        <p>{{ reservation.validationCode }}</p>
       </div>
 
       <div class="eyes">

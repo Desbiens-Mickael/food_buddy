@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { UserInfo } from '../models/User-info.model';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<UserInfo>('https://food-buddy.olprog-b.fr/login', {
+      .post<UserInfo>(`${environment.apiUrl}/auth/login`, {
         email: email,
         password: password,
       })
@@ -40,17 +41,19 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.post('https://food-buddy.olprog-b.fr/logout', {}).pipe(
-      map(() => {
-        this.userInfo.next({
-          ...this.userInfo.getValue(),
-          isAuthenticated: false,
-        });
-        localStorage.setItem(
-          'userInfo',
-          JSON.stringify({ isAuthenticated: false }),
-        );
-      }),
-    );
+    return this.http
+      .post<{ message: string }>(`${environment.apiUrl}/auth/logout`, {})
+      .pipe(
+        map(() => {
+          this.userInfo.next({
+            ...this.userInfo.getValue(),
+            isAuthenticated: false,
+          });
+          localStorage.setItem(
+            'userInfo',
+            JSON.stringify({ isAuthenticated: false }),
+          );
+        }),
+      );
   }
 }

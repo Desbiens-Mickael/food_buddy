@@ -1,11 +1,12 @@
 .main {
-  /* height: 100vh; */
   width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* text only */
@@ -14,12 +15,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 100px; */
   text-align: center;
   font-family: var(--font-main);
   font-size: 20px;
   color: #3f3d3d;
-  padding-top: 5rem;
+  padding-top: 15px;
   padding-bottom: 2rem;
   width: 80%;
 }
@@ -36,7 +36,6 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   width: 80%;
-  /* height: 500px; */
   border-radius: 3%;
 }
 
@@ -104,13 +103,11 @@ h1 {
   .container {
     display: flex;
     flex-direction: column;
-    /* height: 100px; */
     width: 80%;
     font-family: var(--font-main);
     font-size: 17px;
     color: #3f3d3d;
     margin-bottom: 0.5rem;
-    margin-top: 4rem;
   }
   /* blur box */
   .registerComponent {
@@ -120,7 +117,6 @@ h1 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     width: 90%;
-    /* height: 500px; */
     border-radius: 3%;
   }
   /* BUTTONS commercant-donnateur */

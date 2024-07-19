@@ -23,7 +23,7 @@ export const authMerchantGuard: CanActivateFn = ():
   }
 
   // Management of authenticated users who do not have the merchant role
-  if (userRole !== 'merchant') {
+  if (userRole !== 'MERCHANT') {
     return router.createUrlTree(['/']);
   }
   return true;

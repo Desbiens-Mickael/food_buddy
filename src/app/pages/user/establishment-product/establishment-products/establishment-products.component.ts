@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { ProductCardUserComponent } from '../../../../components/product/product-card-user/product-card-user.component';
 import { FullProduct } from '../../../../shared/models/Product';
 import { ProductService } from '../../../../shared/services/product.service';
-import { ProductCardUserComponent } from '../../product-card-user/product-card-user.component';
 import { DetailsCardProductComponent } from '../../../../components/details-card-product/details-card-product.component';
 
 @Component({
@@ -27,6 +27,9 @@ export class EstablishmentProductsComponent implements OnInit {
     this.id = this.router.snapshot.paramMap.get('id') ?? '';
 
     this.productService.getAllProductsByEstablishmentId(this.id);
-    this.productService.productList$.subscribe(data => (this.products = data));
+    this.productService.productList$.subscribe(data => {
+      this.products = data;
+      console.log(this.products);
+    });
   }
 }

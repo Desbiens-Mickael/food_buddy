@@ -27,6 +27,9 @@ h3 {
 .cardBody {
   padding: 2px;
   padding-top: 20px;
+  overflow: hidden;
+}
+.cardBody {
   width: 100%;
 }
 .imgcard {
@@ -68,4 +71,6 @@ button {
 }
 .btn-danger {
   background-color: rgba(185, 34, 34, 0.772);
+  margin-top: 5px;
+  gap: 1px;
 }

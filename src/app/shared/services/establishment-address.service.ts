@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { EstablishmentAdress } from '../models/EstablishmentAdress';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class EstablishmentAddressService {
 
   findAllAddresses(keyword?: string): Observable<EstablishmentAdress[]> {
     return this.http.get<EstablishmentAdress[]>(
-      `https://food-buddy.olprog-b.fr/establishmentAddresses?keyword=${keyword ?? ''}`,
+      `${environment.apiUrl}/establishmentAddresses?keyword=${keyword ?? ''}`,
     );
   }
 }

@@ -3,7 +3,8 @@
 </h1>
 
 <div class="main">
-  <app-card-reservation></app-card-reservation>
-  <app-card-reservation></app-card-reservation>
-  <app-card-reservation></app-card-reservation>
+  <app-card-reservation
+    *ngFor="let reservation of reservations"
+    [reservation]="reservation"
+  ></app-card-reservation>
 </div>

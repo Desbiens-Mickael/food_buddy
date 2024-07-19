@@ -19,8 +19,10 @@ export const authGuard: CanActivateFn = (
   | UrlTree => {
   const authService = inject(AuthService);
   const router: Router = inject(Router);
+
   let isLogged!: boolean;
   let userRole!: string;
+
   authService.userInfo$.subscribe(userInfo => {
     isLogged = userInfo.isAuthenticated;
     userRole = userInfo.role;
@@ -36,7 +38,7 @@ export const authGuard: CanActivateFn = (
 
   // Authenticated user management for the public route
   if (isLogged && publicRoutes.includes(state.url)) {
-    if (userRole === 'merchant') return router.createUrlTree(['/merchant']);
+    if (userRole === 'MERCHANT') return router.createUrlTree(['/merchant']);
 
     return router.createUrlTree(['/']);
   }
@@ -44,7 +46,7 @@ export const authGuard: CanActivateFn = (
   // Management of authenticated users who do not have the user role
   if (
     isLogged &&
-    userRole !== 'user' &&
+    userRole !== 'USER' &&
     (userRoutes.includes(state.url) || state.url === '/')
   ) {
     return router.createUrlTree(['/merchant']);

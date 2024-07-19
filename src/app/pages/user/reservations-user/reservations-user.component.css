@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 2rem;
-  margin: 4rem 1rem;
+  margin: 2rem 1rem 0 1rem;
 }
 
 h1 {
@@ -21,7 +21,6 @@ h1 {
     align-items: center;
     gap: 20px;
     margin-top: 2rem;
-    margin-bottom: 6rem;
     margin-left: 1rem;
     margin-right: 1rem;
   }
@@ -30,6 +29,5 @@ h1 {
     text-align: center;
     font-size: 30px;
     font-weight: 700;
-    margin-top: 6rem;
   }
 }
