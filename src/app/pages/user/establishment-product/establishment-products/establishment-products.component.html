@@ -1,11 +1,25 @@
 <h1 class="text-center text-3xl md:text-5xl font-main font-bold">
   Tous nos produits
 </h1>
-<div class="allProduct mt-8">
+
+<div
+  *ngIf="isLoading"
+  class="w-full h-custom-height flex justify-center items-center"
+>
+  <span class="font-main text-5xl text-slate-800">Chargement...</span>
+</div>
+
+<div
+  *ngIf="(products.length === 0 || products === undefined) && !isLoading"
+  class="flex justify-center items-center text-3xl font-bold font-main text-center mt-24"
+>
+  Aucun produit trouvé
+</div>
+
+<div *ngIf="products.length > 0" class="allProduct mt-8">
   <app-product-card-user
     *ngFor="let product of products"
     class="card-product"
     [product]="product"
   ></app-product-card-user>
-  <app-details-card-product></app-details-card-product>
 </div>

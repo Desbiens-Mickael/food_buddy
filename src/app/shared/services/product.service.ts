@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CreateProduct, FullProduct } from '../models/Product';
 
@@ -8,7 +8,7 @@ import { CreateProduct, FullProduct } from '../models/Product';
   providedIn: 'root',
 })
 export class ProductService {
-  private productList = new BehaviorSubject<FullProduct[]>([]);
+  private productList = new ReplaySubject<FullProduct[]>(1);
   productList$ = this.productList.asObservable();
 
   private http = inject(HttpClient);
