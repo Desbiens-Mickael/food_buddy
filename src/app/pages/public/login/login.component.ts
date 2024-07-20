@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
@@ -20,12 +21,12 @@ import { AuthService } from '../../../shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  error: string | null = null;
   isHidden = true;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private toastr = inject(ToastrService);
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -51,10 +52,11 @@ export class LoginComponent implements OnInit {
         next: () => {
           void this.router.navigate(['/']);
           this.loginForm.reset();
-          this.error = null;
+          this.toastr.success('Connexion réussie');
         },
         error: (err: HttpErrorResponse) => {
-          this.error = err.error as string;
+          // this.error = err.error as string;
+          this.toastr.error(err.error.error_message as string);
         },
       });
     }

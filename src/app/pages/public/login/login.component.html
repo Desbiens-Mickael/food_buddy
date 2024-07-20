@@ -25,12 +25,12 @@
           <input
             [ngClass]="
               email?.invalid && (email?.dirty || email?.touched)
-                ? 'text-red-600 placeholder:text-red-600 border border-red-600 rounded-md'
-                : ''
+                ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
             "
             placeholder="Adresse email"
             formControlName="email"
-            class="shadow-lg bg-white/10 backdrop-blur-lg rounded-md"
+            class="shadow-lg rounded-md"
             name="email_user"
             type="email"
           />
@@ -49,8 +49,8 @@
             <input
               [ngClass]="
                 password?.invalid && (password?.dirty || password?.touched)
-                  ? 'text-red-600 placeholder:text-red-600 border border-red-600 rounded-md'
-                  : ''
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
               placeholder="Mot de passe"
               formControlName="password"
@@ -108,7 +108,6 @@
           >
             Connexion
           </button>
-          <!-- </form> -->
 
           <div class="deja_inscrit">
             <a [routerLink]="['/register']"
@@ -116,33 +115,7 @@
             >
           </div>
         </div>
-        <!-- </div> -->
-        <!-- </div> -->
       </form>
     </div>
   </div>
 </div>
-
-<!-- <div class="eyes bg-white/10 backdrop-blur-lg rounded-sm">
-  <span
-    [attr.aria-hidden]="true"
-    title="afficher le code"
-    class="material-symbols-outlined cursor-pointer"
-    *ngIf="isHidden"
-    (keyup)="toggle()"
-    (click)="toggle()"
-  >
-    visibility
-  </span>
-
-  <span
-    [attr.aria-hidden]="true"
-    title="cacher le code"
-    class="material-symbols-outlined cursor-pointer"
-    *ngIf="!isHidden"
-    (keyup)="toggle()"
-    (click)="toggle()"
-  >
-    visibility_off
-  </span>
-  </div> -->

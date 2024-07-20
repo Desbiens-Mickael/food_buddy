@@ -1,0 +1,7 @@
+<button
+  class="w-full bg-secondary py-2 hover:bg-secondary-dark transition-colors font-main text-lg font-bold text-white rounded-md"
+  [ngClass]="!userInfos.isEligible ? '' : 'hidden'"
+  (click)="handleParticipate()"
+>
+  Participer
+</button>

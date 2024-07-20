@@ -9,7 +9,9 @@
       <div class="imgcard">
         <img
           [src]="
-            product.imageUrl ? product.imageUrl : 'assets/defautImageCard.jpeg'
+            product.imageUrl
+              ? product.imageUrl
+              : 'assets/hamburger-foodie-2.webp'
           "
           alt=""
         />

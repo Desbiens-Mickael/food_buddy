@@ -65,13 +65,6 @@
   padding-right: 0.5rem;
 }
 
-/* .eyespassword {
-  width: 100%;
-  position: relative;
-  margin-bottom: 0.5rem;
-  border-radius: 5px;
-} */
-
 .eyespassword > input {
   border-radius: 5px;
 }
@@ -169,9 +162,5 @@ button:hover {
     color: #3f3d3d;
     width: 100%;
     padding: 10px;
-  }
-
-  form div > input {
-    border-color: #3f3d3d;
   }
 }

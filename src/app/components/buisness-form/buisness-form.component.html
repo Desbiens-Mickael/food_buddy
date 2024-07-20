@@ -4,52 +4,73 @@
     <!-- Informations client form#1-->
     <div class="blockForm" *ngIf="currentStep === 1">
       <form [formGroup]="userForm" #myForm="ngForm" novalidate>
-        <div class="field">
-          <div class="control controlName">
+        <div class="flex flex-col md:gap-8 w-full md:flex-row">
+          <div class="w-full">
             <input
-              class="input"
+              [ngClass]="
+                userForm.get('firstName')?.invalid &&
+                (userForm.get('firstName')?.dirty ||
+                  userForm.get('firstName')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg w-full m-top-input"
               type="text"
               placeholder="Votre prénom"
               formControlName="firstName"
             />
-            <div
-              *ngIf="
-                userForm.get('firstName')?.invalid &&
-                (userForm.get('firstName')?.dirty ||
-                  userForm.get('firstName')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('firstName')?.errors?.['required']"
-                >Prénom Requis.</small
-              >
+            <div class="field">
+              <div class="control controlName">
+                <div
+                  *ngIf="
+                    userForm.get('firstName')?.invalid &&
+                    (userForm.get('firstName')?.dirty ||
+                      userForm.get('firstName')?.touched)
+                  "
+                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('firstName')?.errors?.['required']"
+                    >Prénom Requis.
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="field">
-          <div class="control">
+          <!-- input error NAME -->
+          <div class="w-full">
             <input
-              class="input"
+              [ngClass]="
+                userForm.get('lastName')?.invalid &&
+                (userForm.get('lastName')?.dirty ||
+                  userForm.get('lastName')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg w-full m-top-input"
               type="text"
               placeholder="Votre nom"
               formControlName="lastName"
             />
-            <div
-              *ngIf="
-                userForm.get('lastName')?.invalid &&
-                (userForm.get('lastName')?.dirty ||
-                  userForm.get('lastName')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('lastName')?.errors?.['required']"
-                >Nom Requis.</small
-              >
+            <div class="field">
+              <div class="control">
+                <div
+                  *ngIf="
+                    userForm.get('lastName')?.invalid &&
+                    (userForm.get('lastName')?.dirty ||
+                      userForm.get('lastName')?.touched)
+                  "
+                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('lastName')?.errors?.['required']"
+                    >Nom Requis.</small
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -57,76 +78,175 @@
         <div class="field">
           <div class="control">
             <input
-              class="input"
+              [ngClass]="
+                userForm.get('email')?.invalid &&
+                (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg m-top-input"
               type="email"
               placeholder="Votre adresse email"
               formControlName="email"
             />
-            <div
-              *ngIf="
-                userForm.get('email')?.invalid &&
-                (userForm.get('email')?.dirty || userForm.get('email')?.touched)
-              "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('email')?.errors?.['required']"
-                >Email Requis.</small
-              >
-              <small
-                class="error"
-                *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
-                >Email Invalide.</small
-              >
+            <div class="field">
+              <div class="control">
+                <div
+                  *ngIf="
+                    userForm.get('email')?.invalid &&
+                    (userForm.get('email')?.dirty ||
+                      userForm.get('email')?.touched)
+                  "
+                  class="flex flex-col gap-2text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('email')?.errors?.['required']"
+                    >Email Requis.</small
+                  >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
+                    >Email Invalide.</small
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="controlPassword" formGroupName="password">
-          <div class="field">
-            <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="Votre mot de passe"
-                formControlName="password"
-              />
-            </div>
-
-            <div
-              class="errorPassword"
-              *ngIf="
+        <div
+          class="controlPassword m-top-input w-full"
+          formGroupName="password"
+        >
+          <div class="eyespassword relative w-full">
+            <input
+              [ngClass]="
                 userForm.get('password.password')?.invalid &&
                 (userForm.get('password.password')?.dirty ||
                   userForm.get('password.password')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="input shadow-lg"
+              placeholder="Votre mot de passe"
+              formControlName="password"
+              name="confirmPassword"
+              [type]="isHiddenPassword ? 'password' : 'text'"
+            />
+
+            <div
+              class="eyes"
+              [ngClass]="
+                userForm.get('password.password')?.invalid &&
+                (userForm.get('password.password')?.dirty ||
+                  userForm.get('password.password')?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
             >
-              <small
-                class="error"
-                *ngIf="
-                  userForm.get('password.password')?.errors?.['invalidPassword']
-                "
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHiddenPassword"
+                (keyup)="togglePassword()"
+                (click)="togglePassword()"
               >
-                Le mot de passe doit contenir min. 8 caractères, minuscule,
-                chiffre et caractère spécial.
-              </small>
-            </div>
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHiddenPassword"
+                (keyup)="togglePassword()"
+                (click)="togglePassword()"
+              >
+                visibility_off
+              </span>
             </div>
           </div>
 
           <div class="field">
             <div class="control">
-              <input
-                class="input"
-                type="password"
-                placeholder="Confirmez votre mot de passe"
-                formControlName="confirmPassword"
-              />
+              <div
+                class="errorPassword"
+                *ngIf="
+                  userForm.get('password.password')?.invalid &&
+                  (userForm.get('password.password')?.dirty ||
+                    userForm.get('password.password')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="
+                    userForm.get('password.password')?.errors?.[
+                      'invalidPassword'
+                    ]
+                  "
+                >
+                  Le mot de passe doit contenir au moins 8
+                  caractères,minuscule,chiffre et caractère spécial.
+                </small>
+              </div>
+            </div>
+          </div>
+          <!-- input error CONFIRM PASSWORD -->
+          <div class="eyespassword w-full relative m-top-input">
+            <input
+              [ngClass]="
+                userForm.get('password.confirmPassword')?.invalid &&
+                (userForm.get('password.confirmPassword')?.dirty ||
+                  userForm.get('password.confirmPassword')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg"
+              placeholder="Confirmez votre mot de passe"
+              formControlName="confirmPassword"
+              name="confirmPassword"
+              [type]="isHiddenConfirmPassword ? 'password' : 'text'"
+            />
 
+            <div
+              class="eyes"
+              [ngClass]="
+                userForm.get('password.confirmPassword')?.invalid &&
+                (userForm.get('password.confirmPassword')?.dirty ||
+                  userForm.get('password.confirmPassword')?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
+            >
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHiddenConfirmPassword"
+                (keyup)="toggleConfirmPassword()"
+                (click)="toggleConfirmPassword()"
+              >
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHiddenConfirmPassword"
+                (keyup)="toggleConfirmPassword()"
+                (click)="toggleConfirmPassword()"
+              >
+                visibility_off
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
               <div
                 *ngIf="
                   userForm.get('password.confirmPassword')?.invalid &&
@@ -153,9 +273,6 @@
                 >
               </div>
             </div>
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
-            </div>
           </div>
         </div>
 
@@ -164,19 +281,6 @@
         </div>
       </form>
       <!-- FIN Informations client form#1-->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 1"
-          (click)="nextStep()"
-          [ngClass]="
-            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
-          "
-          [disabled]="userForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
 
     <div class="boxblock2">
@@ -187,21 +291,49 @@
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="Nom de l'entreprise"
                 formControlName="name"
+                [ngClass]="
+                  buisnessForm.get('name')?.invalid &&
+                  (buisnessForm.get('name')?.dirty ||
+                    buisnessForm.get('name')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+              <div
+                *ngIf="
+                  buisnessForm.get('name')?.invalid &&
+                  (buisnessForm.get('name')?.dirty ||
+                    buisnessForm.get('name')?.touched)
+                "
+                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  class="error"
+                  *ngIf="buisnessForm.get('name')?.errors?.['required']"
+                  >Nom de l'entreprise requis.</small
+                >
+              </div>
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="N° Siren"
                 formControlName="siren"
+                [ngClass]="
+                  buisnessForm.get('siren')?.invalid &&
+                  (buisnessForm.get('siren')?.dirty ||
+                    buisnessForm.get('siren')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
               <div
                 *ngIf="
@@ -222,21 +354,6 @@
         </form>
       </div>
       <!-- FIN informations entreprise form#2 -->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 2"
-          (click)="nextStep()"
-          [ngClass]="
-            buisnessForm.invalid
-              ? 'cursor-not-allowed btn-warning'
-              : 'btn-valid'
-          "
-          [disabled]="buisnessForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
     <div class="boxblock3">
       <!-- informations etablissement form#3 -->
@@ -246,88 +363,150 @@
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="Nom de l'établissement"
                 formControlName="name"
+                [ngClass]="
+                  establishmentForm.get('name')?.invalid &&
+                  (establishmentForm.get('name')?.dirty ||
+                    establishmentForm.get('name')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                establishmentForm.get('name')?.invalid &&
+                (establishmentForm.get('name')?.dirty ||
+                  establishmentForm.get('name')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="establishmentForm.get('name')?.errors?.['required']"
+                >Nom de l'établissement requis.</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
-              <div
-                *ngIf="
+              <input
+                class="input shadow-lg w-full m-top-input"
+                type="text"
+                placeholder="N° siret"
+                formControlName="siret"
+                [ngClass]="
                   establishmentForm.get('siret')?.invalid &&
                   (establishmentForm.get('siret')?.dirty ||
                     establishmentForm.get('siret')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-              >
-                <small
-                  class="error"
-                  *ngIf="
-                    establishmentForm.get('siret')?.errors?.['invalidSiret']
-                  "
-                  >NIC Invalide (5 Chiffres)</small
-                >
-              </div>
-              <input
-                class="input"
-                type="text"
-                placeholder="N° NIC"
-                formControlName="siret"
               />
+            </div>
+            <div
+              *ngIf="
+                establishmentForm.get('siret')?.invalid &&
+                (establishmentForm.get('siret')?.dirty ||
+                  establishmentForm.get('siret')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="establishmentForm.get('siret')?.errors?.['invalidSiret']"
+                >N° siret Invalide (5 Chiffres)</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="email"
                 placeholder="Votre adresse email professionel"
                 formControlName="email"
+                [ngClass]="
+                  establishmentForm.get('email')?.invalid &&
+                  (establishmentForm.get('email')?.dirty ||
+                    establishmentForm.get('email')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                establishmentForm.get('email')?.invalid &&
+                (establishmentForm.get('email')?.dirty ||
+                  establishmentForm.get('email')?.touched)
+              "
+              class="flex flex-col gap-2 text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="establishmentForm.get('email')?.errors?.['required']"
+                >Email Requis.</small
+              >
+              <small
+                class="error"
+                *ngIf="establishmentForm.get('email')?.errors?.['invalidEmail']"
+                >Email Invalide.</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="Votre numéro de téléphone"
                 formControlName="phoneNumber"
+                [ngClass]="
+                  establishmentForm.get('phoneNumber')?.invalid &&
+                  (establishmentForm.get('phoneNumber')?.dirty ||
+                    establishmentForm.get('phoneNumber')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                establishmentForm.get('phoneNumber')?.invalid &&
+                (establishmentForm.get('phoneNumber')?.dirty ||
+                  establishmentForm.get('phoneNumber')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="
+                  establishmentForm.get('phoneNumber')?.errors?.['required']
+                "
+                >Numéro de téléphone requis.</small
+              >
             </div>
           </div>
         </form>
       </div>
       <!-- FIN informations etablissement form#3 -->
-      <!-- <div class="buttons">
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 3"
-          (click)="nextStep()"
-          [ngClass]="
-            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
-          "
-          [disabled]="userForm.invalid && true"
-        >
-          Suivant
-        </button>
-      </div> -->
     </div>
     <div class="boxblock4">
       <!-- adresse etablissement form#4 -->
       <div class="blockForm" *ngIf="currentStep === 4">
         <form [formGroup]="addressForm">
           <h6>Adresse de l'établissement</h6>
-          <div class="field" class="adressform">
+          <div class="field relative">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 autocomplete="off"
                 type="text"
                 id="adresse-input"
@@ -337,7 +516,7 @@
                 (focus)="showSuggestions()"
                 (blur)="hideSuggestions()"
               />
-              <div class="choiceAdress">
+              <div class="absolute bottom-[-5px] left-0 w-full">
                 <ul
                   *ngIf="suggestionsVisible"
                   (mousedown)="keepSuggestionsVisible = true"
@@ -359,45 +538,129 @@
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="N° rue"
                 formControlName="streetNumber"
+                [ngClass]="
+                  addressForm.get('streetNumber')?.invalid &&
+                  (addressForm.get('streetNumber')?.dirty ||
+                    addressForm.get('streetNumber')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                addressForm.get('streetNumber')?.invalid &&
+                (addressForm.get('streetNumber')?.dirty ||
+                  addressForm.get('streetNumber')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="addressForm.get('streetNumber')?.errors?.['required']"
+                >Numéro de rue requis.</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="Nom de la rue"
                 formControlName="streetName"
+                [ngClass]="
+                  addressForm.get('streetName')?.invalid &&
+                  (addressForm.get('streetName')?.dirty ||
+                    addressForm.get('streetName')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                addressForm.get('streetName')?.invalid &&
+                (addressForm.get('streetName')?.dirty ||
+                  addressForm.get('streetName')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="addressForm.get('streetName')?.errors?.['required']"
+                >Nom de la rue requis.</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 placeholder="Code postal"
                 formControlName="zipCode"
+                [ngClass]="
+                  addressForm.get('zipCode')?.invalid &&
+                  (addressForm.get('zipCode')?.dirty ||
+                    addressForm.get('zipCode')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                addressForm.get('zipCode')?.invalid &&
+                (addressForm.get('zipCode')?.dirty ||
+                  addressForm.get('zipCode')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="addressForm.get('zipCode')?.errors?.['required']"
+                >Code postal requis.</small
+              >
             </div>
           </div>
 
           <div class="field">
             <div class="control">
               <input
-                class="input"
+                class="input shadow-lg w-full m-top-input"
                 type="text"
                 name="city"
                 placeholder="Ville"
                 formControlName="city"
+                [ngClass]="
+                  addressForm.get('city')?.invalid &&
+                  (addressForm.get('city')?.dirty ||
+                    addressForm.get('city')?.touched)
+                    ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                    : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                "
               />
+            </div>
+            <div
+              *ngIf="
+                addressForm.get('city')?.invalid &&
+                (addressForm.get('city')?.dirty ||
+                  addressForm.get('city')?.touched)
+              "
+              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small
+                class="error"
+                *ngIf="addressForm.get('city')?.errors?.['required']"
+                >Ville requise.</small
+              >
             </div>
           </div>
         </form>
