@@ -1,26 +1,5 @@
-/* .min-h-screen {
+/* /* .min-h-screen {
   display: flex;
   height: 70vh;
   overflow: scroll;
-} */
-.allCard {
-  z-index: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.content {
-  overflow-y: auto;
-}
-
-@media screen and (max-width: 768px) {
-  .sidebar {
-    width: 80%;
-    translate: 0%;
-    z-index: 1500;
-  }
-
-  .content {
-    margin-left: 0;
-  }
-}
+}*/

@@ -23,7 +23,7 @@ export class ProductsPageComponent implements OnInit {
     this.establishmentId = this.route.snapshot.paramMap.get('id') ?? '';
     this.productService.getAllProductsByEstablishmentId(this.establishmentId);
     this.productService.productList$.subscribe(data => {
-      this.productList = data;
+      this.productList = data ?? [];
     });
   }
 }

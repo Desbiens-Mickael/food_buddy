@@ -1,5 +1,7 @@
 <h1 class="text-5xl font-main font-bold text-center my-8">Mes Produits</h1>
-<div class="flex flex-col md:flex-row md:flex-wrap allProduct">
+<div
+  class="w-full flex flex-col items-center sm:flex-row sm:justify-center sm:flex-wrap allProduct gap-4"
+>
   @if (productList === null) {
     <div class="mt-24 w-full">
       <p class="text-center text-3xl font-main font-bold">

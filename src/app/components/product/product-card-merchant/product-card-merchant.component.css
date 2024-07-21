@@ -1,94 +1,45 @@
-*,
-::before,
-::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:host {
+  width: 95%;
+  max-width: 300px;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-
-  margin: 20px;
+@media (min-width: 640px) {
+  :host {
+    width: 300px;
+  }
 }
 img {
   pointer-events: none;
 }
-
-.button {
-  position: relative;
-  --width-btn: 200px;
-  width: var(--width-btn);
-  transition: left 0.3s ease;
-}
-
-.action1,
-.action2 {
-  border-radius: 5px;
-  height: 100%;
-  width: var(calc(--width-btn - 5px));
-  padding: 20px;
-  position: absolute;
-  display: flex;
-}
-
-.action1 {
-  background-color: rgba(0, 128, 0, 0.42);
-  z-index: -1;
-  width: calc(var(--width-btn) / 2);
-  left: 0;
-}
-
 .card {
-  background-color: rgb(198, 198, 199);
-  touch-action: none;
-  z-index: 0;
-}
-
-.action2 {
-  background-color: rgba(255, 0, 0, 0.436);
-  z-index: -1;
-  width: calc(var(--width-btn) / 2.2);
-  right: 0;
-  top: 0;
-  height: 100%; /* Ensure it takes the full height of the button */
-}
-
-.transition {
-  transition: transform 0.3s ease;
-}
-
-.card {
-  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   position: relative;
   border-radius: 5px;
-  box-shadow: 2px 5px 5px rgb(128, 128, 128);
+  background-color: #fff;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .cardBody {
-  padding: 7px;
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
   width: 100%;
 }
 
 .imgcard {
   height: 100px;
   width: 100%;
-  background-color: #686868;
   border-radius: 5px 5px 0 0;
 }
 
 .imgcard img {
   height: 100%;
   width: 100%;
-  background-color: #686868;
   border-radius: 5px 5px 0 0;
 }
 
@@ -97,32 +48,13 @@ img {
   overflow: hidden;
   width: 75px;
   height: 75px;
-  background-color: green;
+  background-color: #fff;
   top: 55px;
   border-radius: 50%;
 }
-
-button {
-  border-radius: 7px;
-  padding: 5px 15px;
-  color: white;
-}
-
 .allButtons {
   width: 100%;
   display: flex;
   justify-content: space-around;
   margin-top: 5px;
-}
-
-.btn-valid {
-  background-color: rgba(24, 119, 24, 0.633);
-}
-
-.btn-warning {
-  background-color: rgba(194, 155, 26, 0.772);
-}
-
-.btn-danger {
-  background-color: rgba(185, 34, 34, 0.772);
 }
