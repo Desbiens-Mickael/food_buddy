@@ -88,7 +88,11 @@
           </div>
         </div>
 
-        <div class="controlPassword" formGroupName="password">
+        <div
+          *ngIf="!userInfos"
+          class="controlPassword"
+          formGroupName="password"
+        >
           <!-- input error PASSWORD -->
           <div class="addeyes">
             <input
@@ -177,7 +181,7 @@
           <p>Formulaire incomplet !</p>
         </div>
 
-        <div *ngIf="userForm.invalid">
+        <div>
           <button
             [disabled]="userForm.invalid"
             class="button btn-warning shadow-lg"
@@ -185,11 +189,8 @@
             [disabled]="userForm.invalid && true"
             type="submit"
           >
-            Validez mon profil
+            Valider
           </button>
-        </div>
-        <div *ngIf="userForm.valid">
-          <button class="button btn-valid">Sauvegarder</button>
         </div>
       </form>
     </div>

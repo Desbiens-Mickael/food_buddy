@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../shared/models/User';
+import { User, UpdateUser } from '../../shared/models/User';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
 
@@ -13,18 +18,26 @@ import * as Valid from '../../shared/validator/validator';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   isHidden = true;
+  @Input() userInfos?: UpdateUser;
+  userForm!: FormGroup;
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
 
-  userForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Valid.emailValidator()]],
-    password: this.formBuilder.group(
+  formInit() {
+    this.userForm = this.formBuilder.group({
+      firstName: [this.userInfos?.firstname ?? '', Validators.required],
+      lastName: [this.userInfos?.lastname ?? '', Validators.required],
+      email: [
+        this.userInfos?.email ?? '',
+        [Validators.required, Valid.emailValidator()],
+      ],
+    });
+
+    const password: FormGroup = this.formBuilder.group(
       {
         password: ['', [Validators.required, Valid.passwordValidator()]],
         confirmPassword: ['', Validators.required],
@@ -32,30 +45,62 @@ export class UserFormComponent {
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
       },
-    ),
-  });
-  createUser(): void {
-    const password = this.userForm.get('password.password')?.value;
-    const lastname = this.userForm.get('lastName')?.value;
-    const email = this.userForm.get('email')?.value;
-    const firstname = this.userForm.get('firstName')?.value;
-    if (this.userForm.valid && password && lastname && firstname && email) {
-      const user: User = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-      };
+    );
 
-      this.userService.createUser(user).subscribe({
-        next: () => {
-          this.userForm.reset();
-          void this.router.navigate(['/login']);
-        },
-        error: error => {
-          console.error('Erreur lors de la requête POST :', error);
-        },
-      });
+    if (!this.userInfos) {
+      this.userForm.addControl('password', password);
+    }
+  }
+
+  ngOnInit() {
+    this.formInit();
+  }
+
+  createUser(): void {
+    const password =
+      (this.userForm.get('password.password')?.value as string) || '';
+    const lastname = this.userForm.get('lastName')?.value as string;
+    const email = this.userForm.get('email')?.value as string;
+    const firstname = this.userForm.get('firstName')?.value as string;
+
+    if (this.userForm.valid) {
+      let user: User | UpdateUser;
+      if (this.userInfos) {
+        user = {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+        };
+      } else {
+        user = {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+        };
+      }
+
+      if (!this.userInfos) {
+        this.userService.createUser(user as User).subscribe({
+          next: () => {
+            this.userForm.reset();
+            void this.router.navigate(['/login']);
+          },
+          error: error => {
+            console.error('Erreur lors de la requête POST :', error);
+          },
+        });
+      } else {
+        this.userService.UpdateUser(user as UpdateUser).subscribe({
+          next: () => {
+            this.userForm.reset();
+            void this.router.navigate(['/login']);
+          },
+          error: error => {
+            console.error('Erreur lors de la requête POST :', error);
+          },
+        });
+      }
     }
   }
 }

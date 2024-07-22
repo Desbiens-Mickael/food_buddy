@@ -69,6 +69,14 @@ export const routes: Routes = [
           ).then(m => m.EstablishmentProductsComponent),
         title: `${titleBase} - Produits`,
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/user/profile-user/profile-user.component').then(
+            m => m.ProfileUserComponent,
+          ),
+        title: `${titleBase} - Profile`,
+      },
     ],
   },
   {

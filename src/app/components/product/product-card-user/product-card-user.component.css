@@ -25,13 +25,12 @@ h3 {
   margin-top: 5px;
 }
 .cardBody {
+  width: 100%;
   padding: 2px;
   padding-top: 20px;
   overflow: hidden;
 }
-.cardBody {
-  width: 100%;
-}
+
 .imgcard {
   position: relative;
 }
