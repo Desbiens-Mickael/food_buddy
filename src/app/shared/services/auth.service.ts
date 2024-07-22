@@ -27,6 +27,7 @@ export class AuthService {
       })
       .pipe(
         map(data => {
+          console.log(data);
           this.userInfo.next({ ...data, isAuthenticated: true });
           localStorage.setItem(
             'userInfo',

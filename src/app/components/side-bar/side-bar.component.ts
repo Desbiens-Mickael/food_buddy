@@ -6,6 +6,7 @@ import { InfosLinkEstablishment } from '../../shared/models/Establishment';
 import { EstablishmentService } from '../../shared/services/establishment.service';
 import { SideBareSkeletonComponent } from '../skeleton/side-bare-skeleton/side-bare-skeleton.component';
 import { LogoutButtonComponent } from '../ui/logout-button/logout-button.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-side-bar',
@@ -24,6 +25,7 @@ export class SideBarComponent implements OnInit {
   establishmentActive!: InfosLinkEstablishment;
   toggle = false;
   isLodding = true;
+  baseUrl = environment.apiUrl;
 
   private establismentsService = inject(EstablishmentService);
   private router = inject(Router);
