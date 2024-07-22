@@ -104,6 +104,14 @@ export const routes: Routes = [
           ).then(m => m.EditProductPageComponent),
         title: `${titleBase} - modification de produit`,
       },
+      {
+        path: 'establishment/:establishmentId/reservations',
+        loadComponent: () =>
+          import(
+            './pages/merchant/reservations-page/reservations-page.component'
+          ).then(m => m.ReservationsPageComponent),
+        title: `${titleBase} - reservations`,
+      },
     ],
   },
   { path: '**', redirectTo: '' },

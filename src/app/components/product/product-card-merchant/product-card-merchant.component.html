@@ -32,9 +32,7 @@
         Modifier
       </a>
       <app-delete-product-button
-        *ngIf="
-          product.numberAvailable === 0 && product.numberReservations === 0
-        "
+        *ngIf="product.numberReservations === 0"
         class="w-full"
         [productId]="product.id"
         [establishmentId]="establishmentId"

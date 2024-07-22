@@ -1,0 +1,42 @@
+<div class="w-full flex flex-col gap-4 rounded-md p-4 bg-white shadow-lg">
+  <h3 class="text-2xl font-main font-bold text-center">
+    {{ reservation.productname }}
+  </h3>
+
+  <div class="flex">
+    <input
+      [formControl]="code"
+      type="text"
+      class="w-full rounded-md rounded-e-none px-2 border focus-visible:none focus:outline-none"
+      placeholder="Entrez le code de validation"
+      [ngClass]="
+        code.invalid && (code.dirty || code.touched)
+          ? 'text-red-600 placeholder:text-red-600 border-red-600'
+          : 'border-primary'
+      "
+    />
+
+    <button
+      (click)="handleSubmitCode()"
+      class="text-white px-4 py-2 rounded-e-md transition-colors"
+      [ngClass]="
+        code.invalid && (code.dirty || code.touched)
+          ? 'bg-red-600 hover:bg-red-800'
+          : 'bg-primary hover:bg-primary'
+      "
+    >
+      Livrer
+    </button>
+  </div>
+  <div
+    *ngIf="code.invalid && (code.dirty || code.touched)"
+    class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+  >
+    <div class="text-center" *ngIf="code?.errors?.['required']">
+      Code requis
+    </div>
+    <div class="text-center" *ngIf="code?.errors?.['pattern']">
+      Code invalide
+    </div>
+  </div>
+</div>

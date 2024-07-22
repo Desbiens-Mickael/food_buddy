@@ -14,7 +14,7 @@ import L, {
 import 'leaflet-routing-machine';
 import { Subscription } from 'rxjs';
 import { MapItemComponent } from '../../../components/map/map-item/map-item.component';
-import { SearchBarComponent } from '../../../components/map/search-bar/search-bar.component';
+import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { EstablishmentAdress } from '../../../shared/models/EstablishmentAdress';
 import { EstablishmentAddressService } from '../../../shared/services/establishment-address.service';
 
