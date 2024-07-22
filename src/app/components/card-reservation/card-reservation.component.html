@@ -23,14 +23,16 @@
 
   <div class="validcode my-3">
     <p>code de validation</p>
-    <div class="secretcode d-flex flex-row w-full">
+    <div class="secretcode flex flex-row justify-center w-full">
       <div
         [ngClass]="
           !isHidden ? 'after:backdrop-blur-sm after:w-full' : 'after:hidden'
         "
-        class="code px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
+        class="code w-[70%] px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
       >
-        <p>{{ reservation.validationCode }}</p>
+        <p [ngClass]="!isHidden ? 'select-none' : ''">
+          {{ reservation.validationCode }}
+        </p>
       </div>
 
       <div class="eyes">

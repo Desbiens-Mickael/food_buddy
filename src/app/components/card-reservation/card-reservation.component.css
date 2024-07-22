@@ -1,5 +1,5 @@
 .card-reservation {
-  user-select: none;
+  /* user-select: none; */
   color: #3f3d3d;
   font-family: var(--font-main);
   width: 350px;
@@ -41,8 +41,6 @@ h4 {
 
 .secretcode {
   width: 100%;
-  display: flex;
-  justify-content: space-evenly;
 }
 
 @media (max-width: 767px) {

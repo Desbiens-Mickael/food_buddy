@@ -8,7 +8,7 @@
     [(ngModel)]="searchValue"
     (input)="onInputChange()"
     type="text"
-    placeholder="Rechercher un commerçant"
+    [placeholder]="placeholder"
     class="w-full px-2 py-1 border-2 border-neutral-500 rounded-r-md focus:outline-none focus:border-secondary focus:caret-secondary focus:text-secondary"
   />
 </div>

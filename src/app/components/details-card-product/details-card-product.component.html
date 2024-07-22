@@ -49,10 +49,10 @@
 
         <div
           class="flex mt-2"
-          *ngIf="userInfos.isEligible && product.number_available > 0"
+          *ngIf="userInfos.isEligible && product.numberAvailable > 0"
         >
           <h4 class="text-lg font-main font-bold">Quantité restante:</h4>
-          <p class="text-lg font-main ms-4">{{ product.number_available }}</p>
+          <p class="text-lg font-main ms-4">{{ product.numberAvailable }}</p>
         </div>
 
         <h4 class="text-lg font-main font-bold mt-2">Allergène:</h4>
@@ -71,6 +71,7 @@
         class="w-[95%] mx-auto"
         [ngClass]="userInfos.isEligible ? '' : 'hidden'"
         [productId]="product.id"
+        [establishmentId]="product.establishmentId"
       ></app-reservation-button>
 
       <div class="buttons">

@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ProductFormComponent } from '../../../components/product/product-form/product-form.component';
 import { CreateProduct, FullProduct } from '../../../shared/models/Product';
 import { ProductService } from '../../../shared/services/product.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-product-page',
@@ -21,6 +23,7 @@ export class EditProductPageComponent implements OnInit {
   private productService = inject(ProductService);
   private routerA = inject(ActivatedRoute);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
   ngOnInit() {
     this.establishmentId =
@@ -38,15 +41,21 @@ export class EditProductPageComponent implements OnInit {
   updateProduct(product: CreateProduct) {
     this.productService
       .updateProduct(product, this.productId, this.establishmentId)
-      .subscribe(() => {
-        this.productService.getAllProductsByEstablishmentId(
-          this.establishmentId,
-        );
-        void this.router.navigate([
-          'merchant/establishment',
-          this.establishmentId,
-          'products',
-        ]);
+      .subscribe({
+        next: () => {
+          this.productService.getAllProductsByEstablishmentId(
+            this.establishmentId,
+          );
+          this.toastr.success('Produit modifié avec succès');
+          void this.router.navigate([
+            'merchant/establishment',
+            this.establishmentId,
+            'products',
+          ]);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.toastr.error(err.error.error_message as string);
+        },
       });
   }
 }

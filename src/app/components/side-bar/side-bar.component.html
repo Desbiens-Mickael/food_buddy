@@ -44,6 +44,7 @@
               'products',
             ]"
             routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
             Mes Produits
           </a>
@@ -56,11 +57,24 @@
               'new-product',
             ]"
             routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
           >
             Créer un Produit
           </a>
         </li>
-        <li><a [routerLink]="['/']"> Options </a></li>
+        <li>
+          <a
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'reservations',
+            ]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Réservations
+          </a>
+        </li>
         <li><a [routerLink]="['/']"> Options </a></li>
       </ul>
     </section>

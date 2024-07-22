@@ -16,7 +16,9 @@ export interface CreateProduct extends Product {
 export interface FullProduct extends Product {
   id: string;
   allergens: Allergen[];
-  number_available: number;
+  numberAvailable: number;
+  numberReservations: number;
+  establishmentId: string;
   createdAt: Date;
   updatedAt: Date;
 }

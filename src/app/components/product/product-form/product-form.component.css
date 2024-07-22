@@ -1,16 +1,8 @@
-.flex {
-  font-family: 'Saira Semi Condensed', sans-serif;
-  color: #605b5b;
+:host {
+  width: 100%;
 }
-
-.flex option {
-  font-family: 'Saira Semi Condensed', sans-serif;
-}
-
-.list_name {
-  color: #605b5b;
-}
-
-.nouns_forms {
-  font-family: 'Saira Semi Condensed', sans-serif;
+@media (min-width: 768px) {
+  :host {
+    width: 600px;
+  }
 }
