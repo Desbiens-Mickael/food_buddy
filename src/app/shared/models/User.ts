@@ -1,7 +1,10 @@
-export interface User {
+export interface UpdateUser {
   firstname: string;
   lastname: string;
   email: string;
+}
+
+export interface User extends UpdateUser {
   password: string;
   isEligible?: boolean;
   createdAt?: Date;
