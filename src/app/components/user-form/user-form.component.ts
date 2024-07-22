@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User, UpdateUser } from '../../shared/models/User';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
 
@@ -22,10 +24,13 @@ export class UserFormComponent implements OnInit {
   isHidden = true;
   @Input() userInfos?: UpdateUser;
   userForm!: FormGroup;
+  isHiddenPassword = true;
+  isHiddenConfirmPassword = true;
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
+  private toastr = inject(ToastrService);
 
   formInit() {
     this.userForm = this.formBuilder.group({
@@ -84,23 +89,32 @@ export class UserFormComponent implements OnInit {
         this.userService.createUser(user as User).subscribe({
           next: () => {
             this.userForm.reset();
+            this.toastr.success('compte créé avec succés');
             void this.router.navigate(['/login']);
           },
-          error: error => {
-            console.error('Erreur lors de la requête POST :', error);
+          error: (error: HttpErrorResponse) => {
+            this.toastr.error(error.message);
           },
         });
       } else {
         this.userService.UpdateUser(user as UpdateUser).subscribe({
           next: () => {
             this.userForm.reset();
-            void this.router.navigate(['/login']);
+            this.toastr.success('Modification enregistrée');
           },
-          error: error => {
-            console.error('Erreur lors de la requête POST :', error);
+          error: (error: HttpErrorResponse) => {
+            this.toastr.error(error.message);
           },
         });
       }
     }
+  }
+
+  togglePassword(): void {
+    this.isHiddenPassword = !this.isHiddenPassword;
+  }
+
+  toggleConfirmPassword(): void {
+    this.isHiddenConfirmPassword = !this.isHiddenConfirmPassword;
   }
 }

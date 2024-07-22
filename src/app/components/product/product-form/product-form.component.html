@@ -14,8 +14,8 @@
       class="w-full shadow-lg rounded-md p-2"
       [ngClass]="
         getName?.invalid && (getName?.dirty || getName?.touched)
-          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
-          : ''
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
       "
     />
     <div
@@ -36,8 +36,8 @@
       [ngClass]="
         getDescription?.invalid &&
         (getDescription?.dirty || getDescription?.touched)
-          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
-          : ''
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
       "
     ></textarea>
     <div
@@ -62,8 +62,8 @@
       class="w-full shadow-lg rounded-md p-2"
       [ngClass]="
         getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)
-          ? 'text-red-600 placeholder:text-red-600 border border-red-600 ring-1 ring-red-600 outline-offset-2 outline-red-600 focus-visible:outline-red-600 focus:outline-none focus:border-red-600 focus:ring-red-600'
-          : ''
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
       "
     />
     <div

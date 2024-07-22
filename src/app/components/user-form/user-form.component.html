@@ -9,58 +9,85 @@
       >
         <!-- input error FIRSTNAME -->
         <h1>Je crée mon profil</h1>
-        <input
-          class="input"
-          type="text"
-          placeholder="Votre prénom"
-          formControlName="firstName"
-        />
-        <div class="field">
-          <div class="control controlName">
-            <div
-              *ngIf="
+        <div class="flex flex-col md:gap-8 w-full md:flex-row">
+          <div class="w-full">
+            <input
+              [ngClass]="
                 userForm.get('firstName')?.invalid &&
                 (userForm.get('firstName')?.dirty ||
                   userForm.get('firstName')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('firstName')?.errors?.['required']"
-                >Prénom Requis.
-              </small>
+              class="input shadow-lg w-full m-top-input"
+              type="text"
+              placeholder="Votre prénom"
+              formControlName="firstName"
+            />
+            <div class="field">
+              <div class="control controlName">
+                <div
+                  *ngIf="
+                    userForm.get('firstName')?.invalid &&
+                    (userForm.get('firstName')?.dirty ||
+                      userForm.get('firstName')?.touched)
+                  "
+                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('firstName')?.errors?.['required']"
+                    >Prénom Requis.
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- input error NAME -->
-        <input
-          class="input"
-          type="text"
-          placeholder="Votre nom"
-          formControlName="lastName"
-        />
-        <div class="field">
-          <div class="control">
-            <div
-              *ngIf="
+
+          <!-- input error NAME -->
+          <div class="w-full">
+            <input
+              [ngClass]="
                 userForm.get('lastName')?.invalid &&
                 (userForm.get('lastName')?.dirty ||
                   userForm.get('lastName')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-            >
-              <small
-                class="error"
-                *ngIf="userForm.get('lastName')?.errors?.['required']"
-                >Nom Requis.</small
-              >
+              class="input shadow-lg w-full m-top-input"
+              type="text"
+              placeholder="Votre nom"
+              formControlName="lastName"
+            />
+            <div class="field">
+              <div class="control">
+                <div
+                  *ngIf="
+                    userForm.get('lastName')?.invalid &&
+                    (userForm.get('lastName')?.dirty ||
+                      userForm.get('lastName')?.touched)
+                  "
+                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                >
+                  <small
+                    class="error"
+                    *ngIf="userForm.get('lastName')?.errors?.['required']"
+                    >Nom Requis.</small
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <!-- input error EMAIL -->
         <input
-          class="input"
+          [ngClass]="
+            userForm.get('email')?.invalid &&
+            (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+          class="input shadow-lg m-top-input"
           type="email"
           placeholder="Votre adresse email"
           formControlName="email"
@@ -95,83 +122,161 @@
         >
           <!-- input error PASSWORD -->
           <div class="addeyes">
-            <input
-              class="input"
-              type="password"
-              placeholder="Votre mot de passe"
-              formControlName="password"
-            />
+            <div class="controlPassword m-top-input" formGroupName="password">
+              <div class="eyespassword relative w-full">
+                <input
+                  [ngClass]="
+                    userForm.get('password.password')?.invalid &&
+                    (userForm.get('password.password')?.dirty ||
+                      userForm.get('password.password')?.touched)
+                      ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                      : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                  "
+                  class="input shadow-lg"
+                  placeholder="Votre mot de passe"
+                  formControlName="password"
+                  name="confirmPassword"
+                  [type]="isHiddenPassword ? 'password' : 'text'"
+                />
 
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <div
-                class="errorPassword"
-                *ngIf="
-                  userForm.get('password.password')?.invalid &&
-                  (userForm.get('password.password')?.dirty ||
-                    userForm.get('password.password')?.touched)
-                "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-              >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password.password')?.errors?.[
-                      'invalidPassword'
-                    ]
+                <div
+                  class="eyes"
+                  [ngClass]="
+                    userForm.get('password.password')?.invalid &&
+                    (userForm.get('password.password')?.dirty ||
+                      userForm.get('password.password')?.touched)
+                      ? 'text-red-600'
+                      : 'text-neutral-500'
                   "
                 >
-                  Le mot de passe doit contenir au moins 8
-                  caractères,minuscule,chiffre et caractère spécial.
-                </small>
+                  <span
+                    [attr.aria-hidden]="true"
+                    title="afficher le code"
+                    class="material-symbols-outlined cursor-pointer"
+                    *ngIf="isHiddenPassword"
+                    (keyup)="togglePassword()"
+                    (click)="togglePassword()"
+                  >
+                    visibility
+                  </span>
+
+                  <span
+                    [attr.aria-hidden]="true"
+                    title="cacher le code"
+                    class="material-symbols-outlined cursor-pointer"
+                    *ngIf="!isHiddenPassword"
+                    (keyup)="togglePassword()"
+                    (click)="togglePassword()"
+                  >
+                    visibility_off
+                  </span>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- input error CONFIRM PASSWORD -->
-          <div class="addeyes">
-            <input
-              class="input"
-              type="password"
-              placeholder="Confirmez votre mot de passe"
-              formControlName="confirmPassword"
-            />
 
-            <div class="eyes">
-              <span class="material-symbols-outlined"> visibility </span>
-            </div>
-          </div>
+              <div class="field">
+                <div class="control">
+                  <div
+                    class="errorPassword"
+                    *ngIf="
+                      userForm.get('password.password')?.invalid &&
+                      (userForm.get('password.password')?.dirty ||
+                        userForm.get('password.password')?.touched)
+                    "
+                    class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  >
+                    <small
+                      class="error"
+                      *ngIf="
+                        userForm.get('password.password')?.errors?.[
+                          'invalidPassword'
+                        ]
+                      "
+                    >
+                      Le mot de passe doit contenir au moins 8
+                      caractères,minuscule,chiffre et caractère spécial.
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <!-- input error CONFIRM PASSWORD -->
+              <div class="eyespassword w-full relative m-top-input">
+                <input
+                  [ngClass]="
+                    userForm.get('password.confirmPassword')?.invalid &&
+                    (userForm.get('password.confirmPassword')?.dirty ||
+                      userForm.get('password.confirmPassword')?.touched)
+                      ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                      : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+                  "
+                  class="input shadow-lg"
+                  placeholder="Confirmez votre mot de passe"
+                  formControlName="confirmPassword"
+                  name="confirmPassword"
+                  [type]="isHiddenConfirmPassword ? 'password' : 'text'"
+                />
 
-          <div class="field">
-            <div class="control">
-              <div
-                *ngIf="
-                  userForm.get('password.confirmPassword')?.invalid &&
-                  (userForm.get('password.confirmPassword')?.dirty ||
-                    userForm.get('password.confirmPassword')?.touched)
-                "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
-              >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password.confirmPassword')?.errors?.[
-                      'required'
-                    ]
+                <div
+                  class="eyes"
+                  [ngClass]="
+                    userForm.get('password.confirmPassword')?.invalid &&
+                    (userForm.get('password.confirmPassword')?.dirty ||
+                      userForm.get('password.confirmPassword')?.touched)
+                      ? 'text-red-600'
+                      : 'text-neutral-500'
                   "
-                  >Confirmation mot de passe requise.</small
                 >
-                <small
-                  class="error"
-                  *ngIf="
-                    userForm.get('password')?.errors?.['passwordsMismatch']
-                  "
-                  >Les mots de passe ne correspondent pas.</small
-                >
+                  <span
+                    [attr.aria-hidden]="true"
+                    title="afficher le code"
+                    class="material-symbols-outlined cursor-pointer"
+                    *ngIf="isHiddenConfirmPassword"
+                    (keyup)="toggleConfirmPassword()"
+                    (click)="toggleConfirmPassword()"
+                  >
+                    visibility
+                  </span>
+
+                  <span
+                    [attr.aria-hidden]="true"
+                    title="cacher le code"
+                    class="material-symbols-outlined cursor-pointer"
+                    *ngIf="!isHiddenConfirmPassword"
+                    (keyup)="toggleConfirmPassword()"
+                    (click)="toggleConfirmPassword()"
+                  >
+                    visibility_off
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <div
+                    *ngIf="
+                      userForm.get('password.confirmPassword')?.invalid &&
+                      (userForm.get('password.confirmPassword')?.dirty ||
+                        userForm.get('password.confirmPassword')?.touched)
+                    "
+                    class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  >
+                    <small
+                      class="error"
+                      *ngIf="
+                        userForm.get('password.confirmPassword')?.errors?.[
+                          'required'
+                        ]
+                      "
+                      >Confirmation mot de passe requise.</small
+                    >
+                    <small
+                      class="error"
+                      *ngIf="
+                        userForm.get('password')?.errors?.['passwordsMismatch']
+                      "
+                      >Les mots de passe ne correspondent pas.</small
+                    >
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -184,7 +289,7 @@
         <div>
           <button
             [disabled]="userForm.invalid"
-            class="button btn-warning shadow-lg"
+            class="button btn-warning shadow-lg m-top-input"
             [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
             [disabled]="userForm.invalid && true"
             type="submit"
