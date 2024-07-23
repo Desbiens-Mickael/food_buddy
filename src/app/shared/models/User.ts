@@ -2,6 +2,7 @@ export interface UpdateUser {
   firstname: string;
   lastname: string;
   email: string;
+  profileImageUrl?: string;
 }
 
 export interface User extends UpdateUser {

@@ -20,6 +20,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { Allergen } from '../../../shared/models/Allergen';
 import { CreateProduct, FullProduct } from '../../../shared/models/Product';
 import { AllergenService } from '../../../shared/services/allergen.service';
+import { UploadFileComponent } from '../../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-product-form',
@@ -29,6 +30,7 @@ import { AllergenService } from '../../../shared/services/allergen.service';
     NgMultiSelectDropDownModule,
     ReactiveFormsModule,
     FormsModule,
+    UploadFileComponent,
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
@@ -38,6 +40,7 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
   product?: FullProduct;
   productForm!: FormGroup;
   dropdownList: Allergen[] = [];
+  productimage?: File;
   dropdownSettings = {};
   isLoading = true;
 
@@ -110,6 +113,14 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
     return this.productForm.value.allergens;
   }
 
+  onFileDropped(fileList: FileList) {
+    this.productimage = fileList[0];
+  }
+
+  onErrorOccurred(error: string) {
+    console.log(error);
+  }
+
   submit() {
     if (this.productForm.valid) {
       const allergenIdsArray = this.getAllergens.map(a => a.id);
@@ -121,6 +132,7 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
         type: this.productForm.value.type as string,
         status: this.productForm.value.status as string,
         allergensIds: allergenIdsArray,
+        ProductImage: this.productimage,
       };
 
       this.handleSubmit.emit(newProduct);

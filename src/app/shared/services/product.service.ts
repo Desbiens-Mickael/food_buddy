@@ -16,8 +16,8 @@ export class ProductService {
   createProduct(
     product: CreateProduct,
     establishmentId: string,
-  ): Observable<CreateProduct> {
-    return this.http.post<CreateProduct>(
+  ): Observable<FullProduct> {
+    return this.http.post<FullProduct>(
       `${environment.apiUrl}/establishments/${establishmentId}/products`,
       product,
     );
@@ -51,10 +51,23 @@ export class ProductService {
     product: CreateProduct,
     productId: string,
     establishmentId: string,
-  ): Observable<CreateProduct> {
-    return this.http.put<CreateProduct>(
+  ): Observable<FullProduct> {
+    return this.http.put<FullProduct>(
       `${environment.apiUrl}/establishments/${establishmentId}/products/${productId}`,
       product,
+    );
+  }
+
+  uploadProductImage(
+    productId: string,
+    establishmentId: string,
+    file: File,
+  ): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<string>(
+      `${environment.apiUrl}/establishments/${establishmentId}/products/${productId}/upload-image`,
+      formData,
     );
   }
 

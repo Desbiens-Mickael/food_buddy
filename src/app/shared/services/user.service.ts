@@ -9,8 +9,8 @@ import { UpdateUser } from '../models/User';
   providedIn: 'root',
 })
 export class UserService {
+  private apiUrluser = `${environment.apiUrl}/users`;
   private apiUrlRegister = `${environment.apiUrl}/auth/users/register`;
-  private apiUrlUpdate = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +19,15 @@ export class UserService {
   }
 
   UpdateUser(updateUser: UpdateUser): Observable<User> {
-    return this.http.put<User>(this.apiUrlUpdate, updateUser);
+    return this.http.put<User>(this.apiUrluser, updateUser);
+  }
+
+  uploadAvatar(file: File, userEmail: string): Observable<User> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<User>(
+      `${this.apiUrluser}/${userEmail}/upload-avatar`,
+      formData,
+    );
   }
 }

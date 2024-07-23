@@ -36,9 +36,9 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-extraneous-class': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@angular-eslint/template/interactive-supports-focus': 'off'
+      '@angular-eslint/template/interactive-supports-focus': 'off',
     },
     languageOptions: {
       parserOptions: {

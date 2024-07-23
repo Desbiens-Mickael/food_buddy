@@ -110,6 +110,13 @@
     >
     </ng-multiselect-dropdown>
   </div>
+
+  <app-upload-file
+    [multiple]="false"
+    (fileDropped)="onFileDropped($event)"
+    (errorOccurred)="onErrorOccurred($event)"
+  ></app-upload-file>
+
   <button
     type="submit"
     class="w-full bg-secondary text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary-light transition-colors"

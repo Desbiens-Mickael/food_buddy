@@ -14,6 +14,7 @@ export class AuthService {
     email: '',
     role: '',
     isAuthenticated: false,
+    profileImageUrl: '',
   });
   public userInfo$: Observable<UserInfo> = this.userInfo.asObservable();
 

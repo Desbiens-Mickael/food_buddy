@@ -1,5 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { DROPZONE_CONFIG, DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
 import {
   HttpClient,
@@ -10,6 +11,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { CredentialInterceptor } from './core/interceptors/credential.interceptor';
+
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +26,9 @@ export const appConfig: ApplicationConfig = {
       progressBar: true,
       positionClass: 'toast-custom-position',
     }),
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    },
   ],
 };
