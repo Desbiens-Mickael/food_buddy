@@ -5,9 +5,13 @@
     class="h-full w-[200px] hidden items-center justify-center bg-white sm:flex"
   >
     <img
-      src="assets/default-busines.png"
+      [src]="
+        logoUrl
+          ? baseUrl + '/businesses/logo/' + logoUrl
+          : 'assets/default-busines.png'
+      "
       alt="map-marker"
-      class="h-full w-auto"
+      class="h-full w-auto rounded-full object-contain"
     />
   </div>
   <div class="flex ml-4 p-4 w-full">

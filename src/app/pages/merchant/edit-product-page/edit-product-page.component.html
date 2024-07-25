@@ -2,12 +2,7 @@
   <h1 *ngIf="!isLoading" class="text-5xl font-main font-bold text-center my-8">
     Modifier mon produit
   </h1>
-  <div
-    *ngIf="isLoading"
-    class="h-full w-full flex justify-center text-5xl font-main font-bold"
-  >
-    Chargement...
-  </div>
+  <app-loader *ngIf="isLoading"></app-loader>
 
   <app-product-form
     *ngIf="!isLoading"

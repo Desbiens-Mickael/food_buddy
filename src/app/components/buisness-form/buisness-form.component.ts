@@ -9,23 +9,33 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { concatMap, of } from 'rxjs';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
 import {
   Address,
   Buisness,
   Business,
+  BusinessWithEstablishment,
   Establishment,
   User,
 } from '../../shared/models/Buisness';
 import { AdresseService } from '../../shared/services/adresse.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
+import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
+import { UploadFileComponent } from '../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-buisness-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    ToastrModule,
+    UploadFileComponent,
+  ],
   templateUrl: './buisness-form.component.html',
   styleUrls: ['./buisness-form.component.css'],
 })
@@ -36,8 +46,12 @@ export class BuisnessFormComponent {
   private formBuilder = inject(FormBuilder);
   private adresseService = inject(AdresseService);
   private buisnessService = inject(BuisnessService);
+  private userService = inject(UserService);
+  private businessService = inject(BuisnessService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private avatar?: File;
+  private businessLogo?: File;
 
   myControl = new FormControl('');
   villes!: AdresseJson;
@@ -163,6 +177,22 @@ export class BuisnessFormComponent {
     }
   }
 
+  onFileDropped(fileList: FileList) {
+    this.avatar = fileList[0];
+  }
+
+  onFileDroppedBusinessLogo(fileListLogo: FileList) {
+    this.businessLogo = fileListLogo[0];
+  }
+
+  onErrorOccurred(error: string) {
+    console.log(error);
+  }
+
+  onErrorOccurredBusinessLogo(errorLogo: string) {
+    console.log(errorLogo);
+  }
+
   createBuisness(): void {
     if (
       this.userForm.valid &&
@@ -209,17 +239,79 @@ export class BuisnessFormComponent {
           establishment,
           address,
         };
+        console.log(this.businessLogo);
 
-        this.buisnessService.createBuisness(buisness).subscribe({
-          next: () => {
-            this.userForm.reset();
-            void this.router.navigate(['/login']);
-            this.toastr.success('Création de compte réussie');
-          },
-          error: (error: HttpErrorResponse) => {
-            this.toastr.error(error.error as string);
-          },
-        });
+        // this.businessService
+        //   .createBuisness(buisness)
+        //   .pipe(
+        //     concatMap((data: BusinessWithEstablishment) => {
+        //       if (this.avatar) {
+        //         console.log('upload avatar');
+        //         return this.userService
+        //           .uploadAvatar(this.avatar, 'test@gmail.com')
+        //           .pipe(
+        //             concatMap(() => of(data)), // Continue with `data` after avatar upload
+        //           );
+        //       }
+        //       return of(data); // If no avatar, proceed with `data`
+        //     }),
+        //     concatMap((data: BusinessWithEstablishment) => {
+        //       if (this.businessLogo) {
+        //         console.log('upload business logo');
+        //         return this.businessService
+        //           .uploadBusinessLogo(this.businessLogo, '1')
+        //           .pipe(
+        //             concatMap(() => of(data)), // Continue with `data` after logo upload
+        //           );
+        //       }
+        //       return of(data); // If no logo, proceed with `data`
+        //     }),
+        //   )
+        //   .subscribe({
+        //     next: () => {
+        //       this.userForm.reset();
+        //       void this.router.navigate(['/login']);
+        //       this.toastr.success('Création de compte réussie');
+        //     },
+        //     error: (error: HttpErrorResponse) => {
+        //       this.toastr.error(error.error as string);
+        //     },
+        //   });
+
+        this.businessService
+          .createBuisness(buisness)
+          .pipe(
+            concatMap((data: BusinessWithEstablishment) => {
+              if (this.avatar) {
+                console.log('upload avatar');
+                return this.userService.uploadAvatar(
+                  this.avatar,
+                  'test@gmail.com',
+                );
+              }
+              return of(data); // If no avatar, proceed with `data`
+            }),
+            concatMap(data => {
+              if (this.businessLogo) {
+                console.log('upload business logo');
+                return this.businessService.uploadBusinessLogo(
+                  this.businessLogo,
+                  '1',
+                );
+              }
+              return of(data); // If no logo, proceed with `data`
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.userForm.reset();
+              void this.router.navigate(['/login']);
+              this.toastr.success('Création de compte réussie');
+            },
+            error: (error: HttpErrorResponse) => {
+              this.toastr.error(error.error as string);
+            },
+          });
       }
     }
   }

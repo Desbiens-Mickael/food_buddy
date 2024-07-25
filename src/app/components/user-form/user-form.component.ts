@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,22 +8,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User, UpdateUser } from '../../shared/models/User';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { catchError, of, switchMap } from 'rxjs';
+import { UpdateUser, User } from '../../shared/models/User';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
+import { UploadFileComponent } from '../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, UploadFileComponent],
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent implements OnInit {
   isHidden = true;
   @Input() userInfos?: UpdateUser;
+  avatar?: File;
   userForm!: FormGroup;
   isHiddenPassword = true;
   isHiddenConfirmPassword = true;
@@ -42,18 +45,22 @@ export class UserFormComponent implements OnInit {
       ],
     });
 
-    const password: FormGroup = this.formBuilder.group(
-      {
-        password: ['', [Validators.required, Valid.passwordValidator()]],
-        confirmPassword: ['', Validators.required],
-      },
-      {
-        validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
-      },
-    );
-
     if (!this.userInfos) {
-      this.userForm.addControl('password', password);
+      this.userForm.addControl(
+        'passwordGroup',
+        this.formBuilder.group(
+          {
+            password: ['', [Validators.required, Valid.passwordValidator()]],
+            confirmPassword: ['', Validators.required],
+          },
+          {
+            validators: Valid.passwordMatchValidator(
+              'password',
+              'confirmPassword',
+            ),
+          },
+        ),
+      );
     }
   }
 
@@ -61,12 +68,19 @@ export class UserFormComponent implements OnInit {
     this.formInit();
   }
 
+  onFileDropped(fileList: FileList) {
+    this.avatar = fileList[0];
+  }
+
+  onErrorOccurred(error: string) {
+    console.log(error);
+  }
+
   createUser(): void {
-    const password =
-      (this.userForm.get('password.password')?.value as string) || '';
-    const lastname = this.userForm.get('lastName')?.value as string;
-    const email = this.userForm.get('email')?.value as string;
-    const firstname = this.userForm.get('firstName')?.value as string;
+    const password = this.userForm.get('passwordGroup.password')?.value || '';
+    const lastname = this.userForm.get('lastName')?.value || '';
+    const email = this.userForm.get('email')?.value || '';
+    const firstname = this.userForm.get('firstName')?.value || '';
 
     if (this.userForm.valid) {
       let user: User | UpdateUser;
@@ -86,26 +100,53 @@ export class UserFormComponent implements OnInit {
       }
 
       if (!this.userInfos) {
-        this.userService.createUser(user as User).subscribe({
-          next: () => {
-            this.userForm.reset();
-            this.toastr.success('compte créé avec succés');
-            void this.router.navigate(['/login']);
-          },
-          error: (error: HttpErrorResponse) => {
-            this.toastr.error(error.message);
-          },
-        });
+        this.userService
+          .createUser(user as User)
+          .pipe(
+            switchMap((data: User) => {
+              if (this.avatar) {
+                return this.userService.uploadAvatar(this.avatar, data.email);
+              }
+              return of(data);
+            }),
+            catchError((error: HttpErrorResponse) => {
+              this.toastr.error(error.message);
+              return of(error);
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.userForm.reset();
+              this.toastr.success('Compte créé avec succès');
+              void this.router.navigate(['/login']);
+            },
+            error: (error: HttpErrorResponse) => {
+              this.toastr.error(error.message);
+            },
+          });
       } else {
-        this.userService.UpdateUser(user as UpdateUser).subscribe({
-          next: () => {
-            this.userForm.reset();
-            this.toastr.success('Modification enregistrée');
-          },
-          error: (error: HttpErrorResponse) => {
-            this.toastr.error(error.message);
-          },
-        });
+        this.userService
+          .UpdateUser(user as UpdateUser)
+          .pipe(
+            switchMap((data: User) => {
+              if (this.avatar) {
+                return this.userService.uploadAvatar(this.avatar, user.email);
+              }
+              return of(data);
+            }),
+            catchError((error: HttpErrorResponse) => {
+              // this.toastr.error(error.message);
+              return of(error);
+            }),
+          )
+          .subscribe({
+            next: () => {
+              this.toastr.success('Modification enregistrée');
+            },
+            error: (error: HttpErrorResponse) => {
+              this.toastr.error(error.message);
+            },
+          });
       }
     }
   }

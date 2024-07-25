@@ -10,14 +10,20 @@
   </div>
 
   <div class="info-reservation">
-    <div class="createdate bg-green-100 text-green-600 px-4 py-1 rounded-md">
+    <!-- <div class="createdate bg-green-100 text-green-600 px-4 py-1 rounded-md">
       <p>date de création</p>
       <p>{{ reservation.createdAt | date: 'dd.MM.yyyy' }}</p>
-    </div>
+    </div> -->
 
-    <div class="collectdate bg-red-100 text-red-600 px-4 py-1 rounded-md">
-      <p>date de collecte</p>
-      <p>{{ reservation.validUntil | date: 'dd.MM.yyyy' }}</p>
+    <div class="collectdate border-2 border-red-600 px-4 py-1 rounded-md">
+      <p>
+        Vous avez jusqu'au
+        <span class="text-red-600">{{
+          reservation.validUntil | date: 'dd.MM.yyyy'
+        }}</span>
+        <br />
+        pour retirer votre réservation !
+      </p>
     </div>
   </div>
 
@@ -28,7 +34,7 @@
         [ngClass]="
           !isHidden ? 'after:backdrop-blur-sm after:w-full' : 'after:hidden'
         "
-        class="code w-[70%] px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
+        class="font-bold text-green-600 w-[70%] px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
       >
         <p [ngClass]="!isHidden ? 'select-none' : ''">
           {{ reservation.validationCode }}

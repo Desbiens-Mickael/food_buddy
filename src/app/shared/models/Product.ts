@@ -11,6 +11,7 @@ export interface Product {
 
 export interface CreateProduct extends Product {
   allergensIds: number[];
+  ProductImage?: File;
 }
 
 export interface FullProduct extends Product {

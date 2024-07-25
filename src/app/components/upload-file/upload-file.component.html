@@ -1,0 +1,41 @@
+<div class="drop-zone-container" *ngIf="!files.length">
+  <div
+    [attr.aria-hidden]="true"
+    class="drop-zone"
+    (drop)="handleFileDrop($event)"
+    (dragover)="handleDragOver($event)"
+    (click)="openFileSelector(fileInput)"
+  >
+    <div class="flex flex-col items-center justify-center">
+      <span class="material-symbols-outlined text-6xl"> cloud_upload </span>
+      <p class="text-center text-lg font-main font-bold">
+        Déposez vos fichiers ici ou cliquez pour sélectionner
+      </p>
+    </div>
+    <input
+      #fileInput
+      type="file"
+      [attr.accept]="acceptedTypes"
+      [attr.multiple]="multiple ? true : null"
+      (change)="handleFileSelect($event)"
+      style="display: none"
+    />
+  </div>
+</div>
+<div class="previews" *ngIf="files.length > 0">
+  <div *ngFor="let fileInfo of files; let i = index" class="preview">
+    <img
+      *ngIf="fileInfo.file.type.startsWith('image/')"
+      [src]="fileInfo.url"
+      alt="Prévisualisation de l'image"
+    />
+    <!-- <p>{{ fileInfo.file.name }}</p> -->
+    <span
+      class="material-symbols-outlined delete-button"
+      aria-hidden="true"
+      (click)="deleteFile(i)"
+      ><span class="material-symbols-outlined"> cancel </span></span
+    >
+    <!-- <button class="delete-button" (click)="deleteFile(i)">Supprimer</button> -->
+  </div>
+</div>

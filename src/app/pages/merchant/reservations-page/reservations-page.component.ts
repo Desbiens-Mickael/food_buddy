@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 import { ReservationCardMerchantComponent } from '../../../components/reservation/reservation-card-merchant/reservation-card-merchant.component';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { Reservation } from '../../../shared/models/Reservation';
@@ -10,7 +11,12 @@ import { ReservationService } from '../../../shared/services/reservation.service
 @Component({
   selector: 'app-reservations-page',
   standalone: true,
-  imports: [CommonModule, SearchBarComponent, ReservationCardMerchantComponent],
+  imports: [
+    CommonModule,
+    SearchBarComponent,
+    ReservationCardMerchantComponent,
+    LoaderComponent,
+  ],
   templateUrl: './reservations-page.component.html',
   styleUrl: './reservations-page.component.css',
 })

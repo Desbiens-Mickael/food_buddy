@@ -75,6 +75,14 @@
           </div>
         </div>
 
+        <p class="text-main font-semibold mt-4">Photo de profil</p>
+        <app-upload-file
+          [multiple]="false"
+          acceptedTypes="image/*"
+          (fileDropped)="onFileDropped($event)"
+          (errorOccurred)="onErrorOccurred($event)"
+        ></app-upload-file>
+
         <div class="field">
           <div class="control">
             <input
@@ -351,8 +359,17 @@
               </div>
             </div>
           </div>
+
+          <p class="text-main font-semibold mt-4">Logo de l'entreprise</p>
+          <app-upload-file
+            [multiple]="false"
+            acceptedTypes="image/*"
+            (fileDropped)="onFileDroppedBusinessLogo($event)"
+            (errorOccurred)="onErrorOccurredBusinessLogo($event)"
+          ></app-upload-file>
         </form>
       </div>
+
       <!-- FIN informations entreprise form#2 -->
     </div>
     <div class="boxblock3">

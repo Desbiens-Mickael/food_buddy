@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-map-item',
@@ -8,6 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrl: './map-item.component.css',
 })
 export class MapItemComponent implements OnInit {
+  baseUrl = environment.apiUrl;
   @Input() name!: string;
   @Input() phoneNumber!: string;
   @Input() latitude!: number;
@@ -16,6 +18,7 @@ export class MapItemComponent implements OnInit {
   @Input() streetName!: string;
   @Input() zipCode!: string;
   @Input() city!: string;
+  @Input() logoUrl!: string;
 
   fullAddress!: string;
 

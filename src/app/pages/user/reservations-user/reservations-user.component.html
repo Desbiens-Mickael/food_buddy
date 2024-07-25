@@ -3,7 +3,21 @@
 </h1>
 <p class="text-center font-main">Ci-dessous mes repas suspendus à collecter</p>
 
+<div
+  *ngIf="isLoading"
+  class="flex justify-center items-center fixed top-0 left-0 w-full h-full text-9xl text-center font-main font-bold"
+>
+  Chargement des réservations...
+</div>
+
 <div class="main">
+  <div
+    class="text-center text-2xl font-main font-bold mt-16"
+    *ngIf="reservations.length === 0"
+  >
+    Aucune réservation en cours
+  </div>
+
   <app-card-reservation
     *ngFor="let reservation of reservations"
     [reservation]="reservation"

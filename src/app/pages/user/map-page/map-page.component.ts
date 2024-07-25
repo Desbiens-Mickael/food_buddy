@@ -13,6 +13,8 @@ import L, {
 } from 'leaflet';
 import 'leaflet-routing-machine';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 import { MapItemComponent } from '../../../components/map/map-item/map-item.component';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { EstablishmentAdress } from '../../../shared/models/EstablishmentAdress';
@@ -31,7 +33,13 @@ interface RoutesFoundEvent {
 @Component({
   selector: 'app-map-page',
   standalone: true,
-  imports: [LeafletModule, CommonModule, MapItemComponent, SearchBarComponent],
+  imports: [
+    LeafletModule,
+    CommonModule,
+    MapItemComponent,
+    SearchBarComponent,
+    LoaderComponent,
+  ],
   templateUrl: './map-page.component.html',
   styleUrl: './map-page.component.css',
 })
@@ -47,6 +55,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
   public markers: Marker[] = [];
   public isLoading = true;
   public isLoadingAddresses = false;
+  baseUrl = environment.apiUrl;
 
   private establishmentAddressService = inject(EstablishmentAddressService);
   private subscription: Subscription = new Subscription();
@@ -86,6 +95,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
     // Recherche des adresses
     this.establishmentAddressService.findAllAddresses().subscribe(addresses => {
       this.establishmentAddresses = addresses ?? [];
+      console.log(this.establishmentAddresses);
       this.isLoading = false;
     });
   }
@@ -148,14 +158,15 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
     // Ajout des marqueur commerçant avec une popup
     this.addMerchantMarkersInMap();
+    this.isLoading = false;
   }
 
   // Ajout des marqueur commerçant avec une popup
   addMerchantMarkersInMap() {
     if (this.establishmentAddresses.length > 0) {
       this.establishmentAddresses.forEach(address => {
-        const logo = address.business.logo
-          ? address.business.logo
+        const logo = address.business.logoUrl
+          ? address.business.logoUrl
           : 'assets/default-busines.png';
 
         const marker = L.marker(
@@ -167,7 +178,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
         )
           .bindPopup(
             `<div>
-            <img src="${logo}" alt="map-marker" />
+            <img src="${this.baseUrl}/businesses/logo/${logo}" alt="map-marker" />
             <a href="/establishments/${String(address.establishment.id)}" class="mt-4">Voir les produits</a>
           </div>`,
           )

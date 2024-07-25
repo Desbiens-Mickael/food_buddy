@@ -12,17 +12,29 @@
   <div *ngIf="!isLodding" class="container">
     <section>
       <div>
-        <div class="avatar">S.C</div>
+        <div class="avatar">
+          <img
+            class=""
+            src="{{
+              userInfos?.businessLogoUrl
+                ? baseUrl + '/businesses/logo/' + userInfos?.businessLogoUrl
+                : 'assets/default-busines.png'
+            }}"
+            alt="Logo de l'entreprise"
+          />
+        </div>
       </div>
-      <h4 class="text-3xl font-bold dark:text-white">
-        {{ establishmentActive.name }}
+      <h4 class="text-3xl font-bold">
+        {{ userInfos?.businesseName }}
       </h4>
-      <h5 class="text-1xl font-bold dark:text-white">
+      <h5 class="text-1xl font-bold text-white">
         {{ establishmentActive.name }}
       </h5>
-      <label for="establishment-choice">Changez d'établissement</label>
+      <label for="establishment-choice" class="mt-4"
+        >Changez d'établissement</label
+      >
       <select
-        class="bg-white font-main font-semibold text-center px-2 rounded-md"
+        class="bg-white font-main font-semibold text-center px-2 mt-1 rounded-md"
         name="establishment-choice"
         (change)="changeEstablishment($event)"
       >
@@ -51,6 +63,7 @@
         </li>
         <li>
           <a
+            [ngClass]="toggle ? 'animate' : ''"
             [routerLink]="[
               '/merchant/establishment/',
               establishmentActive.id,
@@ -64,6 +77,7 @@
         </li>
         <li>
           <a
+            [ngClass]="toggle ? 'animate' : ''"
             [routerLink]="[
               '/merchant/establishment/',
               establishmentActive.id,
@@ -75,7 +89,16 @@
             Réservations
           </a>
         </li>
-        <li><a [routerLink]="['/']"> Options </a></li>
+        <li>
+          <a
+            [ngClass]="toggle ? 'animate' : ''"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Profil
+          </a>
+        </li>
       </ul>
     </section>
     <section>

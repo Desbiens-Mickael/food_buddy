@@ -23,13 +23,13 @@ export class LayoutBaseComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.authService.userInfo$.subscribe(
-      userInfo => (this.isLogged = userInfo.isAuthenticated),
+      userInfo => (this.isLogged = !!userInfo?.email),
     );
   }
 
   ngOnChanges(): void {
     this.authService.userInfo$.subscribe(
-      userInfo => (this.isLogged = userInfo.isAuthenticated),
+      userInfo => (this.isLogged = !!userInfo?.email),
     );
   }
 }

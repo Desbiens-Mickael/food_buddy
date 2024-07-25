@@ -28,4 +28,16 @@ export interface Buisness {
   address: Address;
 }
 
+export interface fullBusiness {
+  id: string;
+  name: string;
+  siren: string;
+  logoUrl: string;
+  establishments: Establishment[];
+}
+
+export interface BusinessWithEstablishment {
+  Business: fullBusiness[];
+}
+
 export { User };

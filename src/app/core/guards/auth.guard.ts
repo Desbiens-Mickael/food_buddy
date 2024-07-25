@@ -21,23 +21,26 @@ export const authGuard: CanActivateFn = (
   const router: Router = inject(Router);
 
   let isLogged!: boolean;
-  let userRole!: string;
+  let userRole!: string | undefined;
 
   authService.userInfo$.subscribe(userInfo => {
-    isLogged = userInfo.isAuthenticated;
-    userRole = userInfo.role;
+    isLogged = !!userInfo?.email;
+    userRole = userInfo?.role;
   });
 
-  const publicRoutes = ['/login', '/register'];
-  const userRoutes = ['/profile', '/map', '/favorite'];
+  console.log(userRole, isLogged, state.url);
+  const URL = state.url.split('/')[1];
+
+  const publicRoutes = ['login', 'register'];
+  const userRoutes = ['profile', 'map', 'reservations', 'establishments'];
 
   // Unauthenticated user management
-  if (!isLogged && userRoutes.includes(state.url)) {
+  if (!isLogged && userRoutes.includes(URL)) {
     return router.createUrlTree(['/login']);
   }
 
   // Authenticated user management for the public route
-  if (isLogged && publicRoutes.includes(state.url)) {
+  if (isLogged && publicRoutes.includes(URL)) {
     if (userRole === 'MERCHANT') return router.createUrlTree(['/merchant']);
 
     return router.createUrlTree(['/']);
@@ -47,7 +50,7 @@ export const authGuard: CanActivateFn = (
   if (
     isLogged &&
     userRole !== 'USER' &&
-    (userRoutes.includes(state.url) || state.url === '/')
+    (userRoutes.includes(URL) || state.url === '/')
   ) {
     return router.createUrlTree(['/merchant']);
   }
