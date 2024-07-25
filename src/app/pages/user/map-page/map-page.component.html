@@ -1,7 +1,13 @@
 <div>
   <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
-    Carte des commerçants
+    Carte
   </h1>
+  <p class="text-center font-main">
+    Découvrez les commerçants participants près de chez vous en utilisant votre
+    localisation
+  </p>
+  <br />
+
   <!-- TODO: ajouter le loader -->
   <app-loader *ngIf="isLoading"></app-loader>
   <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4 md:px-4">
