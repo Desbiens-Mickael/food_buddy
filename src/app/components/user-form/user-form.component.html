@@ -7,7 +7,7 @@
         #myForm="ngForm"
         novalidate
       >
-        <h1>
+        <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
           {{ userInfos ? 'Je modifie mon profil' : 'Je crée mon profil' }}
         </h1>
         <div class="flex flex-col md:gap-8 w-full md:flex-row">
@@ -295,7 +295,7 @@
         <div>
           <button
             [disabled]="userForm.invalid"
-            class="button btn-warning shadow-lg m-top-input"
+            class="button btn-warning shadow-lg m-top-input font-main"
             [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
             type="submit"
           >
