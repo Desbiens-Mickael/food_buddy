@@ -2,7 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 import { InfosLinkEstablishment } from '../../shared/models/Establishment';
+import { UserInfo } from '../../shared/models/User-info.model';
+import { AuthService } from '../../shared/services/auth.service';
 import { EstablishmentService } from '../../shared/services/establishment.service';
 import { SideBareSkeletonComponent } from '../skeleton/side-bare-skeleton/side-bare-skeleton.component';
 import { LogoutButtonComponent } from '../ui/logout-button/logout-button.component';
@@ -20,16 +23,22 @@ import { LogoutButtonComponent } from '../ui/logout-button/logout-button.compone
   styleUrl: './side-bar.component.css',
 })
 export class SideBarComponent implements OnInit {
+  userInfos!: UserInfo | null;
   establishments: InfosLinkEstablishment[] = [];
   establishmentActive!: InfosLinkEstablishment;
   toggle = false;
   isLodding = true;
+  baseUrl = environment.apiUrl;
 
   private establismentsService = inject(EstablishmentService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   ngOnInit(): void {
     this.establismentsService.getAllLinkEstablishments().subscribe(data => {
+      this.authService.userInfo$.subscribe(userInfo => {
+        this.userInfos = userInfo;
+      });
       this.establishments = data;
       this.establishmentActive = this.establishments[0];
       this.isLodding = false;

@@ -3,10 +3,18 @@
 </h1>
 
 <div class="main">
-  <div class="profile-picture">
-    <img class="avatar-userprofile" src="assets/avatar-user.png" alt="avatar" />
+  <div class="h-[150px] w-[150px] rounded-full overflow-hidden">
+    <img
+      class="h-full w-full object-cover"
+      src="{{
+        user.profileImageUrl
+          ? baseUrl + '/users/avatar/' + user.profileImageUrl
+          : 'assets/avatar-user.png'
+      }}"
+      alt="avatar"
+    />
   </div>
-  <div class="w-full md:w-[80%]">
+  <div class="w-full md:w-[70%]">
     <app-user-form [userInfos]="user"></app-user-form>
   </div>
 </div>

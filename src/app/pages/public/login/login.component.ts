@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserInfo } from '../../../shared/models/User-info.model';
 import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
@@ -49,13 +50,17 @@ export class LoginComponent implements OnInit {
       const password = this.password?.value as string;
 
       this.authService.login(email, password).subscribe({
-        next: () => {
+        next: (data: UserInfo) => {
           void this.router.navigate(['/']);
           this.loginForm.reset();
-          this.toastr.success('Connexion réussie');
+          this.toastr.success(
+            `Bienvenue ${data.firstname} ${data.lastname}`,
+            'Connexion réussie',
+          );
         },
         error: (err: HttpErrorResponse) => {
           // this.error = err.error as string;
+          console.log(err);
           this.toastr.error(err.error.error_message as string);
         },
       });

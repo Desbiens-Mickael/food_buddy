@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserInfo } from './shared/models/User-info.model';
 import { AuthService } from './shared/services/auth.service';
 
 @Component({
@@ -12,13 +11,27 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'food_buddy';
+
   private authService = inject(AuthService);
 
   ngOnInit(): void {
-    const userInfo = JSON.parse(
-      localStorage.getItem('userInfo') ?? '{}',
-    ) as UserInfo;
-
-    this.authService.setUserInfo(userInfo);
+    console.log('app component');
+    // if (!this.authService.isAuthenticated()) {
+    //   console.log('not authenticated');
+    //   // TODO Faire la requête pour récupérer les infos utilisateur sur /me
+    // this.authService.refreshUserInfo().subscribe();
+    // }
   }
 }
+
+//  ngOnInit(): void {
+//     this.authService.userInfo$.subscribe(userInfo => {
+//       this.userInfos = {
+//         firstname: userInfo.firstname,
+//         lastname: userInfo.lastname,
+//         email: userInfo.email,
+//         profileImageUrl: userInfo.profileImageUrl,
+//         role: userInfo.role,
+//         isAuthenticated: userInfo.isAuthenticated,
+//       };
+//     });

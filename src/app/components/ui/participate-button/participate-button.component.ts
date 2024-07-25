@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../../shared/models/User';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { UserInfo } from '../../../shared/models/User-info.model';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-participate-button',
@@ -10,11 +11,22 @@ import { User } from '../../../shared/models/User';
   styleUrl: './participate-button.component.css',
 })
 export class ParticipateButtonComponent implements OnInit {
-  userInfos!: User;
+  userInfos!: UserInfo;
   @Input() productId!: string;
 
+  private authService = inject(AuthService);
+
   ngOnInit(): void {
-    this.userInfos = JSON.parse(localStorage.getItem('userInfo') ?? '') as User;
+    this.authService.userInfo$.subscribe(userInfo => {
+      this.userInfos = {
+        firstname: userInfo?.firstname ?? '',
+        lastname: userInfo?.lastname ?? '',
+        email: userInfo?.email ?? '',
+        profileImageUrl: userInfo?.profileImageUrl ?? '',
+        role: userInfo?.role ?? '',
+      };
+    });
+    // this.userInfos = JSON.parse(localStorage.getItem('userInfo') ?? '') as User;
   }
 
   handleParticipate() {

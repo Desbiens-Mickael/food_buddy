@@ -16,6 +16,6 @@ export interface EstablishmentAdress {
   business: {
     id: number;
     name: string;
-    logo: string;
+    logoUrl: string;
   };
 }

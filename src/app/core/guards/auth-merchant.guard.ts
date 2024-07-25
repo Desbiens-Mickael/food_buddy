@@ -10,21 +10,25 @@ export const authMerchantGuard: CanActivateFn = ():
   | UrlTree => {
   const authService = inject(AuthService);
   const router: Router = inject(Router);
+
   let isLogged!: boolean;
-  let userRole!: string;
+  let userRole!: string | undefined;
+
   authService.userInfo$.subscribe(userInfo => {
-    isLogged = userInfo.isAuthenticated;
-    userRole = userInfo.role;
+    isLogged = !!userInfo?.email;
+    userRole = userInfo?.role;
   });
 
   // Unauthenticated user management
   if (!isLogged) {
+    console.log('merchantGuard', 'unauthenticated');
     return router.createUrlTree(['/login']);
   }
 
   // Management of authenticated users who do not have the merchant role
   if (userRole !== 'MERCHANT') {
-    return router.createUrlTree(['/']);
+    console.log('merchantGuard', userRole);
+    return router.createUrlTree(['/map']);
   }
   return true;
 };

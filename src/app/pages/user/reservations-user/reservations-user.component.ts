@@ -13,13 +13,14 @@ import { ReservationService } from '../../../shared/services/reservation.service
 })
 export class ReservationsUserComponent implements OnInit {
   reservations: Reservation[] = [];
+  isLoading = true;
 
   private reservationService = inject(ReservationService);
 
   ngOnInit(): void {
     this.reservationService.getAllReservationsByUser().subscribe(data => {
       this.reservations = data;
-      console.log(this.reservations);
+      this.isLoading = false;
     });
   }
 }

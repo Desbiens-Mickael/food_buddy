@@ -1,12 +1,9 @@
 <div>
-  <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">Map</h1>
+  <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
+    Carte des commerçants
+  </h1>
   <!-- TODO: ajouter le loader -->
-  <div
-    *ngIf="isLoading"
-    class="w-full h-custom-height flex justify-center items-center"
-  >
-    <span class="font-main text-5xl text-slate-800">Chargement...</span>
-  </div>
+  <app-loader *ngIf="isLoading"></app-loader>
   <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4 md:px-4">
     <div class="w-full h-[40vh] md:w-1/2 md:h-[65vh] shadow-md z-0">
       <div
@@ -26,19 +23,14 @@
     </div>
 
     <div
-      class="w-full px-2 h-[40vh] md:h-full md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
+      class="w-full px-2 h-[40vh] md:h-[65vh] md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
     >
       <app-search-bar
         (handleSearch)="onSearch($event)"
-        placeholder="Rechercher un commerçant"
+        placeholder="Trouver un commerçant"
       ></app-search-bar>
       <!-- TODO: ajouter le loader -->
-      <div
-        *ngIf="isLoadingAddresses"
-        class="h-full w-full font-main text-3xl text-center text-slate-800"
-      >
-        Chargement...
-      </div>
+      <app-loader *ngIf="isLoadingAddresses"></app-loader>
       <div
         *ngIf="!isLoadingAddresses"
         class="flex flex-col gap-4 overflow-auto"
@@ -61,6 +53,7 @@
             [phoneNumber]="address.establishment.phoneNumber"
             [latitude]="address.address.latitude"
             [longitude]="address.address.longitude"
+            [logoUrl]="address.business.logoUrl"
             (traceBusiness)="onTraceBusiness($event)"
           ></app-map-item>
         }

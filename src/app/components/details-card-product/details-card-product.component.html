@@ -27,20 +27,19 @@
     </div>
 
     <div class="card w-full">
-      <div class="w-full max-h[200px]">
+      <div class="w-full md:h-[380px]">
         <img
-          class="w-full h-auto"
-          src="assets/hamburger-foodie-2.webp"
-          alt="hamburger"
+          class="w-full h-full"
+          [src]="
+            product.imageUrl ? productUrl : 'assets/hamburger-foodie-2.webp'
+          "
+          alt="image du produit"
         />
       </div>
 
       <div class="w-full py-4 px-6 flex flex-col items-start">
         <h3 class="w-full text-center">
           {{ product.name }}
-          <span class="ms-4 text-xl"
-            >{{ product.price | number: '1.2-2' }} €</span
-          >
         </h3>
 
         <p class="text-lg font-main mt-4 text-start">
@@ -49,13 +48,19 @@
 
         <div
           class="flex mt-2"
-          *ngIf="userInfos.isEligible && product.numberAvailable > 0"
+          *ngIf="userInfos?.isEligible && product.numberAvailable > 0"
         >
           <h4 class="text-lg font-main font-bold">Quantité restante:</h4>
           <p class="text-lg font-main ms-4">{{ product.numberAvailable }}</p>
         </div>
 
-        <h4 class="text-lg font-main font-bold mt-2">Allergène:</h4>
+        <div class="w-full flex justify-between">
+          <h4 class="text-lg font-main font-bold mt-2">Allergène:</h4>
+          <span class="ms-4 text-lg font-main font-bold mt-2"
+            >Prix: {{ product.price | number: '1.2-2' }} €</span
+          >
+        </div>
+
         <div *ngIf="product.allergens.length === 0">Aucun allergène</div>
         <div *ngIf="product.allergens.length > 0">
           <div class="flex flex-wrap gap-2 mt-2">
@@ -69,7 +74,7 @@
 
       <app-reservation-button
         class="w-[95%] mx-auto"
-        [ngClass]="userInfos.isEligible ? '' : 'hidden'"
+        [ngClass]="userInfos?.isEligible ? '' : 'hidden'"
         [productId]="product.id"
         [establishmentId]="product.establishmentId"
       ></app-reservation-button>
@@ -77,12 +82,12 @@
       <div class="buttons">
         <app-participate-button
           class="w-1/2"
-          [ngClass]="!userInfos.isEligible ? '' : 'hidden'"
+          [ngClass]="!userInfos?.isEligible ? '' : 'hidden'"
           [productId]="product.id"
         ></app-participate-button>
         <app-payment-button
           class="w-1/2"
-          [ngClass]="!userInfos.isEligible ? '' : 'hidden'"
+          [ngClass]="!userInfos?.isEligible ? '' : 'hidden'"
           [productId]="product.id"
         ></app-payment-button>
       </div>

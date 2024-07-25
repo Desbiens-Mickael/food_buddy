@@ -86,6 +86,22 @@ li a {
     rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px,
     rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  transition: all 0.3s ease;
+  animation-fill-mode: both;
+}
+
+.animate {
+  animation: button-animation 0.2s ease-out;
+}
+
+li:nth-child(2) a {
+  animation-delay: 0.1s;
+}
+li:nth-child(3) a {
+  animation-delay: 0.2s;
+}
+li:nth-child(4) a {
+  animation-delay: 0.3s;
 }
 
 li a:hover,
@@ -97,14 +113,11 @@ li a.active {
 .avatar {
   width: 70px;
   height: 70px;
-  background-color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5em;
-  font-weight: bold;
-  color: var(--secondary-color);
+  overflow: hidden;
 }
 
 input {
@@ -138,10 +151,26 @@ h4 {
     transform: translate(0%);
   }
 
+  li a {
+    animation: button-animation 0.2s ease-out;
+    animation-fill-mode: both;
+  }
+
   .hamburger {
     display: none;
   }
   .content {
     margin-left: 0;
+  }
+}
+
+@keyframes button-animation {
+  0% {
+    opacity: 0;
+    transform: translatey(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translatey(0) scale(1);
   }
 }
