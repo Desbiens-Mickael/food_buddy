@@ -8,19 +8,12 @@ import { UserInfo } from '../models/User-info.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private userInfo = new BehaviorSubject<UserInfo>({
-    firstname: '',
-    lastname: '',
-    email: '',
-    role: '',
-    isAuthenticated: false,
-    profileImageUrl: '',
-  });
-  public userInfo$: Observable<UserInfo> = this.userInfo.asObservable();
+  private userInfo = new BehaviorSubject<UserInfo | null>(null);
+  public userInfo$: Observable<UserInfo | null> = this.userInfo.asObservable();
 
   private http = inject(HttpClient);
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<UserInfo> {
     return this.http
       .post<UserInfo>(`${environment.apiUrl}/auth/login`, {
         email: email,
@@ -28,18 +21,27 @@ export class AuthService {
       })
       .pipe(
         map(data => {
-          console.log(data);
-          this.userInfo.next({ ...data, isAuthenticated: true });
-          localStorage.setItem(
-            'userInfo',
-            JSON.stringify({ ...data, isAuthenticated: true }),
-          );
+          this.userInfo.next({ ...data });
+          console.log(this.userInfo);
+          return data;
         }),
       );
   }
 
   setUserInfo(userInfo: UserInfo) {
-    this.userInfo.next({ ...this.userInfo, ...userInfo });
+    this.userInfo.next(userInfo);
+  }
+
+  refreshUserInfo(update: Partial<UserInfo>) {
+    const currentUserInfo = this.userInfo.getValue();
+    if (currentUserInfo) {
+      const updatedUserInfo = { ...currentUserInfo, ...update };
+      this.userInfo.next(updatedUserInfo);
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.userInfo.getValue()?.email;
   }
 
   logout() {
@@ -47,14 +49,8 @@ export class AuthService {
       .post<{ message: string }>(`${environment.apiUrl}/auth/logout`, {})
       .pipe(
         map(() => {
-          this.userInfo.next({
-            ...this.userInfo.getValue(),
-            isAuthenticated: false,
-          });
-          localStorage.setItem(
-            'userInfo',
-            JSON.stringify({ isAuthenticated: false }),
-          );
+          //vider le behavior subject
+          this.userInfo.next(null);
         }),
       );
   }

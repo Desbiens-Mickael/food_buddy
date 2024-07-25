@@ -23,6 +23,4 @@
   </div>
 </div>
 
-<div *ngIf="isLoading" class="w-full h-full flex justify-center items-center">
-  <p>Chargement...</p>
-</div>
+<app-loader *ngIf="isLoading"></app-loader>

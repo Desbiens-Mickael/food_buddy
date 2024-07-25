@@ -2,7 +2,9 @@ export interface UserInfo {
   firstname: string;
   lastname: string;
   email: string;
-  profileImageUrl: string;
+  profileImageUrl?: string;
   role: string;
-  isAuthenticated: boolean;
+  isEligible?: boolean;
+  businesseName?: string;
+  businessLogoUrl?: string;
 }

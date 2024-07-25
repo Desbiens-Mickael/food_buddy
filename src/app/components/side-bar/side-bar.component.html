@@ -16,20 +16,18 @@
           <img
             class=""
             src="{{
-              establishmentActive.logoBusinessUrl
-                ? baseUrl +
-                  '/users/avatar/' +
-                  establishmentActive.logoBusinessUrl
+              userInfos?.businessLogoUrl
+                ? baseUrl + '/businesses/logo/' + userInfos?.businessLogoUrl
                 : 'assets/default-busines.png'
             }}"
             alt="Logo de l'entreprise"
           />
         </div>
       </div>
-      <h4 class="text-3xl font-bold dark:text-white">
-        {{ establishmentActive.businessName }}
+      <h4 class="text-3xl font-bold">
+        {{ userInfos?.businesseName }}
       </h4>
-      <h5 class="text-1xl font-bold dark:text-white">
+      <h5 class="text-1xl font-bold text-white">
         {{ establishmentActive.name }}
       </h5>
       <label for="establishment-choice" class="mt-4"
@@ -98,7 +96,7 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            Options
+            Profil
           </a>
         </li>
       </ul>

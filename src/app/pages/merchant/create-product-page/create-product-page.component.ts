@@ -41,7 +41,7 @@ export class CreateProductPageComponent implements OnInit {
           return of(productData);
         }),
         catchError((error: HttpErrorResponse) => {
-          this.toastr.error(error.error.error_message as string);
+          // this.toastr.error(error.error.error_message as string);
           return of(error);
         }),
       )

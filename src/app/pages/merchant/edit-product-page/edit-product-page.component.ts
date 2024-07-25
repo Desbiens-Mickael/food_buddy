@@ -7,11 +7,12 @@ import { catchError, of, switchMap } from 'rxjs';
 import { ProductFormComponent } from '../../../components/product/product-form/product-form.component';
 import { CreateProduct, FullProduct } from '../../../shared/models/Product';
 import { ProductService } from '../../../shared/services/product.service';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 
 @Component({
   selector: 'app-edit-product-page',
   standalone: true,
-  imports: [ProductFormComponent, CommonModule],
+  imports: [ProductFormComponent, CommonModule, LoaderComponent],
   templateUrl: './edit-product-page.component.html',
   styleUrl: './edit-product-page.component.css',
 })
@@ -54,7 +55,7 @@ export class EditProductPageComponent implements OnInit {
           return of(productData);
         }),
         catchError((error: HttpErrorResponse) => {
-          this.toastr.error(error.error.error_message as string);
+          // this.toastr.error(error.error.error_message as string);
           return of(error);
         }),
       )

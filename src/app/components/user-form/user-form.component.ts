@@ -135,13 +135,12 @@ export class UserFormComponent implements OnInit {
               return of(data);
             }),
             catchError((error: HttpErrorResponse) => {
-              this.toastr.error(error.message);
+              // this.toastr.error(error.message);
               return of(error);
             }),
           )
           .subscribe({
             next: () => {
-              this.userForm.reset();
               this.toastr.success('Modification enregistrée');
             },
             error: (error: HttpErrorResponse) => {

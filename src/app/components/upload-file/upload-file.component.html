@@ -1,4 +1,4 @@
-<div class="drop-zone-container">
+<div class="drop-zone-container" *ngIf="!files.length">
   <div
     [attr.aria-hidden]="true"
     class="drop-zone"
@@ -29,7 +29,13 @@
       [src]="fileInfo.url"
       alt="Prévisualisation de l'image"
     />
-    <p>{{ fileInfo.file.name }}</p>
-    <button (click)="deleteFile(i)">Supprimer</button>
+    <!-- <p>{{ fileInfo.file.name }}</p> -->
+    <span
+      class="material-symbols-outlined delete-button"
+      aria-hidden="true"
+      (click)="deleteFile(i)"
+      ><span class="material-symbols-outlined"> cancel </span></span
+    >
+    <!-- <button class="delete-button" (click)="deleteFile(i)">Supprimer</button> -->
   </div>
 </div>

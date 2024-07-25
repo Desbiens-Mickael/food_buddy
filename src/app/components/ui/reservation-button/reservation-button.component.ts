@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../../../shared/models/User';
+import { UserInfo } from '../../../shared/models/User-info.model';
+import { AuthService } from '../../../shared/services/auth.service';
 import { ProductService } from '../../../shared/services/product.service';
 import { ReservationService } from '../../../shared/services/reservation.service';
 
@@ -14,21 +15,29 @@ import { ReservationService } from '../../../shared/services/reservation.service
   styleUrl: './reservation-button.component.css',
 })
 export class ReservationButtonComponent implements OnInit {
-  userInfos!: User;
+  userInfos!: UserInfo | null;
   @Input() productId!: string;
   @Input() establishmentId!: string;
+  isLoading = false;
 
+  private authService = inject(AuthService);
   private reservationService = inject(ReservationService);
   private productServise = inject(ProductService);
   private toastr = inject(ToastrService);
 
   ngOnInit(): void {
-    this.userInfos = JSON.parse(localStorage.getItem('userInfo') ?? '') as User;
+    this.isLoading = true;
+    this.authService.userInfo$.subscribe(userInfo => {
+      this.userInfos = userInfo;
+      this.isLoading = false;
+    });
   }
 
   handleReservation() {
+    this.isLoading = true;
     this.reservationService.createReservation(this.productId).subscribe({
       next: () => {
+        this.isLoading = false;
         this.toastr.success('Produit réservé avec succès');
         this.productServise.getAllProductsByEstablishmentId(
           this.establishmentId,

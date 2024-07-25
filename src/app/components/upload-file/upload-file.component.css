@@ -31,13 +31,24 @@
 }
 
 .preview {
+  position: relative;
+  height: 156px;
+  width: 200px;
   margin: 10px;
   text-align: center;
 }
 
 .preview img {
-  max-width: 100px;
-  max-height: 100px;
   display: block;
   margin-bottom: 10px;
+}
+
+.delete-button {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  background-color: #ff010100;
+  border: none;
+  cursor: pointer;
+  color: red;
 }

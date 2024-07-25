@@ -1,19 +1,14 @@
 <h1 class="text-center text-3xl md:text-5xl font-main font-bold">
-  Tous nos produits
+  Les repas suspendus
 </h1>
 
-<div
-  *ngIf="isLoading"
-  class="w-full h-custom-height flex justify-center items-center"
->
-  <span class="font-main text-5xl text-slate-800">Chargement...</span>
-</div>
+<app-loader *ngIf="isLoading"></app-loader>
 
 <div
   *ngIf="(products.length === 0 || products === undefined) && !isLoading"
   class="flex justify-center items-center text-3xl font-bold font-main text-center mt-24"
 >
-  Aucun produit trouvé
+  Aucun repas suspendu trouvé
 </div>
 
 <div *ngIf="products.length > 0" class="allProduct mt-8">

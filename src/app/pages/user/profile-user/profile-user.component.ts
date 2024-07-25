@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserFormComponent } from '../../../components/user-form/user-form.component';
-import { UserInfo } from '../../../shared/models/User-info.model';
-import { UpdateUser } from '../../../shared/models/User';
+import { Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { UserFormComponent } from '../../../components/user-form/user-form.component';
+import { UpdateUser } from '../../../shared/models/User';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profile-user',
@@ -15,16 +15,16 @@ export class ProfileUserComponent implements OnInit {
   user!: UpdateUser;
   baseUrl = environment.apiUrl;
 
-  ngOnInit() {
-    const { firstname, lastname, email, profileImageUrl } = JSON.parse(
-      localStorage.getItem('userInfo') ?? '{}',
-    ) as UserInfo;
+  private authService = inject(AuthService);
 
-    this.user = {
-      firstname,
-      lastname,
-      email,
-      profileImageUrl,
-    };
+  ngOnInit() {
+    this.authService.userInfo$.subscribe(userInfo => {
+      this.user = {
+        firstname: userInfo?.firstname ?? '',
+        lastname: userInfo?.lastname ?? '',
+        email: userInfo?.email ?? '',
+        profileImageUrl: userInfo?.profileImageUrl ?? '',
+      };
+    });
   }
 }
