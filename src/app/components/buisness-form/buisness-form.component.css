@@ -1,11 +1,3 @@
-/* .allboxes {
-  height: 100vh;
-  width: 100%;
-} */
-
-* {
-  --width-form: 80%;
-}
 h1 {
   text-align: center;
   color: #3f3d3d;
@@ -15,18 +7,17 @@ h1 {
 h6 {
   color: #605b5b;
 }
+
 input {
   border-radius: 5px;
-  height: 30px;
-  width: 100%; /*longueur des inputs*/
-  text-align: center;
+  width: 100%;
   line-height: 1.5;
   color: #3f3d3d;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 form {
-  width: var(--width-form); /*longueur pr erreurs*/
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,19 +31,12 @@ form {
   text-align: center;
 }
 
-.allbuttons {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 140px;
-  gap: 35px;
-}
-
 .buttons {
-  padding-top: 1.3rem;
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
   display: flex;
-  justify-content: space-around;
 }
 
 .btn-valid {
@@ -63,6 +47,7 @@ form {
   padding-bottom: 0.5rem;
   font-size: 1rem;
   color: #fff;
+  margin-left: auto;
 }
 
 .btn-valid:hover {
@@ -77,6 +62,7 @@ form {
   padding-bottom: 0.5rem;
   font-size: 1rem;
   color: #fff;
+  margin-right: auto;
 }
 
 .btn-warning:hover {
@@ -103,11 +89,6 @@ form {
   width: 100%;
   flex-direction: column;
 }
-
-/* input:focus {
-  outline: none;
-  box-shadow: 0 0 0 1px rgb(220, 38, 38);
-} */
 
 ul {
   position: absolute;
@@ -136,38 +117,18 @@ invalid-btn {
   background-color: orange;
 }
 
-.field {
-  margin-top: 0.5rem;
-}
-
 .m-top-input {
   margin-top: 2rem;
 }
 
-/* div.controlPassword {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  .field {
-    position: relative;
-
-    .eyes {
-      position: absolute;
-      right: 5.5px;
-      top: 4px;
-      bottom: 0;
-    }
-  }
-} */
-
 .eyes {
+  height: 100%;
   position: absolute;
   top: 0;
   right: 10px;
-  padding-top: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .eyespassword > input {
@@ -180,46 +141,6 @@ div.field {
 
 @media (max-width: 676px) {
   h1 {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     padding-top: 5px;
-  }
-  form {
-    width: 100%; /*longueur pr erreurs*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .buttons button {
-    width: 100px;
-  }
-
-  div.field {
-    width: 80%;
-  }
-}
-
-@media (max-width: 390px) {
-  input {
-    border-radius: 5px;
-    height: 30px;
-    width: 100%; /*longueur des inputs*/
-    text-align: center;
-    line-height: 1.5;
-    color: #3f3d3d;
-  }
-  .buttons {
-    padding-top: 1rem;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
-  }
-  .buttons button {
-    width: 100px;
-  }
-  div.field {
-    width: 80%;
   }
 }

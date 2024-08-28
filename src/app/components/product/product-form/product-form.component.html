@@ -20,7 +20,7 @@
     />
     <div
       *ngIf="getName?.invalid && (getName?.dirty || getName?.touched)"
-      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getName?.errors?.['required']">Nom requis</div>
     </div>
@@ -45,7 +45,7 @@
         getDescription?.invalid &&
         (getDescription?.dirty || getDescription?.touched)
       "
-      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getDescription?.errors?.['required']">
         Description requise
@@ -68,7 +68,7 @@
     />
     <div
       *ngIf="getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)"
-      class="text-white text-center bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
     >
       <div *ngIf="getPrice?.errors?.['required']">Prix requis</div>
       <div *ngIf="getPrice?.errors?.['min']">Prix invalide</div>

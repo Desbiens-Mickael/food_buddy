@@ -21,26 +21,31 @@ export const authGuard: CanActivateFn = (
   const router: Router = inject(Router);
 
   let isLogged!: boolean;
+  let isEligible!: boolean;
   let userRole!: string | undefined;
 
   authService.userInfo$.subscribe(userInfo => {
     isLogged = !!userInfo?.email;
+    isEligible = userInfo?.isEligible ?? false;
     userRole = userInfo?.role;
   });
 
-  console.log(userRole, isLogged, state.url);
   const URL = state.url.split('/')[1];
 
   const publicRoutes = ['login', 'register'];
-  const userRoutes = ['profile', 'map', 'reservations', 'establishments'];
+  const userRoutes = ['profile', 'map', 'establishments'];
+  const eligibleRoutes = ['reservations'];
 
   // Unauthenticated user management
   if (!isLogged && userRoutes.includes(URL)) {
     return router.createUrlTree(['/login']);
   }
 
-  // Authenticated user management for the public route
-  if (isLogged && publicRoutes.includes(URL)) {
+  // Authenticated user management for public and eligible routes
+  if (
+    (isLogged && publicRoutes.includes(URL)) ||
+    (!isEligible && eligibleRoutes.includes(URL))
+  ) {
     if (userRole === 'MERCHANT') return router.createUrlTree(['/merchant']);
 
     return router.createUrlTree(['/']);

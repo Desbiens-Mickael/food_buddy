@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,17 +10,17 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { concatMap, of } from 'rxjs';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
 import {
   Address,
   Buisness,
   Business,
-  BusinessWithEstablishment,
   Establishment,
-  User,
 } from '../../shared/models/Buisness';
+import { User } from '../../shared/models/User';
+import { UserInfo } from '../../shared/models/User-info.model';
 import { AdresseService } from '../../shared/services/adresse.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
@@ -39,19 +39,20 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
   templateUrl: './buisness-form.component.html',
   styleUrls: ['./buisness-form.component.css'],
 })
-export class BuisnessFormComponent {
+export class BuisnessFormComponent implements OnInit {
   isHiddenConfirmPassword = true;
   isHiddenPassword = true;
 
   private formBuilder = inject(FormBuilder);
   private adresseService = inject(AdresseService);
-  private buisnessService = inject(BuisnessService);
   private userService = inject(UserService);
   private businessService = inject(BuisnessService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
-  private avatar?: File;
-  private businessLogo?: File;
+  private authService = inject(AuthService);
+  // private avatar?: File;
+  // private businessLogo?: File;
+  userInfos!: UserInfo | null;
 
   myControl = new FormControl('');
   villes!: AdresseJson;
@@ -62,16 +63,16 @@ export class BuisnessFormComponent {
   currentStep = 1;
 
   userForm = this.formBuilder.group({
-    firstName: ['ttt', Validators.required],
-    lastName: ['ttt', Validators.required],
-    email: ['test@gmail.com', [Validators.required, Valid.emailValidator()]],
+    firstName: ['t', Validators.required],
+    lastName: ['t', Validators.required],
+    email: ['t@gmail.com', [Validators.required, Valid.emailValidator()]],
     password: this.formBuilder.group(
       {
         password: [
-          'Azerty1@',
+          'Azerty01@;',
           [Validators.required, Valid.passwordValidator()],
         ],
-        confirmPassword: ['Azerty1@', Validators.required],
+        confirmPassword: ['Azerty01@;', Validators.required],
       },
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
@@ -80,15 +81,15 @@ export class BuisnessFormComponent {
   });
 
   buisnessForm = this.formBuilder.group({
-    name: ['ff', Validators.required],
-    siren: ['123456789', [Validators.required, Valid.sirenValidator()]],
+    name: ['t', Validators.required],
+    siren: ['222222222', [Validators.required, Valid.sirenValidator()]],
   });
 
   establishmentForm = this.formBuilder.group({
-    name: ['fgsg', Validators.required],
-    siret: ['12345', [Validators.required, Valid.siretValidator()]],
-    email: ['testr@gmail.com', [Validators.required, Valid.emailValidator()]],
-    phoneNumber: ['0623569865', Validators.required],
+    name: ['t', Validators.required],
+    siret: ['22222', [Validators.required, Valid.siretValidator()]],
+    email: ['r@gmail.com', [Validators.required, Valid.emailValidator()]],
+    phoneNumber: ['0600000000', Validators.required],
   });
 
   addressForm = this.formBuilder.group({
@@ -99,6 +100,12 @@ export class BuisnessFormComponent {
     latitude: [0, Validators.required],
     longitude: [0, Validators.required],
   });
+
+  ngOnInit(): void {
+    this.authService.userInfo$.subscribe(data => {
+      this.userInfos = data;
+    });
+  }
 
   togglePassword(): void {
     this.isHiddenPassword = !this.isHiddenPassword;
@@ -177,21 +184,21 @@ export class BuisnessFormComponent {
     }
   }
 
-  onFileDropped(fileList: FileList) {
-    this.avatar = fileList[0];
-  }
+  // onFileDropped(fileList: FileList) {
+  //   this.avatar = fileList[0];
+  // }
 
-  onFileDroppedBusinessLogo(fileListLogo: FileList) {
-    this.businessLogo = fileListLogo[0];
-  }
+  // onFileDroppedBusinessLogo(fileListLogo: FileList) {
+  //   this.businessLogo = fileListLogo[0];
+  // }
 
-  onErrorOccurred(error: string) {
-    console.log(error);
-  }
+  // onErrorOccurred(error: string) {
+  //   console.log(error);
+  // }
 
-  onErrorOccurredBusinessLogo(errorLogo: string) {
-    console.log(errorLogo);
-  }
+  // onErrorOccurredBusinessLogo(errorLogo: string) {
+  //   console.log(errorLogo);
+  // }
 
   createBuisness(): void {
     if (
@@ -239,69 +246,30 @@ export class BuisnessFormComponent {
           establishment,
           address,
         };
-        console.log(this.businessLogo);
-
-        // this.businessService
-        //   .createBuisness(buisness)
-        //   .pipe(
-        //     concatMap((data: BusinessWithEstablishment) => {
-        //       if (this.avatar) {
-        //         console.log('upload avatar');
-        //         return this.userService
-        //           .uploadAvatar(this.avatar, 'test@gmail.com')
-        //           .pipe(
-        //             concatMap(() => of(data)), // Continue with `data` after avatar upload
-        //           );
-        //       }
-        //       return of(data); // If no avatar, proceed with `data`
-        //     }),
-        //     concatMap((data: BusinessWithEstablishment) => {
-        //       if (this.businessLogo) {
-        //         console.log('upload business logo');
-        //         return this.businessService
-        //           .uploadBusinessLogo(this.businessLogo, '1')
-        //           .pipe(
-        //             concatMap(() => of(data)), // Continue with `data` after logo upload
-        //           );
-        //       }
-        //       return of(data); // If no logo, proceed with `data`
-        //     }),
-        //   )
-        //   .subscribe({
-        //     next: () => {
-        //       this.userForm.reset();
-        //       void this.router.navigate(['/login']);
-        //       this.toastr.success('Création de compte réussie');
-        //     },
-        //     error: (error: HttpErrorResponse) => {
-        //       this.toastr.error(error.error as string);
-        //     },
-        //   });
 
         this.businessService
           .createBuisness(buisness)
-          .pipe(
-            concatMap((data: BusinessWithEstablishment) => {
-              if (this.avatar) {
-                console.log('upload avatar');
-                return this.userService.uploadAvatar(
-                  this.avatar,
-                  'test@gmail.com',
-                );
-              }
-              return of(data); // If no avatar, proceed with `data`
-            }),
-            concatMap(data => {
-              if (this.businessLogo) {
-                console.log('upload business logo');
-                return this.businessService.uploadBusinessLogo(
-                  this.businessLogo,
-                  '1',
-                );
-              }
-              return of(data); // If no logo, proceed with `data`
-            }),
-          )
+          // .pipe(
+          //   concatMap((data: BusinessWithEstablishment) => {
+          //     console.log('avatar', data.Business);
+          //     if (this.avatar) {
+          //       return this.userService.uploadAvatar(
+          //         this.avatar,
+          //         'test@gmail.com', // TODO: get email from user
+          //       );
+          //     }
+          //     return of(data); // If no avatar, proceed with `data`
+          //   }),
+          //   concatMap(data => {
+          //     if (this.businessLogo) {
+          //       return this.businessService.uploadBusinessLogo(
+          //         this.businessLogo,
+          //         '1',
+          //       );
+          //     }
+          //     return of(data); // If no logo, proceed with `data`
+          //   }),
+          // )
           .subscribe({
             next: () => {
               this.userForm.reset();

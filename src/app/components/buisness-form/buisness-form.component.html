@@ -1,9 +1,9 @@
 <div class="allboxes">
   <div class="boxblock1">
-    <h1>Je crée mon compte</h1>
+    <h1 class="text-center font-main mb-4">Je crée mon compte commerçant</h1>
     <!-- Informations client form#1-->
     <div class="blockForm" *ngIf="currentStep === 1">
-      <form [formGroup]="userForm" #myForm="ngForm" novalidate>
+      <form [formGroup]="userForm" #myForm="ngForm" novalidate class="px-4">
         <div class="flex flex-col md:gap-8 w-full md:flex-row">
           <div class="w-full">
             <input
@@ -27,7 +27,7 @@
                     (userForm.get('firstName')?.dirty ||
                       userForm.get('firstName')?.touched)
                   "
-                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
                 >
                   <small
                     class="error"
@@ -62,7 +62,7 @@
                     (userForm.get('lastName')?.dirty ||
                       userForm.get('lastName')?.touched)
                   "
-                  class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
                 >
                   <small
                     class="error"
@@ -75,13 +75,13 @@
           </div>
         </div>
 
-        <p class="text-main font-semibold mt-4">Photo de profil</p>
+        <!-- <h3 class="text-main text-xl mt-4">Photo de profil</h3>
         <app-upload-file
           [multiple]="false"
           acceptedTypes="image/*"
           (fileDropped)="onFileDropped($event)"
           (errorOccurred)="onErrorOccurred($event)"
-        ></app-upload-file>
+        ></app-upload-file> -->
 
         <div class="field">
           <div class="control">
@@ -105,7 +105,7 @@
                     (userForm.get('email')?.dirty ||
                       userForm.get('email')?.touched)
                   "
-                  class="flex flex-col gap-2text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                  class="flex flex-col gap-2 text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
                 >
                   <small
                     class="error"
@@ -186,7 +186,7 @@
                   (userForm.get('password.password')?.dirty ||
                     userForm.get('password.password')?.touched)
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   class="error"
@@ -261,7 +261,7 @@
                   (userForm.get('password.confirmPassword')?.dirty ||
                     userForm.get('password.confirmPassword')?.touched)
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   class="error"
@@ -294,7 +294,7 @@
     <div class="boxblock2">
       <!-- informations entreprise form#2 -->
       <div class="blockForm" *ngIf="currentStep === 2">
-        <form [formGroup]="buisnessForm">
+        <form [formGroup]="buisnessForm" class="px-4">
           <h6>Informations Entreprise</h6>
           <div class="field">
             <div class="control">
@@ -317,7 +317,7 @@
                   (buisnessForm.get('name')?.dirty ||
                     buisnessForm.get('name')?.touched)
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   class="error"
@@ -349,7 +349,7 @@
                   (buisnessForm.get('siren')?.dirty ||
                     buisnessForm.get('siren')?.touched)
                 "
-                class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   class="error"
@@ -360,13 +360,13 @@
             </div>
           </div>
 
-          <p class="text-main font-semibold mt-4">Logo de l'entreprise</p>
+          <!-- <p class="text-main font-semibold mt-4">Logo de l'entreprise</p>
           <app-upload-file
             [multiple]="false"
             acceptedTypes="image/*"
             (fileDropped)="onFileDroppedBusinessLogo($event)"
             (errorOccurred)="onErrorOccurredBusinessLogo($event)"
-          ></app-upload-file>
+          ></app-upload-file> -->
         </form>
       </div>
 
@@ -375,7 +375,7 @@
     <div class="boxblock3">
       <!-- informations etablissement form#3 -->
       <div class="blockForm" *ngIf="currentStep === 3">
-        <form [formGroup]="establishmentForm">
+        <form [formGroup]="establishmentForm" class="px-4">
           <h6>Informations Etablissement</h6>
           <div class="field">
             <div class="control">
@@ -399,7 +399,7 @@
                 (establishmentForm.get('name')?.dirty ||
                   establishmentForm.get('name')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -431,7 +431,7 @@
                 (establishmentForm.get('siret')?.dirty ||
                   establishmentForm.get('siret')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -463,7 +463,7 @@
                 (establishmentForm.get('email')?.dirty ||
                   establishmentForm.get('email')?.touched)
               "
-              class="flex flex-col gap-2 text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="flex flex-col gap-2 text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -500,7 +500,7 @@
                 (establishmentForm.get('phoneNumber')?.dirty ||
                   establishmentForm.get('phoneNumber')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -518,7 +518,7 @@
     <div class="boxblock4">
       <!-- adresse etablissement form#4 -->
       <div class="blockForm" *ngIf="currentStep === 4">
-        <form [formGroup]="addressForm">
+        <form [formGroup]="addressForm" class="px-4">
           <h6>Adresse de l'établissement</h6>
           <div class="field relative">
             <div class="control">
@@ -574,7 +574,7 @@
                 (addressForm.get('streetNumber')?.dirty ||
                   addressForm.get('streetNumber')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -606,7 +606,7 @@
                 (addressForm.get('streetName')?.dirty ||
                   addressForm.get('streetName')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -638,7 +638,7 @@
                 (addressForm.get('zipCode')?.dirty ||
                   addressForm.get('zipCode')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -671,7 +671,7 @@
                 (addressForm.get('city')?.dirty ||
                   addressForm.get('city')?.touched)
               "
-              class="text-white bg-red-300 text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
               <small
                 class="error"
@@ -684,7 +684,6 @@
       </div>
       <!-- FIN adresse etablissement form#4 -->
       <div class="buttons">
-        <!-- form4 -->
         <button
           *ngIf="currentStep !== 1"
           class="button btn-warning"
@@ -692,61 +691,29 @@
         >
           Précédent
         </button>
-        <!-- form4 -->
-        <!-- form1 -->
+
         <button
           class="button btn-valid"
-          *ngIf="currentStep === 1"
-          (click)="nextStep()"
+          (click)="currentStep === 4 ? createBuisness() : nextStep()"
           [ngClass]="
-            userForm.invalid ? 'cursor-not-allowed btn-warning' : 'btn-valid'
+            (userForm.invalid && currentStep === 1) ||
+            (buisnessForm.invalid && currentStep === 2) ||
+            (establishmentForm.invalid && currentStep === 3) ||
+            (addressForm.invalid && currentStep === 4)
+              ? 'cursor-not-allowed'
+              : ''
           "
-          [disabled]="userForm.invalid && true"
-        >
-          Suivant
-        </button>
-        <!-- form1 -->
-        <!-- form2 -->
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 2"
-          (click)="nextStep()"
-          [ngClass]="
-            buisnessForm.invalid
-              ? 'cursor-not-allowed btn-warning'
-              : 'btn-valid'
+          [disabled]="
+            (userForm.invalid && currentStep === 1) ||
+            (buisnessForm.invalid && currentStep === 2) ||
+            (establishmentForm.invalid && currentStep === 3) ||
+            (addressForm.invalid && currentStep === 4)
+              ? true
+              : false
           "
-          [disabled]="buisnessForm.invalid && true"
         >
-          Suivant
+          {{ currentStep === 4 ? 'Créer mon compte' : 'Suivant' }}
         </button>
-        <!-- form2 -->
-        <!-- form3 -->
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 3"
-          (click)="nextStep()"
-          [ngClass]="
-            establishmentForm.invalid
-              ? 'cursor-not-allowed btn-warning'
-              : 'btn-valid'
-          "
-          [disabled]="establishmentForm.invalid && true"
-        >
-          Suivant
-        </button>
-        <!-- form3 -->
-        <!-- form4 -->
-        <button
-          class="button btn-valid"
-          *ngIf="currentStep === 4"
-          (click)="createBuisness()"
-          [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
-          [disabled]="userForm.invalid && true"
-        >
-          Valider
-        </button>
-        <!-- form4 -->
       </div>
     </div>
   </div>

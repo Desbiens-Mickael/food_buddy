@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Link } from '../../../shared/models/Link.model';
-import { publicLinks, userLinks } from '../../../shared/routes-config/routes';
+import {
+  eligibleRoutes,
+  publicRoutes,
+  userRoutes,
+} from '../../../shared/routes-config/routes';
 import { LinkNavbarComponent } from '../../ui/link-navbar/link-navbar.component';
 import { LogoutButtonComponent } from '../../ui/logout-button/logout-button.component';
 
@@ -12,10 +16,25 @@ import { LogoutButtonComponent } from '../../ui/logout-button/logout-button.comp
   templateUrl: './mobile-navbare.component.html',
   styleUrl: './mobile-navbare.component.css',
 })
-export class MobileNavbareComponent {
-  publicLinks: Link[] = publicLinks;
-  userLinks: Link[] = userLinks;
+export class MobileNavbareComponent implements OnInit, OnChanges {
+  publicRoutes: Link[] = publicRoutes;
+  userRoutes!: Link[];
 
   @Input()
   isLogged = false;
+
+  @Input()
+  isEligible = false;
+
+  ngOnInit(): void {
+    this.userRoutes = this.isEligible
+      ? userRoutes.concat(eligibleRoutes)
+      : userRoutes;
+  }
+
+  ngOnChanges(): void {
+    this.userRoutes = this.isEligible
+      ? userRoutes.concat(eligibleRoutes)
+      : userRoutes;
+  }
 }

@@ -4,7 +4,7 @@
   <nav class="h-full w-full">
     <ul class="h-full w-full justify-around flex items-center">
       @if (!isLogged) {
-        <li class="" *ngFor="let link of publicLinks">
+        <li class="" *ngFor="let link of publicRoutes">
           <app-link-navbar
             [text]="link.text"
             [icon]="link.icon"
@@ -13,19 +13,16 @@
           ></app-link-navbar>
         </li>
       } @else {
-        <li class="" *ngFor="let link of userLinks">
+        <li class="" *ngFor="let link of userRoutes">
           <app-link-navbar
-            *ngIf="link.route !== '/logout'"
             [text]="link.text"
             [icon]="link.icon"
             [route]="link.route"
             [isMobile]="true"
           ></app-link-navbar>
-
-          <app-logout-button
-            *ngIf="link.route === '/logout'"
-            [isMobile]="true"
-          ></app-logout-button>
+        </li>
+        <li>
+          <app-logout-button [isMobile]="true"></app-logout-button>
         </li>
       }
     </ul>

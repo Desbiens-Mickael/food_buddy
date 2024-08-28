@@ -28,7 +28,6 @@ export function initializeApp(
     return lastValueFrom(userService.getUser())
       .then((user: UserInfo) => {
         authService.setUserInfo(user);
-        console.log('User initialized:', user);
       })
       .catch((error: unknown) => {
         console.error('Error during app initialization:', error);

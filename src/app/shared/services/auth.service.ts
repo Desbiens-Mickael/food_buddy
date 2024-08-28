@@ -22,7 +22,6 @@ export class AuthService {
       .pipe(
         map(data => {
           this.userInfo.next({ ...data });
-          console.log(this.userInfo);
           return data;
         }),
       );

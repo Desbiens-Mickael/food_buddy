@@ -1,13 +1,15 @@
-<div class="main">
-  <div class="container">
+<div class="main mt-16">
+  <div class="container mb-4">
     <p>
       Avec <span class="font_foodbuddy">Food Buddy</span>, vous avez la
       possibilité d'offrir un moment de partage et de bonheur à une famille et
       des enfants dans le besoin.
     </p>
   </div>
-  <div class="registerComponent shadow-lg bg-white/10 backdrop-blur-lg">
-    <div class="choiceAccount">
+  <div
+    class="registerComponent shadow-lg bg-white/10 backdrop-blur-lg rounded-xl py-4"
+  >
+    <div class="choiceAccount mx-auto mb-6">
       <button
         [disabled]="!buisnessChoice"
         (click)="buisnessChoice()"

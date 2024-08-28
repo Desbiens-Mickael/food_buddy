@@ -26,17 +26,23 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   lenis!: Lenis;
   scrollTrigger!: ScrollTrigger;
 
+  isMobile(): boolean {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }
+
   scrollTriggerUpdate = () => {
     ScrollTrigger.update();
   };
 
   ngOnInit(): void {
+    const isMobile = this.isMobile();
+
     this.lenis = new Lenis({
-      lerp: 0.05,
+      lerp: isMobile ? 0.1 : 0.05,
       infinite: false,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      syncTouch: true,
+      smoothWheel: !isMobile,
+      wheelMultiplier: isMobile ? 0 : 1,
+      syncTouch: true, // Laisse activé pour le défilement tactile
     });
 
     gsap.registerPlugin(ScrollTrigger);

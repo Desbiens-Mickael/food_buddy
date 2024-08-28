@@ -1,8 +1,17 @@
 <div class="min-h-screen flex flex-col">
-  <app-navbare-desktop [isLogged]="isLogged"></app-navbare-desktop>
-  <main class="flex-grow w-full max-w-screen-2xl mx-auto mt-28 mb-20">
+  <app-navbare-desktop
+    [isLogged]="isLogged"
+    [isEligible]="isEligible"
+  ></app-navbare-desktop>
+  <main
+    class="flex flex-col flex-grow w-full max-w-screen-2xl mx-auto mt-20 md:mt-[6.5rem] mb-24 md:mb-0"
+    [ngClass]="{ 'pt-12 md:pt-16': isLogged }"
+  >
     <router-outlet />
   </main>
-  <app-mobile-navbare [isLogged]="isLogged"></app-mobile-navbare>
+  <app-mobile-navbare
+    [isLogged]="isLogged"
+    [isEligible]="isEligible"
+  ></app-mobile-navbare>
   <app-footer></app-footer>
 </div>

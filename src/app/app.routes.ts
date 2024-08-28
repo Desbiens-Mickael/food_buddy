@@ -32,15 +32,7 @@ export const routes: Routes = [
       {
         path: 'register',
         loadComponent: () =>
-          import('./pages/register/register.component').then(
-            m => m.RegisterComponent,
-          ),
-        title: `${titleBase} - Inscription`,
-      },
-      {
-        path: 'favorite',
-        loadComponent: () =>
-          import('./pages/register/register.component').then(
+          import('./pages/public/register/register.component').then(
             m => m.RegisterComponent,
           ),
         title: `${titleBase} - Inscription`,
@@ -51,7 +43,7 @@ export const routes: Routes = [
           import('./pages/user/map-page/map-page.component').then(
             m => m.MapPageComponent,
           ),
-        title: `${titleBase} - Map`,
+        title: `${titleBase} - Carte des commerçants`,
       },
       {
         path: 'reservations',
@@ -59,7 +51,7 @@ export const routes: Routes = [
           import(
             './pages/user/reservations-user/reservations-user.component'
           ).then(m => m.ReservationsUserComponent),
-        title: `${titleBase} - Reservations`,
+        title: `${titleBase} - Mes repas suspendus`,
       },
       {
         path: 'establishments/:id',

@@ -1,4 +1,10 @@
-/* HTML: <div class="loader"></div> */
+:host {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .loader {
   width: 80px;
   height: 80px;

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { User } from '../../shared/models/Buisness';
+import { User } from '../../shared/models/User';
 import { UpdateUser } from '../models/User';
 import { UserInfo } from '../models/User-info.model';
 import { AuthService } from './auth.service';

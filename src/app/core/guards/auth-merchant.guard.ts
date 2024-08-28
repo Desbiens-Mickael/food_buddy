@@ -21,13 +21,11 @@ export const authMerchantGuard: CanActivateFn = ():
 
   // Unauthenticated user management
   if (!isLogged) {
-    console.log('merchantGuard', 'unauthenticated');
     return router.createUrlTree(['/login']);
   }
 
   // Management of authenticated users who do not have the merchant role
   if (userRole !== 'MERCHANT') {
-    console.log('merchantGuard', userRole);
     return router.createUrlTree(['/map']);
   }
   return true;

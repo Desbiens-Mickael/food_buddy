@@ -100,30 +100,16 @@ export class UserFormComponent implements OnInit {
       }
 
       if (!this.userInfos) {
-        this.userService
-          .createUser(user as User)
-          .pipe(
-            switchMap((data: User) => {
-              if (this.avatar) {
-                return this.userService.uploadAvatar(this.avatar, data.email);
-              }
-              return of(data);
-            }),
-            catchError((error: HttpErrorResponse) => {
-              this.toastr.error(error.message);
-              return of(error);
-            }),
-          )
-          .subscribe({
-            next: () => {
-              this.userForm.reset();
-              this.toastr.success('Compte créé avec succès');
-              void this.router.navigate(['/login']);
-            },
-            error: (error: HttpErrorResponse) => {
-              this.toastr.error(error.message);
-            },
-          });
+        this.userService.createUser(user as User).subscribe({
+          next: () => {
+            this.userForm.reset();
+            this.toastr.success('Compte créé avec succès');
+            void this.router.navigate(['/login']);
+          },
+          error: () => {
+            this.toastr.error('Erreur lors de la création du compte');
+          },
+        });
       } else {
         this.userService
           .UpdateUser(user as UpdateUser)
@@ -135,16 +121,15 @@ export class UserFormComponent implements OnInit {
               return of(data);
             }),
             catchError((error: HttpErrorResponse) => {
-              // this.toastr.error(error.message);
               return of(error);
             }),
           )
           .subscribe({
             next: () => {
-              this.toastr.success('Modification enregistrée');
+              this.toastr.success('Profil modifié avec succès');
             },
-            error: (error: HttpErrorResponse) => {
-              this.toastr.error(error.message);
+            error: () => {
+              this.toastr.error('Erreur lors de la modification du profil');
             },
           });
       }

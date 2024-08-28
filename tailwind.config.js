@@ -23,9 +23,7 @@ module.exports = {
         title: 'var(--font-title)',
         main: 'var(--font-main)',
       },
-      spacing: {
-        'custom-height': 'calc(100vh - 150px)',
-      },
+      spacing: {},
     },
   },
   plugins: [],

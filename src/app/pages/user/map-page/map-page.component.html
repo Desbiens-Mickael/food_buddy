@@ -1,69 +1,64 @@
-<div>
-  <h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
-    Carte
-  </h1>
-  <p class="text-center font-main">
-    Découvrez les commerçants participants près de chez vous en utilisant votre
-    localisation
-  </p>
-  <br />
+<h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
+  Carte des commerçants
+</h1>
+<p class="text-center font-main px-4">
+  Découvrez les commerçants participants près de chez vous en utilisant votre
+  localisation
+</p>
+<br />
 
-  <!-- TODO: ajouter le loader -->
-  <app-loader *ngIf="isLoading"></app-loader>
-  <div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4 md:px-4">
-    <div class="w-full h-[40vh] md:w-1/2 md:h-[65vh] shadow-md z-0">
-      <div
-        style="height: 100%; width: 100%"
-        leaflet
-        [leafletOptions]="options"
-        [leafletLayers]="markers"
-        (leafletMapReady)="onMapReady($event)"
-      >
-        <button
-          class="leaflet-bar leaflet-control leaflet-control-custom px-[.30rem] !cursor-pointer bg-slate-100 text-slate-800 top-20 left-[.70rem] absolute"
-          (click)="targetPosition()"
-        >
-          <span class="material-symbols-outlined text-lg"> my_location </span>
-        </button>
-      </div>
-    </div>
-
+<!-- TODO: ajouter le loader -->
+<app-loader *ngIf="isLoading"></app-loader>
+<div *ngIf="!isLoading" class="flex flex-col md:flex-row gap-4 md:px-4">
+  <div class="w-full h-[40vh] md:w-1/2 md:h-[65vh] shadow-md z-0">
     <div
-      class="w-full px-2 h-[40vh] md:h-[65vh] md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
+      style="height: 100%; width: 100%"
+      leaflet
+      [leafletOptions]="options"
+      [leafletLayers]="markers"
+      (leafletMapReady)="onMapReady($event)"
     >
-      <app-search-bar
-        (handleSearch)="onSearch($event)"
-        placeholder="Trouver un commerçant"
-      ></app-search-bar>
-      <!-- TODO: ajouter le loader -->
-      <app-loader *ngIf="isLoadingAddresses"></app-loader>
-      <div
-        *ngIf="!isLoadingAddresses"
-        class="flex flex-col gap-4 overflow-auto"
+      <button
+        class="leaflet-bar leaflet-control leaflet-control-custom px-[.30rem] !cursor-pointer bg-slate-100 text-slate-800 top-20 left-[.70rem] absolute"
+        (click)="targetPosition()"
       >
-        @if (
-          establishmentAddresses === undefined ||
-          establishmentAddresses.length === 0
-        ) {
-          <div class="w-full text-3xl font-bold font-main text-center mt-12">
-            Aucun résultat
-          </div>
-        } @else {
-          <app-map-item
-            *ngFor="let address of establishmentAddresses"
-            [name]="address.establishment.name"
-            [streetNumber]="address.address.streetNumber"
-            [streetName]="address.address.streetName"
-            [zipCode]="address.address.zipCode"
-            [city]="address.address.city"
-            [phoneNumber]="address.establishment.phoneNumber"
-            [latitude]="address.address.latitude"
-            [longitude]="address.address.longitude"
-            [logoUrl]="address.business.logoUrl"
-            (traceBusiness)="onTraceBusiness($event)"
-          ></app-map-item>
-        }
-      </div>
+        <span class="material-symbols-outlined text-lg"> my_location </span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="w-full px-2 h-[40vh] md:h-[65vh] md:px-0 md:w-1/2 flex flex-col gap-4 md:mt-0"
+  >
+    <app-search-bar
+      (handleSearch)="onSearch($event)"
+      placeholder="Trouver un commerçant"
+    ></app-search-bar>
+    <!-- TODO: ajouter le loader -->
+    <app-loader *ngIf="isLoadingAddresses"></app-loader>
+    <div *ngIf="!isLoadingAddresses" class="flex flex-col gap-4 overflow-auto">
+      @if (
+        establishmentAddresses === undefined ||
+        establishmentAddresses.length === 0
+      ) {
+        <div class="w-full text-3xl font-bold font-main text-center mt-12">
+          Aucun résultat
+        </div>
+      } @else {
+        <app-map-item
+          *ngFor="let address of establishmentAddresses"
+          [name]="address.establishment.name"
+          [streetNumber]="address.address.streetNumber"
+          [streetName]="address.address.streetName"
+          [zipCode]="address.address.zipCode"
+          [city]="address.address.city"
+          [phoneNumber]="address.establishment.phoneNumber"
+          [latitude]="address.address.latitude"
+          [longitude]="address.address.longitude"
+          [logoUrl]="address.business.logoUrl"
+          (traceBusiness)="onTraceBusiness($event)"
+        ></app-map-item>
+      }
     </div>
   </div>
 </div>

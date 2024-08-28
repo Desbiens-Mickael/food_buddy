@@ -39,5 +39,3 @@ export interface fullBusiness {
 export interface BusinessWithEstablishment {
   Business: fullBusiness[];
 }
-
-export { User };

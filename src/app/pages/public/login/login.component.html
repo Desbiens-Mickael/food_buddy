@@ -1,4 +1,4 @@
-<div class="main md:min-h-custom-height pt-[80px] md:pt-0">
+<div class="main flex-grow">
   <div class="container">
     <p>
       Avec <span class="font_foodbuddy">Food Buddy</span>, vous avez la
@@ -36,7 +36,7 @@
           />
           <div
             *ngIf="email?.invalid && (email?.dirty || email?.touched)"
-            class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+            class="text-white bg-red-600 text-main font-semibold mt-2 rounded-md py-2"
           >
             <div *ngIf="email?.errors?.['required']">Email requis</div>
           </div>
@@ -93,7 +93,7 @@
 
           <div
             *ngIf="password?.invalid && (password?.dirty || password?.touched)"
-            class="text-white bg-red-300 text-main font-semibold mt-2 rounded-md py-2"
+            class="text-white bg-red-600 text-main font-semibold mt-2 rounded-md py-2"
           >
             <div *ngIf="password?.errors?.['required']">
               Mot de passe requis
@@ -109,9 +109,10 @@
             Connexion
           </button>
 
-          <div class="deja_inscrit">
-            <a [routerLink]="['/register']"
-              >Pas encore inscrit? Inscrivez-vous ici</a
+          <div class="text-sm pt-4">
+            Pas encore inscrit?
+            <a [routerLink]="['/register']" class="hover:text-secondary-light">
+              Inscrivez-vous ici</a
             >
           </div>
         </div>
