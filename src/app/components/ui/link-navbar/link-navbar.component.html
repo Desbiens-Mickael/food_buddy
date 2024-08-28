@@ -1,0 +1,24 @@
+<a
+  *ngIf="!isMobile"
+  [routerLink]="[route]"
+  [routerLinkActive]="'active-link-mobile'"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="font-main text-2xl text-neutral-500 font-bold cursor-pointer hover:text-secondary transition-colors"
+  >{{ text }}</a
+>
+
+<a
+  *ngIf="isMobile"
+  [routerLink]="[route]"
+  [routerLinkActive]="'active-link-mobile'"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="cursor-pointer"
+>
+  <div class="icon-color">
+    <div class="w-full h-full flex flex-col justify-center items-center">
+      <span class="material-symbols-outlined text-3xl text-gray-600">
+        {{ icon }}
+      </span>
+    </div>
+  </div></a
+>

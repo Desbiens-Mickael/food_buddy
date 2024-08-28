@@ -1,0 +1,133 @@
+.sidebar {
+  width: 350px;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  box-shadow: 5px 0 3px -3px #00000030;
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.container {
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+
+li {
+  width: 90%;
+  height: 50px;
+  border-radius: 7px;
+  color: #fb9c2f;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow:
+    rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  transition: all 0.3s ease;
+  animation-fill-mode: both;
+}
+
+.animate {
+  animation: button-animation 0.2s ease-out;
+}
+
+li:nth-child(2) a {
+  animation-delay: 0.1s;
+}
+li:nth-child(3) a {
+  animation-delay: 0.2s;
+}
+li:nth-child(4) a {
+  animation-delay: 0.3s;
+}
+
+li a:hover,
+li a.active {
+  color: #fff;
+  background-color: #61a05a;
+}
+
+input {
+  text-align: center;
+}
+
+h4 {
+  color: var(--secondary-color);
+}
+
+.hamburger {
+  position: absolute;
+  top: 10px;
+  right: -15%;
+  z-index: 1000;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  border-radius: 7px;
+  display: flex;
+  color: white;
+  transition: all 0.3s ease;
+}
+.hamburger:hover {
+  background-color: var(--secondary-dark-color);
+}
+@media screen and (min-width: 1020px) {
+  .sidebar {
+    width: 350px;
+    transform: translate(0%);
+  }
+
+  li a {
+    animation: button-animation 0.2s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .hamburger {
+    display: none;
+  }
+  .content {
+    margin-left: 0;
+  }
+}
+
+@keyframes button-animation {
+  0% {
+    opacity: 0;
+    transform: translatey(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translatey(0) scale(1);
+  }
+}

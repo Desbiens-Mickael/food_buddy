@@ -1,0 +1,294 @@
+<div class="main">
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="createUser()"
+    #myForm="ngForm"
+    novalidate
+    class="px-4"
+  >
+    <h1 class="text-center font-main mb-4">
+      {{
+        userInfos ? 'Je modifie mon profil' : 'Je crée mon compte utilisateur'
+      }}
+    </h1>
+    <div class="flex flex-col md:gap-8 w-full md:flex-row">
+      <div class="w-full">
+        <input
+          [ngClass]="
+            userForm.get('firstName')?.invalid &&
+            (userForm.get('firstName')?.dirty ||
+              userForm.get('firstName')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Votre prénom"
+          formControlName="firstName"
+        />
+        <div class="field">
+          <div class="control controlName">
+            <div
+              *ngIf="
+                userForm.get('firstName')?.invalid &&
+                (userForm.get('firstName')?.dirty ||
+                  userForm.get('firstName')?.touched)
+              "
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small *ngIf="userForm.get('firstName')?.errors?.['required']"
+                >Prénom Requis.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full">
+        <input
+          [ngClass]="
+            userForm.get('lastName')?.invalid &&
+            (userForm.get('lastName')?.dirty ||
+              userForm.get('lastName')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Votre nom"
+          formControlName="lastName"
+        />
+        <div class="field">
+          <div class="control">
+            <div
+              *ngIf="
+                userForm.get('lastName')?.invalid &&
+                (userForm.get('lastName')?.dirty ||
+                  userForm.get('lastName')?.touched)
+              "
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+            >
+              <small *ngIf="userForm.get('lastName')?.errors?.['required']"
+                >Nom Requis.</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 *ngIf="userInfos" class="text-main text-xl mt-4">Photo de profil</h3>
+    <app-upload-file
+      *ngIf="userInfos"
+      [multiple]="false"
+      acceptedTypes="image/*"
+      (fileDropped)="onFileDropped($event)"
+      (errorOccurred)="onErrorOccurred($event)"
+    ></app-upload-file>
+
+    <input
+      [ngClass]="
+        userForm.get('email')?.invalid &&
+        (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+      "
+      class="input shadow-lg m-top-input"
+      type="email"
+      placeholder="Votre adresse email"
+      formControlName="email"
+    />
+    <div class="field">
+      <div class="control">
+        <div
+          *ngIf="
+            userForm.get('email')?.invalid &&
+            (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+          "
+          class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+        >
+          <small *ngIf="userForm.get('email')?.errors?.['required']"
+            >Email Requis.</small
+          >
+          <small *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
+            >Email Invalide.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="!userInfos"
+      class="controlPassword"
+      formGroupName="passwordGroup"
+    >
+      <div class="addeyes">
+        <div class="controlPassword m-top-input">
+          <div class="eyespassword relative w-full">
+            <input
+              [ngClass]="
+                userForm.get('passwordGroup.password')?.invalid &&
+                (userForm.get('passwordGroup.password')?.dirty ||
+                  userForm.get('passwordGroup.password')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg"
+              placeholder="Votre mot de passe"
+              formControlName="password"
+              [type]="isHiddenPassword ? 'password' : 'text'"
+            />
+
+            <div
+              class="eyes"
+              [ngClass]="
+                userForm.get('passwordGroup.password')?.invalid &&
+                (userForm.get('passwordGroup.password')?.dirty ||
+                  userForm.get('passwordGroup.password')?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
+            >
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHiddenPassword"
+                (keyup)="togglePassword()"
+                (click)="togglePassword()"
+              >
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHiddenPassword"
+                (keyup)="togglePassword()"
+                (click)="togglePassword()"
+              >
+                visibility_off
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <div
+                class="errorPassword"
+                *ngIf="
+                  userForm.get('passwordGroup.password')?.invalid &&
+                  (userForm.get('passwordGroup.password')?.dirty ||
+                    userForm.get('passwordGroup.password')?.touched)
+                "
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  *ngIf="
+                    userForm.get('passwordGroup.password')?.errors?.[
+                      'invalidPassword'
+                    ]
+                  "
+                >
+                  Le mot de passe doit contenir au moins 8 caractères, une
+                  minuscule, un chiffre et un caractère spécial.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="eyespassword w-full relative m-top-input">
+            <input
+              [ngClass]="
+                userForm.get('passwordGroup.confirmPassword')?.invalid &&
+                (userForm.get('passwordGroup.confirmPassword')?.dirty ||
+                  userForm.get('passwordGroup.confirmPassword')?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              class="input shadow-lg"
+              placeholder="Confirmez votre mot de passe"
+              formControlName="confirmPassword"
+              [type]="isHiddenConfirmPassword ? 'password' : 'text'"
+            />
+
+            <div
+              class="eyes"
+              [ngClass]="
+                userForm.get('passwordGroup.confirmPassword')?.invalid &&
+                (userForm.get('passwordGroup.confirmPassword')?.dirty ||
+                  userForm.get('passwordGroup.confirmPassword')?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
+            >
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHiddenConfirmPassword"
+                (keyup)="toggleConfirmPassword()"
+                (click)="toggleConfirmPassword()"
+              >
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHiddenConfirmPassword"
+                (keyup)="toggleConfirmPassword()"
+                (click)="toggleConfirmPassword()"
+              >
+                visibility_off
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <div
+                *ngIf="
+                  userForm.get('passwordGroup.confirmPassword')?.invalid &&
+                  (userForm.get('passwordGroup.confirmPassword')?.dirty ||
+                    userForm.get('passwordGroup.confirmPassword')?.touched)
+                "
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+              >
+                <small
+                  *ngIf="
+                    userForm.get('passwordGroup.confirmPassword')?.errors?.[
+                      'required'
+                    ]
+                  "
+                  >Confirmation mot de passe requise.</small
+                >
+                <small
+                  *ngIf="
+                    userForm.get('passwordGroup')?.errors?.['passwordsMismatch']
+                  "
+                  >Les mots de passe ne correspondent pas.</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="userForm.invalid && myForm.submitted">
+      <p>Formulaire incomplet !</p>
+    </div>
+
+    <button
+      [disabled]="userForm.invalid"
+      class="button btn-warning shadow-lg m-top-input font-main"
+      [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
+      type="submit"
+    >
+      Valider
+    </button>
+  </form>
+</div>

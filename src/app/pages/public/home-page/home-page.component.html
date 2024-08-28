@@ -1,0 +1,198 @@
+<div #scroll class="overflow-hidden">
+  <section
+    class="flex flex-col justify-center items-center min-h-[85vh] mb-12 md:mb-0"
+  >
+    <h1 class="text-center font-title drop-shadow-lg w-[90%] md:w-auto">
+      <span>
+        <span
+          *ngFor="let letter of title"
+          class="text-5xl sm:text-7xl span-letter"
+          >{{ letter }}</span
+        >
+      </span>
+      <span class="text-6xl sm:text-8xl span-title span-custom">{{
+        appName
+      }}</span>
+    </h1>
+  </section>
+
+  <section
+    class="flex flex-col justify-center items-center mb-24 lg:mb-0 lg:h-screen"
+  >
+    <h2
+      class="text-4xl sm:text-5xl text-center font-main font-bold drop-shadow-lg mb-5"
+    >
+      Ensemble offrons des repas suspendus
+    </h2>
+    <div
+      class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-xl w-[95%] lg:flex-row lg:w-[90%]"
+    >
+      <div>
+        <img
+          src="assets/Ensemble.webp"
+          alt="Ensemble"
+          class="object-contain object-center w-full h-full"
+        />
+      </div>
+      <div class="w-full lg:min-w-[50%] lg:w-[50%] flex flex-col py-2 px-4">
+        <h3 class="text-3xl md:text-4xl font-main text-center font-bold mb-5">
+          Notre concept
+        </h3>
+        <p class="font-main text-lg">
+          <span class="font-title text-2xl text-primary">Food Buddy</span> est
+          un espace solidaire, d'entraide et de partage, proposant d'offrir ou
+          de participer à des repas suspendus, pour des personnes dans le
+          besoin, réunissant tout les commerçants participant à cette bonne
+          action. Créé par 4 jeunes développeurs ambitieux, soucieux de leur
+          entourage et de la vie en société, les futurs experts wilders
+          souhaitent mettre en avant leurs supers pouvoirs, leur savoir-faire
+          mais aussi leur savoir-être dans un seul et même projet, pour remettre
+          au goût du jour les valeurs de la vie et de l’humanité.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="flex flex-col justify-center items-center lg:h-screen mb-24 lg:mb-0"
+  >
+    <h2
+      class="text-4xl sm:text-5xl text-center font-main font-bold drop-shadow-lg mb-5"
+    >
+      Offrir peut sauver des familles
+    </h2>
+    <a
+      [routerLink]="['/register']"
+      class="text-xl font-main font-semibold mb-8 flex items-center text-secondary hover:text-primary transition-colors"
+    >
+      Enregistrer votre commerce
+      <span class="material-symbols-outlined ms-2"> arrow_forward </span>
+    </a>
+    <div
+      class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-xl w-[95%] lg:flex-row-reverse lg:w-[90%]"
+    >
+      <div>
+        <img
+          src="assets/Mobile_application.webp"
+          alt="Mobile"
+          class="object-contain object-center w-full h-full"
+        />
+      </div>
+      <div class="w-full lg:min-w-[50%] lg:w-[50%] flex flex-col py-2 px-4">
+        <h3 class="text-3xl md:text-4xl font-main text-center font-bold mb-5">
+          Guide d’utilisation pour offrir ou participer
+        </h3>
+        <div class="sm:w-[80%] mx-auto">
+          <div class="flex flex-col gap-2">
+            <div class="step">
+              <h4 class="font-main font-bold text-center text-xl text-primary">
+                Etape 1
+              </h4>
+              <p class="font-main text-lg">
+                Decouvrez les commerçants participants autour de chez vous ainsi
+                que leurs produits
+              </p>
+            </div>
+            <div class="step">
+              <h4 class="font-main font-bold text-center text-xl text-primary">
+                Etape 2
+              </h4>
+              <p class="font-main text-lg">
+                Choisissez le.s produit.s que vous souhaitez offrir ou
+                participer
+              </p>
+            </div>
+            <div class="step">
+              <h4 class="font-main font-bold text-center text-xl text-primary">
+                Etape 3
+              </h4>
+              <p class="font-main text-lg">
+                Le commerçant se chargera d’offrir avec une âme charitable votre
+                offrande.
+              </p>
+            </div>
+          </div>
+          <div class="flex justify-center items-center gap-4 mt-8">
+            <a
+              [routerLink]="['/register']"
+              class="font-main font-bold hover:text-secondary transition-colors"
+              >S'inscrire</a
+            >
+            <div class="w-[2px] h-4 bg-neutral-500"></div>
+            <a
+              [routerLink]="['/login']"
+              class="font-main font-bold hover:text-secondary transition-colors"
+              >Se connecter</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="flex flex-col justify-center items-center mb-24 lg:mb-0 lg:h-screen"
+  >
+    <h2
+      class="text-4xl sm:text-5xl text-center font-main font-bold drop-shadow-lg mb-5"
+    >
+      Partager donne le sourire
+    </h2>
+    <p class="w-[90%] sm:w-[600px] font-main text-lg text-center mb-8">
+      Avec <span class="font-title text-2xl">Food Buddy</span>, vous avez la
+      possibilité d’ offrir un moment de partage et de bonheur à une famille et
+      des enfants dans le besoin.
+    </p>
+    <div
+      class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-xl w-[95%] lg:flex-row lg:w-[90%]"
+    >
+      <div class="h-full w-full">
+        <img
+          src="assets/offrir.webp"
+          alt="Cadeau"
+          class="object-contain object-center w-full h-full"
+        />
+      </div>
+      <div class="w-full lg:min-w-[50%] lg:w-[50%] flex flex-col py-2 px-4">
+        <h3 class="text-3xl md:text-4xl font-main text-center font-bold mb-5">
+          Vous avez dit ‘<span class="text-primary">POEC</span>’ ?
+        </h3>
+        <div class="sm:w-[80%] mx-auto">
+          <div class="flex flex-col items-center gap-2">
+            <h4 class="font-main font-bold text-3xl poec-title">
+              <span class="initial text-primary inline-block">P</span
+              ><span class="word inline-block">artager</span>
+            </h4>
+            <p class="poec-text font-main text-lg">
+              parce que cela donne du bonheur
+            </p>
+
+            <h4 class="font-main font-bold text-3xl poec-title">
+              <span class="initial text-primary inline-block">O</span
+              ><span class="word inline-block">ffrir</span>
+            </h4>
+            <p class="poec-text font-main text-lg">
+              parce que cela donne le sourire
+            </p>
+
+            <h4 class="font-main font-bold text-3xl poec-title">
+              <span class="initial text-primary inline-block">E</span
+              ><span class="word inline-block">ntraide</span>
+            </h4>
+            <p class="poec-text font-main text-lg">
+              parce qu’on aime son prochain
+            </p>
+
+            <h4 class="font-main font-bold text-3xl poec-title">
+              <span class="initial text-primary inline-block">C</span
+              ><span class="word inline-block">oeur</span>
+            </h4>
+            <p class="poec-text font-main text-lg">
+              parce que nous sommes tous humains
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

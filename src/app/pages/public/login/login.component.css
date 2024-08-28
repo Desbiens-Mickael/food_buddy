@@ -1,0 +1,166 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*text above picture and form*/
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 800px;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: #3f3d3d;
+  padding-top: 15px;
+}
+
+.font_foodbuddy {
+  font-family: var(--font-title);
+}
+
+/*contain picture:container1 and form:container2*/
+.box {
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  text-align: center;
+}
+
+/*contain picture only*/
+.container1 {
+  height: 450px;
+  width: 300px;
+  margin: 15px;
+}
+
+.livraison_picture {
+  width: 100%;
+  height: auto;
+}
+
+/*contain form and button*/
+
+.se_connecter {
+  font-size: 30px;
+}
+.container2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-family: var(--font-main);
+  color: #3f3d3d;
+  width: 300px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.eyespassword > input {
+  border-radius: 5px;
+}
+
+.shadow-lg1 {
+  position: relative;
+}
+
+.material-symbols-outlined {
+  position: absolute;
+}
+
+.eyes {
+  position: absolute;
+  top: 0;
+  right: 12%;
+  padding-top: 0.6rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form div > input {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+button {
+  background-color: #ffb054;
+  border: 1px solid #ffb054;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+button:hover {
+  background: #fb9c2f;
+}
+
+@media (max-width: 676px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    width: auto;
+    font-family: var(--font-main);
+    font-size: 15px;
+    color: #3f3d3d;
+    margin-bottom: 4rem;
+  }
+
+  .livraison_picture {
+    display: none;
+  }
+
+  .box {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container1 {
+    display: none;
+  }
+
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--font-main);
+    color: #3f3d3d;
+    width: 100%;
+    padding: 10px;
+  }
+}

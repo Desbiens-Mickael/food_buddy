@@ -1,0 +1,108 @@
+<div
+  class="sidebar relative bg-white/10 backdrop-blur-lg z-50"
+  [class.active]="toggle"
+>
+  <button class="hamburger" (click)="toggleSidebar()">
+    <span>&#9776;</span>
+  </button>
+  <div *ngIf="isLodding" class="container">
+    <app-side-bare-skeleton></app-side-bare-skeleton>
+  </div>
+  <div *ngIf="!isLodding" class="container">
+    <div class="flex flex-col items-center">
+      <div
+        class="h-[120px] w-[120px] flex justify-center items-center rounded-full overflow-hidden mt-2"
+      >
+        <img
+          class="h-auto w-full"
+          src="{{
+            userInfos?.businessLogoUrl
+              ? baseUrl + '/businesses/logo/' + userInfos?.businessLogoUrl
+              : 'assets/default-busines.png'
+          }}"
+          alt="Logo de l'entreprise"
+        />
+      </div>
+      <h4 class="text-3xl font-bold mt-2">
+        {{ userInfos?.businesseName }}
+      </h4>
+      <h5 class="text-1xl font-bold text-white mt-4">
+        {{ establishmentActive.name }}
+      </h5>
+      <label for="establishment-choice" class="mt-4 text-lg font-bold"
+        >Changez d'établissement</label
+      >
+      <select
+        class="bg-white font-main font-semibold text-center px-2 mt-1 rounded-md"
+        name="establishment-choice"
+        (change)="changeEstablishment($event)"
+      >
+        <option
+          *ngFor="let establishment of establishments"
+          [value]="establishment.id"
+        >
+          {{ establishment.name }}
+        </option>
+      </select>
+    </div>
+    <div class="w-full flex-grow flex flex-col items-center">
+      <ul class="w-full h-full flex flex-col justify-evenly items-center">
+        <li>
+          <a
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'products',
+            ]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Mes Produits
+          </a>
+        </li>
+        <li>
+          <a
+            [ngClass]="toggle ? 'animate' : ''"
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'new-product',
+            ]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Créer un Produit
+          </a>
+        </li>
+        <li>
+          <a
+            [ngClass]="toggle ? 'animate' : ''"
+            [routerLink]="[
+              '/merchant/establishment/',
+              establishmentActive.id,
+              'reservations',
+            ]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Réservations
+          </a>
+        </li>
+        <li>
+          <a
+            [ngClass]="toggle ? 'animate' : ''"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Profil
+          </a>
+        </li>
+      </ul>
+    </div>
+    <app-logout-button
+      class="h-12 text-xl"
+      [buttonSyle]="true"
+    ></app-logout-button>
+  </div>
+</div>

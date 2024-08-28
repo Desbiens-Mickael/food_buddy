@@ -1,0 +1,123 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.main {
+  flex-grow: 1;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* text only */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 20px;
+  color: #3f3d3d;
+  width: 80%;
+}
+
+.font_foodbuddy {
+  font-family: var(--font-title);
+}
+
+/* blur box */
+.registerComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+
+* {
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+
+.allForms {
+  display: flex;
+}
+
+.choiceAccount {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#userForm,
+#buisnessForm {
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #3f3d3d;
+  font-size: 25px;
+  margin-top: 5px;
+}
+/* BUTTON */
+.choiceAccount button {
+  width: 48%;
+  border-radius: 5px;
+  transition: 0.2s;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: white;
+}
+.choiceAccount button:hover {
+  scale: 0.97;
+  transition: 0.2s;
+}
+
+.btn-valid {
+  background-color: #61a05a;
+}
+.btn-valid:hover {
+  background: #518e4a;
+}
+
+.btn-warning {
+  background-color: #ffb054;
+}
+.btn-warning:hover {
+  background: #fb9c2f;
+}
+/* FIN BOUTON */
+
+@media (max-width: 676px) {
+  /* text only */
+  .container {
+    font-size: 17px;
+  }
+  /* blur box */
+  .registerComponent,
+  .container {
+    width: 95%;
+  }
+  /* BUTTONS commercant-donnateur */
+  .choiceAccount button {
+    width: 45%;
+    display: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .choiceAccount {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    margin: 5px auto;
+  }
+}

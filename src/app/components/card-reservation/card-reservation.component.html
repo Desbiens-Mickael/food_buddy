@@ -1,0 +1,69 @@
+<div class="card-reservation">
+  <div class="info-place">
+    <div class="img-reservation">
+      <img src="assets/Merci_kraft.webp" alt="thankyou" />
+    </div>
+    <div class="details-reservation my-3">
+      <h3>{{ reservation.establishmentname }}</h3>
+      <h4>{{ reservation.productname }}</h4>
+    </div>
+  </div>
+
+  <div class="info-reservation">
+    <!-- <div class="createdate bg-green-100 text-green-600 px-4 py-1 rounded-md">
+      <p>date de création</p>
+      <p>{{ reservation.createdAt | date: 'dd.MM.yyyy' }}</p>
+    </div> -->
+
+    <div class="collectdate border-2 border-red-600 px-4 py-1 rounded-md">
+      <p>
+        Vous avez jusqu'au
+        <span class="text-red-600">{{
+          reservation.validUntil | date: 'dd.MM.yyyy'
+        }}</span>
+        <br />
+        pour retirer votre réservation !
+      </p>
+    </div>
+  </div>
+
+  <div class="validcode my-3">
+    <p>code de validation</p>
+    <div class="secretcode flex flex-row justify-center w-full">
+      <div
+        [ngClass]="
+          !isHidden ? 'after:backdrop-blur-sm after:w-full' : 'after:hidden'
+        "
+        class="font-bold text-green-600 w-[70%] px-2 relative after:absolute after:top-0 after:left-0 after:h-full"
+      >
+        <p [ngClass]="!isHidden ? 'select-none' : ''">
+          {{ reservation.validationCode }}
+        </p>
+      </div>
+
+      <div class="eyes">
+        <span
+          [attr.aria-hidden]="true"
+          title="afficher le code"
+          class="material-symbols-outlined cursor-pointer"
+          *ngIf="!isHidden"
+          (keyup)="toggle()"
+          (click)="toggle()"
+        >
+          visibility
+        </span>
+
+        <span
+          [attr.aria-hidden]="true"
+          title="cacher le code"
+          class="material-symbols-outlined cursor-pointer"
+          *ngIf="isHidden"
+          (keyup)="toggle()"
+          (click)="toggle()"
+        >
+          visibility_off
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

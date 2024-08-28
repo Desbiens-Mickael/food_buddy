@@ -1,0 +1,144 @@
+:host {
+  width: 100%;
+}
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  color: #3f3d3d;
+  font-size: 25px;
+}
+
+h6 {
+  color: #3f3d3d;
+}
+
+input {
+  border-radius: 5px;
+  width: 100%;
+  line-height: 1.5;
+  color: #3f3d3d;
+  padding: 0.5rem 1rem;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+  padding-top: 5px;
+  align-items: center;
+}
+
+/* bouton sauvegarder */
+button {
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: white;
+}
+
+.m-top-input {
+  margin-top: 2rem;
+}
+
+.btn-valid {
+  background-color: #61a05a;
+}
+
+.btn-warning {
+  background-color: #ffb054;
+}
+
+.btn-warning:hover {
+  background: #fb9c2f;
+}
+
+/* A quoi correspond ce css ? */
+.btn-danger {
+  background-color: #61a05a;
+}
+
+.control,
+.field,
+.controlPassword {
+  width: 100%;
+}
+
+.field {
+  margin-top: 0.5rem;
+}
+.control {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important;
+}
+.errorPassword {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.controlPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.controlName {
+  display: flex;
+  width: 100%;
+  justify-content: space-between !important;
+}
+
+.addeyes {
+  position: relative;
+  width: 100%;
+  display: flex;
+  border-radius: 5px;
+  border-color: #3f3d3d;
+}
+.eyes {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eyespassword > input {
+  border-radius: 5px;
+}
+
+@media (min-width: 410px) and (max-width: 676px) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  input {
+    /* border: solid 1px rgba(153, 153, 153, 0.194); */
+    border-radius: 5px;
+    height: 30px;
+    width: 100%; /*longueur des inputs*/
+    text-align: center;
+    line-height: 1.5;
+    color: #3f3d3d;
+  }
+}

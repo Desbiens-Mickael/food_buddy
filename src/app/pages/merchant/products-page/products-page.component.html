@@ -1,0 +1,18 @@
+<h1 class="text-5xl font-main font-bold text-center my-8">Mes Produits</h1>
+<div
+  class="w-full flex flex-col items-center sm:flex-row sm:justify-center sm:flex-wrap gap-4"
+>
+  @if (productList.length === 0) {
+    <div class="mt-24 w-full">
+      <p class="text-center text-3xl font-main font-bold">
+        Aucun produit pour le moment
+      </p>
+    </div>
+  } @else {
+    <app-product-card-merchant
+      *ngFor="let product of productList"
+      [product]="product"
+      [establishmentId]="establishmentId"
+    ></app-product-card-merchant>
+  }
+</div>

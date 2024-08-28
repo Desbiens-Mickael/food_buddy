@@ -1,0 +1,39 @@
+<div class="card w-full m-3">
+  <div class="imgcard">
+    <img
+      [src]="product.imageUrl ? productUrl : 'assets/hamburger-foodie-2.webp'"
+      alt=""
+    />
+  </div>
+  <div class="cardBody w-full">
+    <div class="flex flex-col gap-2 text-neutral-600 px-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-2xl font-bold font-main">{{ product.name }}</h3>
+        <app-details-card-product
+          [product]="product"
+        ></app-details-card-product>
+      </div>
+
+      <p class="truncate">{{ product.description }}</p>
+      <p class="text-lg font-bold font-main">
+        {{ product.price | number: '1.2-2' }} €
+      </p>
+    </div>
+    <div class="allButtons">
+      <app-participate-button
+        [hidden]="userInfos?.isEligible"
+        class="w-1/2"
+      ></app-participate-button>
+      <app-payment-button
+        [hidden]="userInfos?.isEligible"
+        class="w-1/2"
+      ></app-payment-button>
+      <app-reservation-button
+        class="w-full"
+        [productId]="product.id"
+        [establishmentId]="product.establishmentId"
+        [hidden]="!userInfos?.isEligible"
+      ></app-reservation-button>
+    </div>
+  </div>
+</div>

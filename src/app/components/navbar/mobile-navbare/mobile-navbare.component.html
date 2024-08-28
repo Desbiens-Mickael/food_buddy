@@ -1,0 +1,30 @@
+<div
+  class="h-[60px] md:hidden w-full flex justify-center items-center bg-white/10 backdrop-blur-lg fixed bottom-0 left-0 px-5 md:justify-between z-50 nav-mobile"
+>
+  <nav class="h-full w-full">
+    <ul class="h-full w-full justify-around flex items-center">
+      @if (!isLogged) {
+        <li class="" *ngFor="let link of publicRoutes">
+          <app-link-navbar
+            [text]="link.text"
+            [icon]="link.icon"
+            [route]="link.route"
+            [isMobile]="true"
+          ></app-link-navbar>
+        </li>
+      } @else {
+        <li class="" *ngFor="let link of userRoutes">
+          <app-link-navbar
+            [text]="link.text"
+            [icon]="link.icon"
+            [route]="link.route"
+            [isMobile]="true"
+          ></app-link-navbar>
+        </li>
+        <li>
+          <app-logout-button [isMobile]="true"></app-logout-button>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>

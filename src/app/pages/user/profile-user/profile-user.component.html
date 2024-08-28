@@ -1,0 +1,20 @@
+<h1 class="text-center text-3xl md:text-5xl font-main font-bold mb-4">
+  Bienvenue {{ user.firstname }} !
+</h1>
+
+<div class="main">
+  <div class="h-[150px] w-[150px] rounded-full overflow-hidden">
+    <img
+      class="h-full w-full object-cover"
+      src="{{
+        user.profileImageUrl
+          ? baseUrl + '/users/avatar/' + user.profileImageUrl
+          : 'assets/avatar-user.png'
+      }}"
+      alt="avatar"
+    />
+  </div>
+  <div class="w-full md:w-[70%]">
+    <app-user-form [userInfos]="user"></app-user-form>
+  </div>
+</div>

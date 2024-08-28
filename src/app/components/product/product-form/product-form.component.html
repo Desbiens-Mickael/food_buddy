@@ -1,0 +1,128 @@
+<form
+  #myform="ngForm"
+  [formGroup]="productForm"
+  (ngSubmit)="submit()"
+  class="flex flex-col gap-4 w-full md:w-[600px] bg-white/10 backdrop-blur-lg p-4 rounded-md"
+>
+  <div class="flex flex-col gap-2">
+    <label for="name" class="text-neutral-600 font-semibold">Nom</label>
+    <input
+      formControlName="name"
+      type="text"
+      id="name"
+      placeholder="Nom du produit"
+      class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getName?.invalid && (getName?.dirty || getName?.touched)
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+      "
+    />
+    <div
+      *ngIf="getName?.invalid && (getName?.dirty || getName?.touched)"
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
+    >
+      <div *ngIf="getName?.errors?.['required']">Nom requis</div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="description" class="text-neutral-600 font-semibold"
+      >Description</label
+    >
+    <textarea
+      formControlName="description"
+      placeholder="Description du produit"
+      class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getDescription?.invalid &&
+        (getDescription?.dirty || getDescription?.touched)
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+      "
+    ></textarea>
+    <div
+      *ngIf="
+        getDescription?.invalid &&
+        (getDescription?.dirty || getDescription?.touched)
+      "
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
+    >
+      <div *ngIf="getDescription?.errors?.['required']">
+        Description requise
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="price" class="text-neutral-600 font-semibold">Prix</label>
+    <input
+      formControlName="price"
+      type="number"
+      min="0"
+      id="price"
+      class="w-full shadow-lg rounded-md p-2"
+      [ngClass]="
+        getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)
+          ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+          : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+      "
+    />
+    <div
+      *ngIf="getPrice?.invalid && (getPrice?.dirty || getPrice?.touched)"
+      class="text-white text-center bg-red-600 text-main font-semibold mt-1 rounded-md py-1"
+    >
+      <div *ngIf="getPrice?.errors?.['required']">Prix requis</div>
+      <div *ngIf="getPrice?.errors?.['min']">Prix invalide</div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="type" class="text-neutral-600 font-semibold"
+      >Type du produit</label
+    >
+    <select
+      formControlName="type"
+      id="type"
+      class="w-full shadow-lg rounded-md p-2 bg-white border border-gray-300"
+      [value]="getType?.value"
+    >
+      <option value="DRINK">Boisson</option>
+      <option value="MEAL">Repas</option>
+      <option value="DESSERT">Dessert</option>
+    </select>
+  </div>
+  <div class="flex flex-col gap-2">
+    <label for="status" class="text-neutral-600 font-semibold">Statut</label>
+    <select
+      formControlName="status"
+      id="status"
+      class="w-full shadow-lg rounded-md p-2 bg-white border border-gray-300"
+      [value]="getStatus?.value"
+    >
+      <option value="AVAILABLE">Disponible</option>
+      <option value="UNAVAILABLE">Indisponible</option>
+    </select>
+  </div>
+  <div class="flex flex-col gap-2">
+    <ng-multiselect-dropdown
+      [placeholder]="'Sélectionner les allergènes'"
+      [data]="dropdownList"
+      formControlName="allergens"
+      [settings]="dropdownSettings"
+    >
+    </ng-multiselect-dropdown>
+  </div>
+
+  <app-upload-file
+    [multiple]="false"
+    (fileDropped)="onFileDropped($event)"
+    (errorOccurred)="onErrorOccurred($event)"
+  ></app-upload-file>
+
+  <button
+    type="submit"
+    class="w-full bg-secondary text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary-light transition-colors"
+    [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
+    [disabled]="myform.invalid && true"
+  >
+    {{ product ? 'Modifier' : 'Créer' }}
+  </button>
+</form>

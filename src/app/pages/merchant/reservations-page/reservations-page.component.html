@@ -1,0 +1,26 @@
+<h1 class="text-5xl font-main font-bold text-center mt-8 mb-16">
+  Réservations
+</h1>
+
+<h2 class="text-2xl font-main font-bold text-center mb-8">
+  Entrez un code de validation pour vérifier si une réservation existe
+</h2>
+
+<app-search-bar
+  class="w-[90%] md:w-[550px] mx-auto block"
+  [placeholder]="'Rechercher une réservation'"
+  (handleSearch)="onSearchReservation($event)"
+></app-search-bar>
+
+<div *ngIf="!isLoading" class="mt-16 flex justify-center items-center">
+  <div *ngIf="reservation" class="w-[95%] md:w-[500px] mx-auto block">
+    <app-reservation-card-merchant
+      [reservation]="reservation"
+    ></app-reservation-card-merchant>
+  </div>
+  <div *ngIf="!reservation">
+    <p class="text-2xl font-main font-bold text-center">Aucune réservation</p>
+  </div>
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

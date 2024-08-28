@@ -1,0 +1,122 @@
+<div class="main flex-grow">
+  <div class="container">
+    <p>
+      Avec <span class="font_foodbuddy">Food Buddy</span>, vous avez la
+      possibilité d'offrir un moment de partage et de bonheur à une famille et
+      des enfants dans le besoin.
+    </p>
+  </div>
+
+  <div class="box backdrop-blur-xl bg-white/10 rounded-md">
+    <div class="container1">
+      <div class="livraison_picture">
+        <img src="assets/Livraison_kraft.jpg" alt="livraison_kraft" />
+      </div>
+    </div>
+
+    <div class="container2">
+      <div class="se_connecter">
+        <h1>Se connecter</h1>
+      </div>
+
+      <form #myform="ngForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="email">
+          <label for="email_user">Votre adresse email </label>
+          <input
+            [ngClass]="
+              email?.invalid && (email?.dirty || email?.touched)
+                ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+            "
+            placeholder="Adresse email"
+            formControlName="email"
+            class="shadow-lg rounded-md"
+            name="email_user"
+            type="email"
+          />
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            class="text-white bg-red-600 text-main font-semibold mt-2 rounded-md py-2"
+          >
+            <div *ngIf="email?.errors?.['required']">Email requis</div>
+          </div>
+        </div>
+
+        <div class="password">
+          <label for="motdepasse">Votre mot de passe </label>
+
+          <div class="eyespassword relative">
+            <input
+              [ngClass]="
+                password?.invalid && (password?.dirty || password?.touched)
+                  ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+                  : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+              "
+              placeholder="Mot de passe"
+              formControlName="password"
+              class="shadow-lg"
+              name="motdepasse"
+              [type]="isHidden ? 'password' : 'text'"
+            />
+
+            <div
+              class="eyes"
+              [ngClass]="
+                password?.invalid && (password?.dirty || password?.touched)
+                  ? 'text-red-600'
+                  : 'text-neutral-500'
+              "
+            >
+              <span
+                [attr.aria-hidden]="true"
+                title="afficher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="isHidden"
+                (keyup)="toggle()"
+                (click)="toggle()"
+              >
+                visibility
+              </span>
+
+              <span
+                [attr.aria-hidden]="true"
+                title="cacher le code"
+                class="material-symbols-outlined cursor-pointer"
+                *ngIf="!isHidden"
+                (keyup)="toggle()"
+                (click)="toggle()"
+              >
+                visibility_off
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+            class="text-white bg-red-600 text-main font-semibold mt-2 rounded-md py-2"
+          >
+            <div *ngIf="password?.errors?.['required']">
+              Mot de passe requis
+            </div>
+          </div>
+
+          <button
+            [ngClass]="myform.invalid ? 'cursor-not-allowed' : ''"
+            [disabled]="myform.invalid && true"
+            class="shadow-lg"
+            type="submit"
+          >
+            Connexion
+          </button>
+
+          <div class="text-sm pt-4">
+            Pas encore inscrit?
+            <a [routerLink]="['/register']" class="hover:text-secondary-light">
+              Inscrivez-vous ici</a
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

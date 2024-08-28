@@ -1,0 +1,7 @@
+.active-link-mobile {
+  @apply text-secondary;
+}
+
+/* .icon-color {
+  color: #3f3d3d;
+} */
