@@ -50,8 +50,6 @@ export class BuisnessFormComponent implements OnInit {
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private authService = inject(AuthService);
-  // private avatar?: File;
-  // private businessLogo?: File;
   userInfos!: UserInfo | null;
 
   myControl = new FormControl('');
@@ -63,16 +61,13 @@ export class BuisnessFormComponent implements OnInit {
   currentStep = 1;
 
   userForm = this.formBuilder.group({
-    firstName: ['t', Validators.required],
-    lastName: ['t', Validators.required],
-    email: ['t@gmail.com', [Validators.required, Valid.emailValidator()]],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.required, Valid.emailValidator()]],
     password: this.formBuilder.group(
       {
-        password: [
-          'Azerty01@;',
-          [Validators.required, Valid.passwordValidator()],
-        ],
-        confirmPassword: ['Azerty01@;', Validators.required],
+        password: ['', [Validators.required, Valid.passwordValidator()]],
+        confirmPassword: ['', Validators.required],
       },
       {
         validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
@@ -81,15 +76,15 @@ export class BuisnessFormComponent implements OnInit {
   });
 
   buisnessForm = this.formBuilder.group({
-    name: ['t', Validators.required],
-    siren: ['222222222', [Validators.required, Valid.sirenValidator()]],
+    name: ['', Validators.required],
+    siren: ['', [Validators.required, Valid.sirenValidator()]],
   });
 
   establishmentForm = this.formBuilder.group({
-    name: ['t', Validators.required],
-    siret: ['22222', [Validators.required, Valid.siretValidator()]],
-    email: ['r@gmail.com', [Validators.required, Valid.emailValidator()]],
-    phoneNumber: ['0600000000', Validators.required],
+    name: ['', Validators.required],
+    siret: ['', [Validators.required, Valid.siretValidator()]],
+    email: ['', [Validators.required, Valid.emailValidator()]],
+    phoneNumber: ['', Validators.required],
   });
 
   addressForm = this.formBuilder.group({
@@ -184,22 +179,6 @@ export class BuisnessFormComponent implements OnInit {
     }
   }
 
-  // onFileDropped(fileList: FileList) {
-  //   this.avatar = fileList[0];
-  // }
-
-  // onFileDroppedBusinessLogo(fileListLogo: FileList) {
-  //   this.businessLogo = fileListLogo[0];
-  // }
-
-  // onErrorOccurred(error: string) {
-  //   console.log(error);
-  // }
-
-  // onErrorOccurredBusinessLogo(errorLogo: string) {
-  //   console.log(errorLogo);
-  // }
-
   createBuisness(): void {
     if (
       this.userForm.valid &&
@@ -247,39 +226,16 @@ export class BuisnessFormComponent implements OnInit {
           address,
         };
 
-        this.businessService
-          .createBuisness(buisness)
-          // .pipe(
-          //   concatMap((data: BusinessWithEstablishment) => {
-          //     console.log('avatar', data.Business);
-          //     if (this.avatar) {
-          //       return this.userService.uploadAvatar(
-          //         this.avatar,
-          //         'test@gmail.com', // TODO: get email from user
-          //       );
-          //     }
-          //     return of(data); // If no avatar, proceed with `data`
-          //   }),
-          //   concatMap(data => {
-          //     if (this.businessLogo) {
-          //       return this.businessService.uploadBusinessLogo(
-          //         this.businessLogo,
-          //         '1',
-          //       );
-          //     }
-          //     return of(data); // If no logo, proceed with `data`
-          //   }),
-          // )
-          .subscribe({
-            next: () => {
-              this.userForm.reset();
-              void this.router.navigate(['/login']);
-              this.toastr.success('Création de compte réussie');
-            },
-            error: (error: HttpErrorResponse) => {
-              this.toastr.error(error.error as string);
-            },
-          });
+        this.businessService.createBuisness(buisness).subscribe({
+          next: () => {
+            this.userForm.reset();
+            void this.router.navigate(['/login']);
+            this.toastr.success('Création de compte réussie');
+          },
+          error: (error: HttpErrorResponse) => {
+            this.toastr.error(error.error as string);
+          },
+        });
       }
     }
   }
