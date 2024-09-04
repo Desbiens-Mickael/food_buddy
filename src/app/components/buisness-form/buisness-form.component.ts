@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -25,6 +25,7 @@ import { BuisnessService } from '../../shared/services/buisness.service';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
+import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
   selector: 'app-buisness-form',
@@ -35,6 +36,7 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
     CommonModule,
     ToastrModule,
     UploadFileComponent,
+    UserFormComponent,
   ],
   templateUrl: './buisness-form.component.html',
   styleUrls: ['./buisness-form.component.css'],
@@ -50,9 +52,9 @@ export class BuisnessFormComponent implements OnInit {
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private authService = inject(AuthService);
+  private cdRef = inject(ChangeDetectorRef);
   userInfos!: UserInfo | null;
 
-  myControl = new FormControl('');
   villes!: AdresseJson;
   filteredVilles: Feature[] = [];
   selectedAdress!: Feature;
@@ -60,26 +62,12 @@ export class BuisnessFormComponent implements OnInit {
   keepSuggestionsVisible = false;
   currentStep = 1;
 
-  userForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Valid.emailValidator()]],
-    password: this.formBuilder.group(
-      {
-        password: ['', [Validators.required, Valid.passwordValidator()]],
-        confirmPassword: ['', Validators.required],
-      },
-      {
-        validators: Valid.passwordMatchValidator('password', 'confirmPassword'),
-      },
-    ),
-  });
+  userForm!: FormGroup;
 
   buisnessForm = this.formBuilder.group({
     name: ['', Validators.required],
     siren: ['', [Validators.required, Valid.sirenValidator()]],
   });
-
   establishmentForm = this.formBuilder.group({
     name: ['', Validators.required],
     siret: ['', [Validators.required, Valid.siretValidator()]],
@@ -97,9 +85,14 @@ export class BuisnessFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.userForm = this.formBuilder.group({});
+
     this.authService.userInfo$.subscribe(data => {
       this.userInfos = data;
     });
+
+    this.cdRef.detectChanges();
+    console.log(this.userForm);
   }
 
   togglePassword(): void {
@@ -199,8 +192,8 @@ export class BuisnessFormComponent implements OnInit {
         };
 
         const business: Business = {
-          name: this.buisnessForm.controls.name.value ?? '',
-          siren: this.buisnessForm.controls.siren.value ?? '',
+          name: this.buisnessForm.get('name')?.value ?? '',
+          siren: this.buisnessForm.get('siren')?.value ?? '',
         };
 
         const establishment: Establishment = {

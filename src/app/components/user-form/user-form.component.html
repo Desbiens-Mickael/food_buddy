@@ -1,10 +1,39 @@
-<div class="main">
+<!-- Utilisation en autonome -->
+<ng-container *ngIf="!parentForm">
   <form
     [formGroup]="userForm"
     (ngSubmit)="createUser()"
-    #myForm="ngForm"
     novalidate
     class="px-4"
+  >
+    <ng-container
+      *ngTemplateOutlet="form; context: { formGroupData: userForm }"
+    ></ng-container>
+    <button
+      *ngIf="!parentForm"
+      [disabled]="userForm.invalid"
+      class="button btn-warning shadow-lg m-top-input font-main"
+      [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
+      type="submit"
+    >
+      Valider
+    </button>
+  </form>
+</ng-container>
+
+<!-- Utilisation dans un parent -->
+<ng-container *ngIf="parentForm">
+  <ng-container
+    *ngTemplateOutlet="form; context: { formGroupData: parentForm.get('user') }"
+  ></ng-container>
+</ng-container>
+
+<!-- Création d'un template réutilisable pour les difféents cas d'utilisation -->
+<ng-template #form let-formGroupData="formGroupData">
+  <div
+    *ngIf="formGroupData"
+    [formGroup]="formGroupData"
+    class="w-full h-full px-4"
   >
     <h1 class="text-center font-main mb-4">
       {{
@@ -15,9 +44,9 @@
       <div class="w-full">
         <input
           [ngClass]="
-            userForm.get('firstName')?.invalid &&
-            (userForm.get('firstName')?.dirty ||
-              userForm.get('firstName')?.touched)
+            formGroupData.get('firstName')?.invalid &&
+            (formGroupData.get('firstName')?.dirty ||
+              formGroupData.get('firstName')?.touched)
               ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
               : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
           "
@@ -30,13 +59,14 @@
           <div class="control controlName">
             <div
               *ngIf="
-                userForm.get('firstName')?.invalid &&
-                (userForm.get('firstName')?.dirty ||
-                  userForm.get('firstName')?.touched)
+                formGroupData.get('firstName')?.invalid &&
+                (formGroupData.get('firstName')?.dirty ||
+                  formGroupData.get('firstName')?.touched)
               "
               class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
-              <small *ngIf="userForm.get('firstName')?.errors?.['required']"
+              <small
+                *ngIf="formGroupData.get('firstName')?.errors?.['required']"
                 >Prénom Requis.
               </small>
             </div>
@@ -47,9 +77,9 @@
       <div class="w-full">
         <input
           [ngClass]="
-            userForm.get('lastName')?.invalid &&
-            (userForm.get('lastName')?.dirty ||
-              userForm.get('lastName')?.touched)
+            formGroupData.get('lastName')?.invalid &&
+            (formGroupData.get('lastName')?.dirty ||
+              formGroupData.get('lastName')?.touched)
               ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
               : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
           "
@@ -62,13 +92,13 @@
           <div class="control">
             <div
               *ngIf="
-                userForm.get('lastName')?.invalid &&
-                (userForm.get('lastName')?.dirty ||
-                  userForm.get('lastName')?.touched)
+                formGroupData.get('lastName')?.invalid &&
+                (formGroupData.get('lastName')?.dirty ||
+                  formGroupData.get('lastName')?.touched)
               "
               class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
             >
-              <small *ngIf="userForm.get('lastName')?.errors?.['required']"
+              <small *ngIf="formGroupData.get('lastName')?.errors?.['required']"
                 >Nom Requis.</small
               >
             </div>
@@ -88,8 +118,9 @@
 
     <input
       [ngClass]="
-        userForm.get('email')?.invalid &&
-        (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+        formGroupData.get('email')?.invalid &&
+        (formGroupData.get('email')?.dirty ||
+          formGroupData.get('email')?.touched)
           ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
           : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
       "
@@ -102,15 +133,16 @@
       <div class="control">
         <div
           *ngIf="
-            userForm.get('email')?.invalid &&
-            (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+            formGroupData.get('email')?.invalid &&
+            (formGroupData.get('email')?.dirty ||
+              formGroupData.get('email')?.touched)
           "
           class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
         >
-          <small *ngIf="userForm.get('email')?.errors?.['required']"
+          <small *ngIf="formGroupData.get('email')?.errors?.['required']"
             >Email Requis.</small
           >
-          <small *ngIf="userForm.get('email')?.errors?.['invalidEmail']"
+          <small *ngIf="formGroupData.get('email')?.errors?.['invalidEmail']"
             >Email Invalide.</small
           >
         </div>
@@ -127,9 +159,9 @@
           <div class="eyespassword relative w-full">
             <input
               [ngClass]="
-                userForm.get('passwordGroup.password')?.invalid &&
-                (userForm.get('passwordGroup.password')?.dirty ||
-                  userForm.get('passwordGroup.password')?.touched)
+                formGroupData.get('passwordGroup.password')?.invalid &&
+                (formGroupData.get('passwordGroup.password')?.dirty ||
+                  formGroupData.get('passwordGroup.password')?.touched)
                   ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
                   : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
@@ -142,9 +174,9 @@
             <div
               class="eyes"
               [ngClass]="
-                userForm.get('passwordGroup.password')?.invalid &&
-                (userForm.get('passwordGroup.password')?.dirty ||
-                  userForm.get('passwordGroup.password')?.touched)
+                formGroupData.get('passwordGroup.password')?.invalid &&
+                (formGroupData.get('passwordGroup.password')?.dirty ||
+                  formGroupData.get('passwordGroup.password')?.touched)
                   ? 'text-red-600'
                   : 'text-neutral-500'
               "
@@ -178,15 +210,15 @@
               <div
                 class="errorPassword"
                 *ngIf="
-                  userForm.get('passwordGroup.password')?.invalid &&
-                  (userForm.get('passwordGroup.password')?.dirty ||
-                    userForm.get('passwordGroup.password')?.touched)
+                  formGroupData.get('passwordGroup.password')?.invalid &&
+                  (formGroupData.get('passwordGroup.password')?.dirty ||
+                    formGroupData.get('passwordGroup.password')?.touched)
                 "
                 class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   *ngIf="
-                    userForm.get('passwordGroup.password')?.errors?.[
+                    formGroupData.get('passwordGroup.password')?.errors?.[
                       'invalidPassword'
                     ]
                   "
@@ -201,9 +233,9 @@
           <div class="eyespassword w-full relative m-top-input">
             <input
               [ngClass]="
-                userForm.get('passwordGroup.confirmPassword')?.invalid &&
-                (userForm.get('passwordGroup.confirmPassword')?.dirty ||
-                  userForm.get('passwordGroup.confirmPassword')?.touched)
+                formGroupData.get('passwordGroup.confirmPassword')?.invalid &&
+                (formGroupData.get('passwordGroup.confirmPassword')?.dirty ||
+                  formGroupData.get('passwordGroup.confirmPassword')?.touched)
                   ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
                   : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
               "
@@ -216,9 +248,9 @@
             <div
               class="eyes"
               [ngClass]="
-                userForm.get('passwordGroup.confirmPassword')?.invalid &&
-                (userForm.get('passwordGroup.confirmPassword')?.dirty ||
-                  userForm.get('passwordGroup.confirmPassword')?.touched)
+                formGroupData.get('passwordGroup.confirmPassword')?.invalid &&
+                (formGroupData.get('passwordGroup.confirmPassword')?.dirty ||
+                  formGroupData.get('passwordGroup.confirmPassword')?.touched)
                   ? 'text-red-600'
                   : 'text-neutral-500'
               "
@@ -251,23 +283,24 @@
             <div class="control">
               <div
                 *ngIf="
-                  userForm.get('passwordGroup.confirmPassword')?.invalid &&
-                  (userForm.get('passwordGroup.confirmPassword')?.dirty ||
-                    userForm.get('passwordGroup.confirmPassword')?.touched)
+                  formGroupData.get('passwordGroup.confirmPassword')?.invalid &&
+                  (formGroupData.get('passwordGroup.confirmPassword')?.dirty ||
+                    formGroupData.get('passwordGroup.confirmPassword')?.touched)
                 "
                 class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
               >
                 <small
                   *ngIf="
-                    userForm.get('passwordGroup.confirmPassword')?.errors?.[
-                      'required'
-                    ]
+                    formGroupData.get('passwordGroup.confirmPassword')
+                      ?.errors?.['required']
                   "
                   >Confirmation mot de passe requise.</small
                 >
                 <small
                   *ngIf="
-                    userForm.get('passwordGroup')?.errors?.['passwordsMismatch']
+                    formGroupData.get('passwordGroup')?.errors?.[
+                      'passwordsMismatch'
+                    ]
                   "
                   >Les mots de passe ne correspondent pas.</small
                 >
@@ -278,17 +311,11 @@
       </div>
     </div>
 
-    <div *ngIf="userForm.invalid && myForm.submitted">
+    <div
+      *ngIf="formGroupData.invalid && submitted && !parentForm"
+      class="font-main text-red-600 font-bold text-xl"
+    >
       <p>Formulaire incomplet !</p>
     </div>
-
-    <button
-      [disabled]="userForm.invalid"
-      class="button btn-warning shadow-lg m-top-input font-main"
-      [ngClass]="userForm.invalid ? 'cursor-not-allowed' : ''"
-      type="submit"
-    >
-      Valider
-    </button>
-  </form>
-</div>
+  </div>
+</ng-template>

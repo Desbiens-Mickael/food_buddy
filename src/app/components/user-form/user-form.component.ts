@@ -23,12 +23,14 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent implements OnInit {
-  isHidden = true;
-  @Input() userInfos?: UpdateUser;
   avatar?: File;
   userForm!: FormGroup;
   isHiddenPassword = true;
   isHiddenConfirmPassword = true;
+  submitted = false;
+
+  @Input() userInfos?: UpdateUser;
+  @Input() parentForm?: FormGroup;
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
@@ -64,8 +66,11 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formInit();
+    if (this.parentForm) {
+      this.parentForm.addControl('user', this.userForm);
+    }
   }
 
   onFileDropped(fileList: FileList) {
@@ -81,6 +86,8 @@ export class UserFormComponent implements OnInit {
     const lastname = this.userForm.get('lastName')?.value || '';
     const email = this.userForm.get('email')?.value || '';
     const firstname = this.userForm.get('firstName')?.value || '';
+
+    this.submitted = true;
 
     if (this.userForm.valid) {
       let user: User | UpdateUser;
@@ -100,6 +107,7 @@ export class UserFormComponent implements OnInit {
       }
 
       if (!this.userInfos) {
+        // Création du compte utilisateur
         this.userService.createUser(user as User).subscribe({
           next: () => {
             this.userForm.reset();
@@ -111,6 +119,7 @@ export class UserFormComponent implements OnInit {
           },
         });
       } else {
+        // Modification du profil utilisateur
         this.userService
           .UpdateUser(user as UpdateUser)
           .pipe(
