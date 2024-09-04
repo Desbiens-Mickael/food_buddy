@@ -68,6 +68,7 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
+
     if (this.parentForm) {
       this.parentForm.addControl('user', this.userForm);
     }

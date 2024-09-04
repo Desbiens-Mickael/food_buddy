@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -11,8 +13,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
 import {
   Address,
-  Buisness,
   Business,
+  BusinessAccount,
   Establishment,
 } from '../../shared/models/Buisness';
 import { User } from '../../shared/models/User';
@@ -22,10 +24,9 @@ import { AuthService } from '../../shared/services/auth.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
+import { BuisnessFormComponent } from '../buisness-form/buisness-form.component';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { UserFormComponent } from '../user-form/user-form.component';
-import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-buisness-register-form',
@@ -37,6 +38,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     ToastrModule,
     UploadFileComponent,
     UserFormComponent,
+    BuisnessFormComponent,
   ],
   templateUrl: './buisness-register-form.component.html',
   styleUrl: './buisness-register-form.component.css',
@@ -64,10 +66,7 @@ export class BuisnessRegisterFormComponent implements OnInit {
 
   userForm!: FormGroup;
 
-  buisnessForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    siren: ['', [Validators.required, Valid.sirenValidator()]],
-  });
+  buisnessForm!: FormGroup;
   establishmentForm = this.formBuilder.group({
     name: ['', Validators.required],
     siret: ['', [Validators.required, Valid.siretValidator()]],
@@ -86,13 +85,13 @@ export class BuisnessRegisterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({});
+    this.buisnessForm = this.formBuilder.group({});
 
     this.authService.userInfo$.subscribe(data => {
       this.userInfos = data;
     });
 
     this.cdRef.detectChanges();
-    console.log(this.userForm);
   }
 
   togglePassword(): void {
@@ -146,6 +145,8 @@ export class BuisnessRegisterFormComponent implements OnInit {
     if (this.currentStep < 4) {
       this.toggleStep(this.currentStep, this.currentStep + 1);
       this.currentStep++;
+
+      this.cdRef.detectChanges();
     }
   }
 
@@ -153,6 +154,8 @@ export class BuisnessRegisterFormComponent implements OnInit {
     if (this.currentStep > 1) {
       this.toggleStep(this.currentStep, this.currentStep - 1);
       this.currentStep--;
+
+      this.cdRef.detectChanges();
     }
   }
 
@@ -212,14 +215,14 @@ export class BuisnessRegisterFormComponent implements OnInit {
           longitude: this.addressForm.controls.longitude.value ?? 0,
         };
 
-        const buisness: Buisness = {
+        const buisness: BusinessAccount = {
           newUser,
           business,
           establishment,
           address,
         };
 
-        this.businessService.createBuisness(buisness).subscribe({
+        this.businessService.createBuisnessAccount(buisness).subscribe({
           next: () => {
             this.userForm.reset();
             void this.router.navigate(['/login']);
