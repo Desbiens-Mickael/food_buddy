@@ -23,8 +23,8 @@ import { AdresseService } from '../../shared/services/adresse.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
 import { UserService } from '../../shared/services/user.service';
-import * as Valid from '../../shared/validator/validator';
 import { BuisnessFormComponent } from '../buisness-form/buisness-form.component';
+import { EstablishmentFormComponent } from '../establishment-form/establishment-form.component';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { UserFormComponent } from '../user-form/user-form.component';
 
@@ -39,6 +39,7 @@ import { UserFormComponent } from '../user-form/user-form.component';
     UploadFileComponent,
     UserFormComponent,
     BuisnessFormComponent,
+    EstablishmentFormComponent,
   ],
   templateUrl: './buisness-register-form.component.html',
   styleUrl: './buisness-register-form.component.css',
@@ -65,14 +66,8 @@ export class BuisnessRegisterFormComponent implements OnInit {
   currentStep = 1;
 
   userForm!: FormGroup;
-
   buisnessForm!: FormGroup;
-  establishmentForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    siret: ['', [Validators.required, Valid.siretValidator()]],
-    email: ['', [Validators.required, Valid.emailValidator()]],
-    phoneNumber: ['', Validators.required],
-  });
+  establishmentForm!: FormGroup;
 
   addressForm = this.formBuilder.group({
     streetNumber: ['', Validators.required],
@@ -86,6 +81,7 @@ export class BuisnessRegisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({});
     this.buisnessForm = this.formBuilder.group({});
+    this.establishmentForm = this.formBuilder.group({});
 
     this.authService.userInfo$.subscribe(data => {
       this.userInfos = data;
@@ -200,10 +196,10 @@ export class BuisnessRegisterFormComponent implements OnInit {
         };
 
         const establishment: Establishment = {
-          name: this.establishmentForm.controls.name.value ?? '',
-          siret: this.establishmentForm.controls.siret.value ?? '',
-          email: this.establishmentForm.controls.email.value ?? '',
-          phoneNumber: this.establishmentForm.controls.phoneNumber.value ?? '',
+          name: this.establishmentForm.get('name')?.value ?? '',
+          siret: this.establishmentForm.get('siret')?.value ?? '',
+          email: this.establishmentForm.get('email')?.value ?? '',
+          phoneNumber: this.establishmentForm.get('phoneNumber')?.value ?? '',
         };
 
         const address: Address = {

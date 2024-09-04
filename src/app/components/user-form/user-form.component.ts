@@ -39,10 +39,10 @@ export class UserFormComponent implements OnInit {
 
   formInit() {
     this.userForm = this.formBuilder.group({
-      firstName: [this.userInfos?.firstname ?? '', Validators.required],
-      lastName: [this.userInfos?.lastname ?? '', Validators.required],
+      firstName: [this.userInfos?.firstname ?? 't', Validators.required],
+      lastName: [this.userInfos?.lastname ?? 't', Validators.required],
       email: [
-        this.userInfos?.email ?? '',
+        this.userInfos?.email ?? 't@t.t',
         [Validators.required, Valid.emailValidator()],
       ],
     });
@@ -52,8 +52,11 @@ export class UserFormComponent implements OnInit {
         'passwordGroup',
         this.formBuilder.group(
           {
-            password: ['', [Validators.required, Valid.passwordValidator()]],
-            confirmPassword: ['', Validators.required],
+            password: [
+              'Azerty1.',
+              [Validators.required, Valid.passwordValidator()],
+            ],
+            confirmPassword: ['Azerty1.', Validators.required],
           },
           {
             validators: Valid.passwordMatchValidator(

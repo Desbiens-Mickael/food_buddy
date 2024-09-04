@@ -33,8 +33,8 @@ export class BuisnessFormComponent implements OnInit {
 
   formInit() {
     this.businessForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      siren: ['', [Validators.required, Valid.sirenValidator()]],
+      name: ['T', Validators.required],
+      siren: ['111111111', [Validators.required, Valid.sirenValidator()]],
     });
   }
 
@@ -56,7 +56,7 @@ export class BuisnessFormComponent implements OnInit {
       this.businessService.createBuisness(business).subscribe({
         next: () => {
           this.businessForm.reset();
-          void this.router.navigate(['/login']);
+          void this.router.navigate(['/merchant/profile']);
           this.toastr.success('Entreprise créée avec succès');
         },
         error: (error: HttpErrorResponse) => {
