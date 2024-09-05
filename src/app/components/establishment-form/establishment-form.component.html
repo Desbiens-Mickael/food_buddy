@@ -32,7 +32,7 @@
 
 <!-- Template réutilisable pour les différents cas d'utilisation -->
 <ng-template #form let-formGroupData="formGroupData">
-  <form [formGroup]="establishmentForm" class="px-4">
+  <div [formGroup]="establishmentForm" class="px-4">
     <h6>Informations Etablissement</h6>
     <div class="field">
       <div class="control">
@@ -166,5 +166,5 @@
         >
       </div>
     </div>
-  </form>
+  </div>
 </ng-template>

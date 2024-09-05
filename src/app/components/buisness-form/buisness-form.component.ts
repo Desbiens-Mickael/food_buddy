@@ -33,8 +33,8 @@ export class BuisnessFormComponent implements OnInit {
 
   formInit() {
     this.businessForm = this.formBuilder.group({
-      name: ['T', Validators.required],
-      siren: ['111111111', [Validators.required, Valid.sirenValidator()]],
+      name: ['', Validators.required],
+      siren: ['', [Validators.required, Valid.sirenValidator()]],
     });
   }
 

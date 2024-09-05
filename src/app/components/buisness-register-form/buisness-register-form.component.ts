@@ -6,11 +6,9 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
 import {
   Address,
   Business,
@@ -19,10 +17,9 @@ import {
 } from '../../shared/models/Buisness';
 import { User } from '../../shared/models/User';
 import { UserInfo } from '../../shared/models/User-info.model';
-import { AdresseService } from '../../shared/services/adresse.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
-import { UserService } from '../../shared/services/user.service';
+import { AddressFormComponent } from '../address-form/address-form.component';
 import { BuisnessFormComponent } from '../buisness-form/buisness-form.component';
 import { EstablishmentFormComponent } from '../establishment-form/establishment-form.component';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
@@ -40,101 +37,31 @@ import { UserFormComponent } from '../user-form/user-form.component';
     UserFormComponent,
     BuisnessFormComponent,
     EstablishmentFormComponent,
+    AddressFormComponent,
+    AddressFormComponent,
   ],
   templateUrl: './buisness-register-form.component.html',
   styleUrl: './buisness-register-form.component.css',
 })
 export class BuisnessRegisterFormComponent implements OnInit {
-  isHiddenConfirmPassword = true;
-  isHiddenPassword = true;
-
   private formBuilder = inject(FormBuilder);
-  private adresseService = inject(AdresseService);
-  private userService = inject(UserService);
   private businessService = inject(BuisnessService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private authService = inject(AuthService);
   private cdRef = inject(ChangeDetectorRef);
   userInfos!: UserInfo | null;
-
-  villes!: AdresseJson;
-  filteredVilles: Feature[] = [];
-  selectedAdress!: Feature;
-  suggestionsVisible = false;
-  keepSuggestionsVisible = false;
+  businessAccountForm!: FormGroup;
   currentStep = 1;
 
-  userForm!: FormGroup;
-  buisnessForm!: FormGroup;
-  establishmentForm!: FormGroup;
-
-  addressForm = this.formBuilder.group({
-    streetNumber: ['', Validators.required],
-    streetName: ['', Validators.required],
-    zipCode: ['', Validators.required],
-    city: ['', Validators.required],
-    latitude: [0, Validators.required],
-    longitude: [0, Validators.required],
-  });
-
   ngOnInit(): void {
-    this.userForm = this.formBuilder.group({});
-    this.buisnessForm = this.formBuilder.group({});
-    this.establishmentForm = this.formBuilder.group({});
+    this.businessAccountForm = this.formBuilder.group({});
 
     this.authService.userInfo$.subscribe(data => {
       this.userInfos = data;
     });
 
     this.cdRef.detectChanges();
-  }
-
-  togglePassword(): void {
-    this.isHiddenPassword = !this.isHiddenPassword;
-  }
-
-  toggleConfirmPassword(): void {
-    this.isHiddenConfirmPassword = !this.isHiddenConfirmPassword;
-  }
-
-  filter(event: Event): void {
-    const newValue = (event.target as HTMLInputElement).value;
-    if (newValue.length > 5) {
-      this.adresseService.getAdresse(newValue, '10').subscribe(data => {
-        this.villes = data;
-        this.filteredVilles = this.villes.features;
-        this.suggestionsVisible = this.filteredVilles.length > 0;
-      });
-    } else {
-      this.filteredVilles = [];
-      this.suggestionsVisible = false;
-    }
-  }
-
-  showSuggestions(): void {
-    this.suggestionsVisible = true;
-  }
-
-  hideSuggestions(): void {
-    if (!this.keepSuggestionsVisible) {
-      this.suggestionsVisible = false;
-    }
-  }
-
-  selectAdress(ville: Feature): void {
-    this.selectedAdress = ville;
-    (document.getElementById('adresse-input') as HTMLInputElement).value =
-      ville.properties.label;
-    this.suggestionsVisible = false;
-    this.addressForm.patchValue({
-      streetNumber: ville.properties.housenumber,
-      streetName: ville.properties.street,
-      zipCode: ville.properties.postcode,
-      city: ville.properties.city,
-      latitude: ville.geometry.coordinates[1],
-      longitude: ville.geometry.coordinates[0],
-    });
   }
 
   nextStep(): void {
@@ -171,64 +98,93 @@ export class BuisnessRegisterFormComponent implements OnInit {
     }
   }
 
+  getControlValue(form: FormGroup, path: string) {
+    return form.get(path)?.value || null;
+  }
+
   createBuisness(): void {
-    if (
-      this.userForm.valid &&
-      this.buisnessForm.valid &&
-      this.establishmentForm.valid &&
-      this.addressForm.valid
-    ) {
-      const password = this.userForm.get('password.password')?.value;
-      const lastname = this.userForm.get('lastName')?.value;
-      const email = this.userForm.get('email')?.value;
-      const firstname = this.userForm.get('firstName')?.value;
-      if (password && lastname && firstname && email) {
-        const newUser: User = {
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          password: password,
-        };
+    if (this.businessAccountForm.valid) {
+      const newUser: User = {
+        firstname: this.getControlValue(
+          this.businessAccountForm,
+          'user.firstName',
+        ),
+        lastname: this.getControlValue(
+          this.businessAccountForm,
+          'user.lastName',
+        ),
+        email: this.getControlValue(this.businessAccountForm, 'user.email'),
+        password: this.getControlValue(
+          this.businessAccountForm,
+          'user.passwordGroup.password',
+        ),
+      };
 
-        const business: Business = {
-          name: this.buisnessForm.get('name')?.value ?? '',
-          siren: this.buisnessForm.get('siren')?.value ?? '',
-        };
+      const business: Business = {
+        name: this.getControlValue(this.businessAccountForm, 'business.name'),
+        siren: this.getControlValue(this.businessAccountForm, 'business.siren'),
+      };
 
-        const establishment: Establishment = {
-          name: this.establishmentForm.get('name')?.value ?? '',
-          siret: this.establishmentForm.get('siret')?.value ?? '',
-          email: this.establishmentForm.get('email')?.value ?? '',
-          phoneNumber: this.establishmentForm.get('phoneNumber')?.value ?? '',
-        };
+      const establishment: Establishment = {
+        name: this.getControlValue(
+          this.businessAccountForm,
+          'establishment.name',
+        ),
+        siret: this.getControlValue(
+          this.businessAccountForm,
+          'establishment.siret',
+        ),
+        email: this.getControlValue(
+          this.businessAccountForm,
+          'establishment.email',
+        ),
+        phoneNumber: this.getControlValue(
+          this.businessAccountForm,
+          'establishment.phoneNumber',
+        ),
+      };
 
-        const address: Address = {
-          streetNumber: this.addressForm.controls.streetNumber.value ?? '',
-          streetName: this.addressForm.controls.streetName.value ?? '',
-          zipCode: this.addressForm.controls.zipCode.value ?? '',
-          city: this.addressForm.controls.city.value ?? '',
-          latitude: this.addressForm.controls.latitude.value ?? 0,
-          longitude: this.addressForm.controls.longitude.value ?? 0,
-        };
+      const address: Address = {
+        streetNumber: this.getControlValue(
+          this.businessAccountForm,
+          'address.streetNumber',
+        ),
+        streetName: this.getControlValue(
+          this.businessAccountForm,
+          'address.streetName',
+        ),
+        zipCode: this.getControlValue(
+          this.businessAccountForm,
+          'address.zipCode',
+        ),
+        city: this.getControlValue(this.businessAccountForm, 'address.city'),
+        latitude: this.getControlValue(
+          this.businessAccountForm,
+          'address.latitude',
+        ),
+        longitude: this.getControlValue(
+          this.businessAccountForm,
+          'address.longitude',
+        ),
+      };
 
-        const buisness: BusinessAccount = {
-          newUser,
-          business,
-          establishment,
-          address,
-        };
+      const buisnessAccount: BusinessAccount = {
+        newUser,
+        business,
+        establishment,
+        address,
+      };
 
-        this.businessService.createBuisnessAccount(buisness).subscribe({
-          next: () => {
-            this.userForm.reset();
-            void this.router.navigate(['/login']);
-            this.toastr.success('Création de compte réussie');
-          },
-          error: (error: HttpErrorResponse) => {
-            this.toastr.error(error.error as string);
-          },
-        });
-      }
+      this.businessService.createBuisnessAccount(buisnessAccount).subscribe({
+        next: () => {
+          this.businessAccountForm.reset();
+          void this.router.navigate(['/login']);
+          this.toastr.success('Création de compte réussie');
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastr.error(error.error as string);
+        },
+      });
     }
   }
 }

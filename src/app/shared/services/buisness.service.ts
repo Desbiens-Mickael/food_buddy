@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
-  Buisness,
+  Business,
+  BusinessAccount,
   BusinessWithEstablishment,
 } from '../../shared/models/Buisness';
 
@@ -16,10 +17,19 @@ export class BuisnessService {
 
   constructor(private http: HttpClient) {}
 
-  createBuisness(buisness: Buisness): Observable<BusinessWithEstablishment> {
+  createBuisnessAccount(
+    buisnessAccount: BusinessAccount,
+  ): Observable<BusinessWithEstablishment> {
     return this.http.post<BusinessWithEstablishment>(
       this.businessApiUrl,
-      buisness,
+      buisnessAccount,
+    );
+  }
+
+  createBuisness(business: Business): Observable<BusinessWithEstablishment> {
+    return this.http.post<BusinessWithEstablishment>(
+      this.businessApiUrl,
+      business,
     );
   }
 

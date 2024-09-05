@@ -9,7 +9,7 @@
   <div
     class="registerComponent shadow-lg bg-white/10 backdrop-blur-lg rounded-xl py-4"
   >
-    <div class="choiceAccount mx-auto mb-6">
+    <div class="choiceAccount mx-auto px-4 mb-6">
       <button
         [disabled]="!buisnessChoice"
         (click)="buisnessChoice()"
@@ -31,7 +31,9 @@
         <app-user-form class="component"></app-user-form>
       </div>
       <div *ngIf="choiceBuisness" id="buisnessForm">
-        <app-buisness-form class="component"></app-buisness-form>
+        <app-buisness-register-form
+          class="component"
+        ></app-buisness-register-form>
       </div>
     </div>
   </div>
