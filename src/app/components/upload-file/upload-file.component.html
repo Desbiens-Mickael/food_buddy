@@ -59,6 +59,7 @@
     </div>
   </div>
   <button
+    *ngIf="isStandalone"
     class="w-[400px] h-[50px] mt-4 mx-auto bg-secondary text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary-light transition-colors"
     (click)="submit()"
   >

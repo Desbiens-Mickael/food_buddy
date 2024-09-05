@@ -12,10 +12,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /**
  * Composant permettant de gérer les fichiers à téléverser
  *
+ * @param isStandelone {boolean} - Indique si composant est utilisé seul ou dans un autre composant
  * @param isProfilePicture {boolean} - Indique si le fichier est une photo de profil
  * @param multiple {boolean} - Indique si plusieurs fichiers sont autorisés
  * @param acceptedTypes {string} - Types MIME acceptés, séparés par des virgules
- * @param fileDropped {EventEmitter<FileList>} - Événement émis lorsqu'un fichier est déposé
+ * @param fileSubmitted {EventEmitter<File[]>} - Événement émis lorsqu'un fichier est déposé
  */
 @Component({
   selector: 'app-upload-file',
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './upload-file.component.css',
 })
 export class UploadFileComponent implements OnDestroy {
+  @Input() isStandalone = true;
   @Input() isProfilePicture = false;
   @Input() multiple = true;
   @Input() acceptedTypes = '';
@@ -87,24 +89,29 @@ export class UploadFileComponent implements OnDestroy {
    */
   processFiles(fileList: FileList) {
     this.error = '';
-    const newFiles = Array.from(fileList)
-      .filter(file => {
-        if (this.acceptedTypes && !file.type.match(this.acceptedTypes)) {
-          this.error = `Le type de fichier ${file.type} n'est pas accepté.`;
-          newFiles.length = 0;
-          return false;
-        }
-        return true;
-      })
-      .map(file => ({
-        file,
-        url: URL.createObjectURL(file),
-      }));
+    // Transforme la liste de fichiers en tableau
+    const newFiles = Array.from(fileList).map(file => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+
+    // Parcours chaque fichier pour vérifier le type MIME
+    for (const fileObj of newFiles) {
+      if (this.acceptedTypes && !fileObj.file.type.match(this.acceptedTypes)) {
+        this.error = `Le type de fichier ${fileObj.file.type} n'est pas accepté.`;
+        this.files = [];
+        this.cdr.detectChanges();
+        return;
+      }
+    }
 
     if (!this.multiple) {
       this.files = newFiles.slice(0, 1); // Si multiple est false, ne prend que le premier fichier
     } else {
       this.files = [...this.files, ...newFiles]; // Sinon, ajoute les nouveaux fichiers à la liste existante
+    }
+    if (!this.isStandalone && this.files.length > 0) {
+      this.fileSubmitted.emit(this.files.map(file => file.file));
     }
     this.cdr.detectChanges(); // Déclenche manuellement la détection des changements
   }
