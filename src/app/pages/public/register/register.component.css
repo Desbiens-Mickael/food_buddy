@@ -53,19 +53,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-#userForm,
-#buisnessForm {
-  text-align: center;
-  width: 100%;
-}
-
-h1 {
-  text-align: center;
-  color: #3f3d3d;
-  font-size: 25px;
-  margin-top: 5px;
-}
 /* BUTTON */
 .choiceAccount button {
   width: 48%;
@@ -107,17 +94,11 @@ h1 {
   .container {
     width: 95%;
   }
-  /* BUTTONS commercant-donnateur */
-  .choiceAccount button {
-    width: 45%;
-    display: center;
-    text-align: center;
-    justify-content: center;
-  }
-  .choiceAccount {
+
+  /* .choiceAccount {
     width: 90%;
     display: flex;
     justify-content: space-around;
     margin: 5px auto;
-  }
+  } */
 }

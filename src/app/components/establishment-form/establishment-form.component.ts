@@ -32,10 +32,10 @@ export class EstablishmentFormComponent implements OnInit {
 
   formInit() {
     this.establishmentForm = this.formBuilder.group({
-      name: ['TT', Validators.required],
-      siret: ['22222', [Validators.required, Valid.siretValidator()]],
-      email: ['tt@t.t', [Validators.required, Valid.emailValidator()]],
-      phoneNumber: ['0600000000', Validators.required],
+      name: ['', Validators.required],
+      siret: ['', [Validators.required, Valid.siretValidator()]],
+      email: ['', [Validators.required, Valid.emailValidator()]],
+      phoneNumber: ['', Validators.required],
     });
   }
 
@@ -50,10 +50,10 @@ export class EstablishmentFormComponent implements OnInit {
   createEstablishment(): void {
     if (this.establishmentForm.valid) {
       const establishment: Establishment = {
-        name: this.establishmentForm.get('name')?.value ?? '',
-        siret: this.establishmentForm.get('siret')?.value ?? '',
-        email: this.establishmentForm.get('email')?.value ?? '',
-        phoneNumber: this.establishmentForm.get('phoneNumber')?.value ?? '',
+        name: this.establishmentForm.get('name')?.value,
+        siret: this.establishmentForm.get('siret')?.value,
+        email: this.establishmentForm.get('email')?.value,
+        phoneNumber: this.establishmentForm.get('phoneNumber')?.value,
       };
 
       this.businessService.createEstablishment(establishment).subscribe({

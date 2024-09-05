@@ -113,8 +113,7 @@
 
   <app-upload-file
     [multiple]="false"
-    (fileDropped)="onFileDropped($event)"
-    (errorOccurred)="onErrorOccurred($event)"
+    (fileSubmitted)="onFileDropped($event)"
   ></app-upload-file>
 
   <button

@@ -99,12 +99,12 @@ export class AddressFormComponent implements OnInit {
     // updateAddress(establishmentId: number): void {
     if (this.addressForm.valid) {
       const address: Address = {
-        streetNumber: this.addressForm.get('streetNumber')?.value ?? '',
-        streetName: this.addressForm.get('streetName')?.value ?? '',
-        zipCode: this.addressForm.get('zipCode')?.value ?? '',
-        city: this.addressForm.get('city')?.value ?? '',
-        latitude: this.addressForm.get('latitude')?.value ?? 0,
-        longitude: this.addressForm.get('longitude')?.value ?? 0,
+        streetNumber: this.addressForm.get('streetNumber')?.value,
+        streetName: this.addressForm.get('streetName')?.value,
+        zipCode: this.addressForm.get('zipCode')?.value,
+        city: this.addressForm.get('city')?.value,
+        latitude: this.addressForm.get('latitude')?.value,
+        longitude: this.addressForm.get('longitude')?.value,
       };
       console.log(address);
 

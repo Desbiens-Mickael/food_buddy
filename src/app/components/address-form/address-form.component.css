@@ -1,3 +1,10 @@
+h6 {
+  text-align: center;
+  color: #3f3d3d;
+  font-size: 25px;
+  padding-top: 5px;
+}
+
 .adresse-input {
   width: 100%;
   flex-direction: column;

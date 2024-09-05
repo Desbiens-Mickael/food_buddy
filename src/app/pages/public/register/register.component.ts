@@ -12,15 +12,9 @@ import { UserFormComponent } from '../../../components/user-form/user-form.compo
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  choiceBuisness = false;
-  choiceUser = true;
+  toggle = false;
 
-  buisnessChoice(): void {
-    this.choiceBuisness = true;
-    this.choiceUser = false;
-  }
-  clientChoice(): void {
-    this.choiceBuisness = false;
-    this.choiceUser = true;
+  handleToggle(): void {
+    this.toggle = !this.toggle;
   }
 }

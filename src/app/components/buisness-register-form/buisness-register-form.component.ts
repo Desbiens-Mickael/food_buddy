@@ -1,6 +1,13 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -40,10 +47,18 @@ import { UserFormComponent } from '../user-form/user-form.component';
     AddressFormComponent,
     AddressFormComponent,
   ],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   templateUrl: './buisness-register-form.component.html',
   styleUrl: './buisness-register-form.component.css',
 })
-export class BuisnessRegisterFormComponent implements OnInit {
+export class BuisnessRegisterFormComponent implements OnInit, OnDestroy {
   private formBuilder = inject(FormBuilder);
   private businessService = inject(BuisnessService);
   private router = inject(Router);
@@ -186,5 +201,9 @@ export class BuisnessRegisterFormComponent implements OnInit {
         },
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.cdRef.detach();
   }
 }

@@ -107,15 +107,6 @@
       </div>
     </div>
 
-    <h3 *ngIf="userInfos" class="text-main text-xl mt-4">Photo de profil</h3>
-    <app-upload-file
-      *ngIf="userInfos"
-      [multiple]="false"
-      acceptedTypes="image/*"
-      (fileDropped)="onFileDropped($event)"
-      (errorOccurred)="onErrorOccurred($event)"
-    ></app-upload-file>
-
     <input
       [ngClass]="
         formGroupData.get('email')?.invalid &&
