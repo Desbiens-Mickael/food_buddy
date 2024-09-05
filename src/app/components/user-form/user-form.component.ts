@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -9,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, of, switchMap } from 'rxjs';
 import { UpdateUser, User } from '../../shared/models/User';
 import { UserService } from '../../shared/services/user.service';
 import * as Valid from '../../shared/validator/validator';
@@ -23,12 +21,13 @@ import { UploadFileComponent } from '../upload-file/upload-file.component';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent implements OnInit {
-  isHidden = true;
-  @Input() userInfos?: UpdateUser;
-  avatar?: File;
   userForm!: FormGroup;
   isHiddenPassword = true;
   isHiddenConfirmPassword = true;
+  submitted = false;
+
+  @Input() userInfos?: UpdateUser;
+  @Input() parentForm?: FormGroup;
 
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
@@ -64,23 +63,21 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.formInit();
-  }
 
-  onFileDropped(fileList: FileList) {
-    this.avatar = fileList[0];
-  }
-
-  onErrorOccurred(error: string) {
-    console.log(error);
+    if (this.parentForm) {
+      this.parentForm.addControl('user', this.userForm);
+    }
   }
 
   createUser(): void {
-    const password = this.userForm.get('passwordGroup.password')?.value || '';
-    const lastname = this.userForm.get('lastName')?.value || '';
-    const email = this.userForm.get('email')?.value || '';
-    const firstname = this.userForm.get('firstName')?.value || '';
+    const password = this.userForm.get('passwordGroup.password')?.value;
+    const lastname = this.userForm.get('lastName')?.value;
+    const email = this.userForm.get('email')?.value;
+    const firstname = this.userForm.get('firstName')?.value;
+
+    this.submitted = true;
 
     if (this.userForm.valid) {
       let user: User | UpdateUser;
@@ -100,6 +97,7 @@ export class UserFormComponent implements OnInit {
       }
 
       if (!this.userInfos) {
+        // Création du compte utilisateur
         this.userService.createUser(user as User).subscribe({
           next: () => {
             this.userForm.reset();
@@ -111,27 +109,15 @@ export class UserFormComponent implements OnInit {
           },
         });
       } else {
-        this.userService
-          .UpdateUser(user as UpdateUser)
-          .pipe(
-            switchMap((data: User) => {
-              if (this.avatar) {
-                return this.userService.uploadAvatar(this.avatar, user.email);
-              }
-              return of(data);
-            }),
-            catchError((error: HttpErrorResponse) => {
-              return of(error);
-            }),
-          )
-          .subscribe({
-            next: () => {
-              this.toastr.success('Profil modifié avec succès');
-            },
-            error: () => {
-              this.toastr.error('Erreur lors de la modification du profil');
-            },
-          });
+        // Modification du profil utilisateur
+        this.userService.UpdateUser(user as UpdateUser).subscribe({
+          next: () => {
+            this.toastr.success('Profil modifié avec succès');
+          },
+          error: () => {
+            this.toastr.error('Erreur lors de la modification du profil');
+          },
+        });
       }
     }
   }

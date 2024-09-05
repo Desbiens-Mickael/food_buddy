@@ -21,7 +21,7 @@ export interface Address {
   longitude: number;
 }
 
-export interface Buisness {
+export interface BusinessAccount {
   newUser: User;
   business: Business;
   establishment: Establishment;

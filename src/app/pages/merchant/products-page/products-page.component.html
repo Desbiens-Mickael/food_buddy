@@ -1,5 +1,7 @@
 <h1 class="text-5xl font-main font-bold text-center my-8">Mes Produits</h1>
+<app-loader *ngIf="loading"></app-loader>
 <div
+  *ngIf="!loading"
   class="w-full flex flex-col items-center sm:flex-row sm:justify-center sm:flex-wrap gap-4"
 >
   @if (productList.length === 0) {

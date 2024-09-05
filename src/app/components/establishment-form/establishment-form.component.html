@@ -1,0 +1,170 @@
+<!-- Utilisation en autonome -->
+<ng-container *ngIf="!parentForm">
+  <form
+    [formGroup]="establishmentForm"
+    (ngSubmit)="createEstablishment()"
+    class="px-4"
+  >
+    <ng-container
+      *ngTemplateOutlet="form; context: { formGroupData: establishmentForm }"
+    ></ng-container>
+    <button
+      *ngIf="!parentForm"
+      [disabled]="establishmentForm.invalid"
+      class="button btn-warning shadow-lg m-top-input font-main"
+      [ngClass]="establishmentForm.invalid ? 'cursor-not-allowed' : ''"
+      type="submit"
+    >
+      Créer l'etablissement
+    </button>
+  </form>
+</ng-container>
+
+<!-- Utilisation dans un parent -->
+<ng-container *ngIf="parentForm">
+  <ng-container
+    *ngTemplateOutlet="
+      form;
+      context: { formGroupData: parentForm.get('establishment') }
+    "
+  ></ng-container>
+</ng-container>
+
+<!-- Template réutilisable pour les différents cas d'utilisation -->
+<ng-template #form let-formGroupData="formGroupData">
+  <div [formGroup]="establishmentForm" class="px-4">
+    <h6>Informations Etablissement</h6>
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Nom de l'établissement"
+          formControlName="name"
+          [ngClass]="
+            formGroupData.get('name')?.invalid &&
+            (formGroupData.get('name')?.dirty ||
+              formGroupData.get('name')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('name')?.invalid &&
+          (formGroupData.get('name')?.dirty ||
+            formGroupData.get('name')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('name')?.errors?.['required']"
+          >Nom de l'établissement requis.</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="N° siret"
+          formControlName="siret"
+          [ngClass]="
+            formGroupData.get('siret')?.invalid &&
+            (formGroupData.get('siret')?.dirty ||
+              formGroupData.get('siret')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('siret')?.invalid &&
+          (formGroupData.get('siret')?.dirty ||
+            formGroupData.get('siret')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('siret')?.errors?.['invalidSiret']"
+          >N° siret Invalide (5 Chiffres)</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="email"
+          placeholder="Votre adresse email professionel"
+          formControlName="email"
+          [ngClass]="
+            formGroupData.get('email')?.invalid &&
+            (formGroupData.get('email')?.dirty ||
+              formGroupData.get('email')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('email')?.invalid &&
+          (formGroupData.get('email')?.dirty ||
+            formGroupData.get('email')?.touched)
+        "
+        class="flex flex-col gap-2 text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('email')?.errors?.['required']"
+          >Email Requis.</small
+        >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('email')?.errors?.['invalidEmail']"
+          >Email Invalide.</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Votre numéro de téléphone"
+          formControlName="phoneNumber"
+          [ngClass]="
+            formGroupData.get('phoneNumber')?.invalid &&
+            (formGroupData.get('phoneNumber')?.dirty ||
+              formGroupData.get('phoneNumber')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('phoneNumber')?.invalid &&
+          (formGroupData.get('phoneNumber')?.dirty ||
+            formGroupData.get('phoneNumber')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('phoneNumber')?.errors?.['required']"
+          >Numéro de téléphone requis.</small
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>

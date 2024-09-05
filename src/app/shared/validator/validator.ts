@@ -14,15 +14,25 @@ export function emailValidator(): ValidatorFn {
 }
 export function sirenValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const valeur: string = control.value as string;
-    const valid = valeur.length === 9;
+    const value: string = control.value as string;
+
+    if (!value || typeof value !== 'string') {
+      return { invalidSiren: true };
+    }
+
+    const valid = value.length === 9;
     return valid ? null : { invalidSiren: true };
   };
 }
 export function siretValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const valeur: string = control.value as string;
-    const valid = valeur.length === 5;
+    const value: string = control.value as string;
+
+    if (!value || typeof value !== 'string') {
+      return { invalidSiret: true };
+    }
+
+    const valid = value.length === 5;
     return valid ? null : { invalidSiret: true };
   };
 }
