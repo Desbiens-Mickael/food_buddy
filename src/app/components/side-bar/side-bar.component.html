@@ -46,7 +46,7 @@
       </select>
     </div>
     <div class="w-full flex-grow flex flex-col items-center">
-      <ul class="w-full h-full flex flex-col justify-evenly items-center">
+      <ul class="w-full h-full flex flex-col items-center">
         <li>
           <a
             [routerLink]="[
@@ -91,11 +91,10 @@
         <li>
           <a
             [ngClass]="toggle ? 'animate' : ''"
-            [routerLink]="['/']"
+            [routerLink]="['/merchant/account']"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
           >
-            Profil
+            Mon Compte
           </a>
         </li>
       </ul>

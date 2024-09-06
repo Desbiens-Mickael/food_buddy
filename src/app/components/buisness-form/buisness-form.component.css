@@ -23,7 +23,7 @@ input {
 
 .btn-warning {
   background-color: #ffb054;
-  width: 200px;
+  /* width: 200px; */
   border-radius: 5px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;

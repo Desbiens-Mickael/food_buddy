@@ -7,11 +7,11 @@
     <button
       *ngIf="!parentForm"
       [disabled]="businessForm.invalid"
-      class="button btn-warning shadow-lg m-top-input font-main"
+      class="w-full button btn-warning shadow-lg m-top-input font-main"
       [ngClass]="businessForm.invalid ? 'cursor-not-allowed' : ''"
       type="submit"
     >
-      Créer l'entreprise
+      Modifier l'entreprise
     </button>
   </form>
 </ng-container>

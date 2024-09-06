@@ -26,6 +26,12 @@ export class BuisnessService {
     );
   }
 
+  // TODO: Get infos de l'entreprise
+  getBusiness(): Observable<Business> {
+    return this.http.get<Business>(`${this.apiUrl}/business`);
+  }
+
+  // TODO: Transformer en update
   createBuisness(business: Business): Observable<BusinessWithEstablishment> {
     return this.http.post<BusinessWithEstablishment>(
       this.businessApiUrl,

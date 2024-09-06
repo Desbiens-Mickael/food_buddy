@@ -59,7 +59,7 @@ export const routes: Routes = [
           import(
             './pages/user/establishment-product/establishment-products/establishment-products.component'
           ).then(m => m.EstablishmentProductsComponent),
-        title: `${titleBase} - Produits`,
+        title: `${titleBase} - Mes produits`,
       },
       {
         path: 'profile',
@@ -67,7 +67,7 @@ export const routes: Routes = [
           import('./pages/user/profile-user/profile-user.component').then(
             m => m.ProfileUserComponent,
           ),
-        title: `${titleBase} - Profile`,
+        title: `${titleBase} - Mon profile`,
       },
     ],
   },
@@ -94,7 +94,7 @@ export const routes: Routes = [
           import(
             './pages/merchant/create-product-page/create-product-page.component'
           ).then(m => m.CreateProductPageComponent),
-        title: `${titleBase} - création de produit`,
+        title: `${titleBase} - Création de produit`,
       },
       {
         path: 'establishment/:establishmentId/edit-product/:id',
@@ -102,7 +102,7 @@ export const routes: Routes = [
           import(
             './pages/merchant/edit-product-page/edit-product-page.component'
           ).then(m => m.EditProductPageComponent),
-        title: `${titleBase} - modification de produit`,
+        title: `${titleBase} - Modification de produit`,
       },
       {
         path: 'establishment/:establishmentId/reservations',
@@ -110,7 +110,47 @@ export const routes: Routes = [
           import(
             './pages/merchant/reservations-page/reservations-page.component'
           ).then(m => m.ReservationsPageComponent),
-        title: `${titleBase} - reservations`,
+        title: `${titleBase} - Reservations`,
+      },
+      {
+        path: 'account',
+        loadComponent: () =>
+          import(
+            './pages/merchant/account/account-page/account-page.component'
+          ).then(m => m.AccountPageComponent),
+        title: `${titleBase} - Mon compte`,
+      },
+      {
+        path: 'account/user-settings',
+        loadComponent: () =>
+          import('./pages/user/profile-user/profile-user.component').then(
+            m => m.ProfileUserComponent,
+          ),
+        title: `${titleBase} - Mon profile`,
+      },
+      {
+        path: 'account/business-settings',
+        loadComponent: () =>
+          import(
+            './pages/merchant/account/business-settings-page/business-settings-page.component'
+          ).then(m => m.BusinessSettingsPageComponent),
+        title: `${titleBase} - Mon entreprise`,
+      },
+      {
+        path: 'account/establishments-settings',
+        loadComponent: () =>
+          import(
+            './pages/merchant/account/establishements-settings-page/establishements-settings-page.component'
+          ).then(m => m.EstablishementsSettingsPageComponent),
+        title: `${titleBase} - Mes etablissements`,
+      },
+      {
+        path: 'account/security-settings',
+        loadComponent: () =>
+          import(
+            './pages/merchant/account/security-settings-page/security-settings-page.component'
+          ).then(m => m.SecuritySettingsPageComponent),
+        title: `${titleBase} - Mes etablissements`,
       },
     ],
   },

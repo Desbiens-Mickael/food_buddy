@@ -35,10 +35,11 @@ export class SideBarComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
+    this.authService.userInfo$.subscribe(userInfo => {
+      this.userInfos = userInfo;
+    });
+
     this.establismentsService.getAllLinkEstablishments().subscribe(data => {
-      this.authService.userInfo$.subscribe(userInfo => {
-        this.userInfos = userInfo;
-      });
       this.establishments = data;
       this.establishmentActive = this.establishments[0];
       this.isLodding = false;
