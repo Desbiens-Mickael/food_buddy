@@ -1,68 +1,95 @@
-<div
-  class="w-[400px] h-[200px] mt-4 mx-auto p-4 bg-white rounded-xl shadow-2xl"
-  *ngIf="!files.length"
->
+<div class="mb-8 relative">
   <div
+    class="absolute top-0 -right-4 z-50 size-10 rounded-full flex justify-center items-center text-6xl cursor-pointer hover:bg-primary hover:text-white transition-colors"
+    (click)="handleToggle()"
     [attr.aria-hidden]="true"
-    class="w-full h-full border-2 border-dashed border-primary rounded-md flex justify-center items-center text-primary text-lg font-main cursor-pointer p-4 hover:border-primary-dark hover:text-primary-dark"
-    [ngClass]="{
-      'border-red-600 text-red-600 hover:border-red-700 hover:text-red-700':
-        error,
-    }"
-    (drop)="handleFileDrop($event)"
-    (dragover)="handleDragOver($event)"
-    (click)="openFileSelector(fileInput)"
   >
-    <div class="flex flex-col items-center justify-center">
-      <span class="material-symbols-outlined text-6xl"> cloud_upload </span>
-      <p class="text-center text-lg font-main font-bold">
-        {{
-          error
-            ? error
-            : 'Déposez vos fichiers ici ou cliquez pour sélectionner'
-        }}
-      </p>
-    </div>
-    <input
-      #fileInput
-      type="file"
-      [attr.accept]="acceptedTypes"
-      [attr.multiple]="multiple ? true : null"
-      (change)="handleFileSelect($event)"
-      style="display: none"
+    <span *ngIf="image" class="material-symbols-outlined text-2xl">
+      {{ !toggle ? 'close' : 'edit' }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="toggle"
+    class="h-[150px] w-[150px] rounded-full overflow-hidden mx-auto"
+  >
+    <!-- Emplacement de l'image ci fourni -->
+    <img
+      image
+      class="h-full w-full object-cover"
+      src="{{ image }}"
+      alt="avatar"
     />
   </div>
-</div>
 
-<div *ngIf="files.length > 0">
-  <div class="flex flex-wrap mt-5">
+  <!-- Emplacement de l'upload file  -->
+  <div
+    class="w-[400px] h-[200px] mt-4 mx-auto p-4 bg-white rounded-xl shadow-2xl"
+    *ngIf="!files.length && !toggle"
+  >
     <div
-      *ngFor="let fileInfo of files; let i = index"
-      [ngClass]="{ 'rounded-full overflow-hidden': isProfilePicture }"
-      class="h-[150px] w-[150px] relative my-3 mx-auto"
+      [attr.aria-hidden]="true"
+      class="w-full h-full border-2 border-dashed border-primary rounded-md flex justify-center items-center text-primary text-lg font-main cursor-pointer p-4 hover:border-primary-dark hover:text-primary-dark"
+      [ngClass]="{
+        'border-red-600 text-red-600 hover:border-red-700 hover:text-red-700':
+          error,
+      }"
+      (drop)="handleFileDrop($event)"
+      (dragover)="handleDragOver($event)"
+      (click)="openFileSelector(fileInput)"
     >
-      <img
-        *ngIf="fileInfo.file.type.startsWith('image/')"
-        [src]="fileInfo.url"
-        alt="{{ fileInfo.file.name }}"
-      />
-      <div
-        class="group h-full w-full absolute top-0 left-0 bg-black/50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300"
-      >
-        <button
-          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700 opacity-0 group-hover:opacity-100"
-          (click)="deleteFile(i)"
-        >
-          Supprimer
-        </button>
+      <div class="flex flex-col items-center justify-center">
+        <span class="material-symbols-outlined text-6xl"> cloud_upload </span>
+        <p class="text-center text-lg font-main font-bold">
+          {{
+            error
+              ? error
+              : 'Déposez vos fichiers ici ou cliquez pour sélectionner'
+          }}
+        </p>
       </div>
+      <input
+        #fileInput
+        type="file"
+        [attr.accept]="acceptedTypes"
+        [attr.multiple]="multiple ? true : null"
+        (change)="handleFileSelect($event)"
+        style="display: none"
+      />
     </div>
   </div>
-  <button
-    *ngIf="isStandalone"
-    class="w-[400px] h-[50px] mt-4 mx-auto bg-secondary text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary-light transition-colors"
-    (click)="submit()"
-  >
-    Enregistrer
-  </button>
+
+  <div *ngIf="files.length > 0 && !toggle">
+    <div class="flex flex-wrap mt-5">
+      <div
+        *ngFor="let fileInfo of files; let i = index"
+        [ngClass]="{ 'rounded-full overflow-hidden': isProfilePictureMode }"
+        class="h-[150px] w-[150px] relative my-3 mx-auto"
+      >
+        <img
+          *ngIf="fileInfo.file.type.startsWith('image/')"
+          [src]="fileInfo.url"
+          class="h-full w-full object-cover"
+          alt="{{ fileInfo.file.name }}"
+        />
+        <div
+          class="group h-full w-full absolute top-0 left-0 bg-black/50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity duration-300"
+        >
+          <button
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full p-2 hover:bg-red-700 opacity-0 group-hover:opacity-100"
+            (click)="deleteFile(i)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      *ngIf="isStandaloneMode"
+      class="w-[400px] h-[50px] mt-4 mx-auto bg-secondary text-white text-xl font-main font-bold rounded-md shadow-md py-2 hover:bg-secondary-light transition-colors"
+      (click)="submit()"
+    >
+      Enregistrer
+    </button>
+  </div>
 </div>

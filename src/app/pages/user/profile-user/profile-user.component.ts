@@ -18,21 +18,15 @@ import { UserService } from '../../../shared/services/user.service';
 export class ProfileUserComponent implements OnInit {
   user!: UpdateUser;
   baseUrl = environment.apiUrl;
-  imageToggle = false;
 
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private toastr = inject(ToastrService);
 
-  handleImageToggle(): void {
-    this.imageToggle = !this.imageToggle;
-  }
-
   onUploadFile(files: File[]) {
     console.log(files);
     this.userService.uploadAvatar(files[0], this.user.email).subscribe({
       next: () => {
-        this.handleImageToggle();
         this.toastr.success('Photo de profil modifiée avec succès');
       },
       error: () => {

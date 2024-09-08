@@ -3,40 +3,17 @@
 </h1>
 
 <div class="main">
-  <div class="mb-8 relative">
-    <div
-      class="absolute top-0 -right-4 z-50 size-10 rounded-full flex justify-center items-center text-6xl cursor-pointer hover:bg-primary hover:text-white transition-colors"
-      (click)="handleImageToggle()"
-      [attr.aria-hidden]="true"
-    >
-      <span class="material-symbols-outlined text-2xl">
-        {{ imageToggle ? 'close' : 'edit' }}
-      </span>
-    </div>
-
-    <div
-      *ngIf="!imageToggle"
-      class="h-[150px] w-[150px] rounded-full overflow-hidden mx-auto"
-    >
-      <img
-        class="h-full w-full object-cover"
-        src="{{
-          user.profileImageUrl
-            ? baseUrl + '/users/avatar/' + user.profileImageUrl
-            : 'assets/avatar-user.png'
-        }}"
-        alt="avatar"
-      />
-    </div>
-
-    <app-upload-file
-      *ngIf="imageToggle"
-      [multiple]="false"
-      [isProfilePicture]="true"
-      acceptedTypes="image/*"
-      (fileSubmitted)="onUploadFile($event)"
-    ></app-upload-file>
-  </div>
+  <app-upload-file
+    image="{{
+      user.profileImageUrl
+        ? baseUrl + '/users/avatar/' + user.profileImageUrl
+        : 'assets/avatar-user.png'
+    }}"
+    [multiple]="false"
+    [isProfilePictureMode]="true"
+    acceptedTypes="image/*"
+    (fileSubmitted)="onUploadFile($event)"
+  ></app-upload-file>
 
   <div class="w-full md:w-[70%]">
     <app-user-form [userInfos]="user"></app-user-form>
