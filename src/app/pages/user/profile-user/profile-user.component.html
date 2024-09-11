@@ -4,11 +4,7 @@
 
 <div class="main">
   <app-upload-file
-    image="{{
-      user.profileImageUrl
-        ? baseUrl + '/users/avatar/' + user.profileImageUrl
-        : 'assets/avatar-user.png'
-    }}"
+    image="{{ avatarUrl ?? 'assets/avatar-user.png' }}"
     [multiple]="false"
     [isProfilePictureMode]="true"
     acceptedTypes="image/*"

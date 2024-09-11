@@ -25,6 +25,7 @@ export class BuisnessFormComponent implements OnInit {
   businessForm!: FormGroup;
 
   @Input() parentForm?: FormGroup;
+  @Input() businessName?: string;
 
   private formBuilder = inject(FormBuilder);
   private businessService = inject(BuisnessService);
@@ -33,9 +34,18 @@ export class BuisnessFormComponent implements OnInit {
 
   formInit() {
     this.businessForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      siren: ['', [Validators.required, Valid.sirenValidator()]],
+      name: [this.businessName ?? '', [Validators.required]],
     });
+
+    if (!this.businessName) {
+      this.businessForm.addControl(
+        'siren',
+        this.formBuilder.control('', [
+          Validators.required,
+          Valid.sirenValidator(),
+        ]),
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -53,11 +63,9 @@ export class BuisnessFormComponent implements OnInit {
         siren: this.businessForm.get('siren')?.value ?? '',
       };
 
-      this.businessService.createBuisness(business).subscribe({
+      this.businessService.updateBuisness(business).subscribe({
         next: () => {
-          this.businessForm.reset();
-          void this.router.navigate(['/merchant/profile']);
-          this.toastr.success('Entreprise créée avec succès');
+          this.toastr.success('Entreprise mise à jour avec succès');
         },
         error: (error: HttpErrorResponse) => {
           this.toastr.error(error.error as string);

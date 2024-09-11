@@ -16,15 +16,15 @@
         <img
           class="h-auto w-full"
           src="{{
-            userInfos?.businessLogoUrl
-              ? baseUrl + '/businesses/logo/' + userInfos?.businessLogoUrl
+            businessInfos?.logoUrl
+              ? baseUrl + '/businesses/logo/' + businessInfos?.logoUrl
               : 'assets/default-busines.png'
           }}"
           alt="Logo de l'entreprise"
         />
       </div>
       <h4 class="text-3xl font-bold mt-2">
-        {{ userInfos?.businesseName }}
+        {{ businessInfos?.name }}
       </h4>
       <h5 class="text-1xl font-bold text-white mt-4">
         {{ establishmentActive.name }}

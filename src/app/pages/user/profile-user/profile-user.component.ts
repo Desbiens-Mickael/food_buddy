@@ -18,13 +18,13 @@ import { UserService } from '../../../shared/services/user.service';
 export class ProfileUserComponent implements OnInit {
   user!: UpdateUser;
   baseUrl = environment.apiUrl;
+  avatarUrl!: string | undefined;
 
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private toastr = inject(ToastrService);
 
   onUploadFile(files: File[]) {
-    console.log(files);
     this.userService.uploadAvatar(files[0], this.user.email).subscribe({
       next: () => {
         this.toastr.success('Photo de profil modifiée avec succès');
@@ -43,6 +43,10 @@ export class ProfileUserComponent implements OnInit {
         email: userInfo?.email ?? '',
         profileImageUrl: userInfo?.profileImageUrl ?? '',
       };
+
+      this.avatarUrl =
+        this.user.profileImageUrl &&
+        `${this.baseUrl}/users/avatar/${this.user.profileImageUrl}`;
     });
   }
 }

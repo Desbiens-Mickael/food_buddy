@@ -5,7 +5,7 @@
       *ngTemplateOutlet="form; context: { formGroupData: businessForm }"
     ></ng-container>
     <button
-      *ngIf="!parentForm"
+      *ngIf="!parentForm && businessName"
       [disabled]="businessForm.invalid"
       class="w-full button btn-warning shadow-lg m-top-input font-main"
       [ngClass]="businessForm.invalid ? 'cursor-not-allowed' : ''"
@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <div class="field">
+    <div *ngIf="parentForm" class="field">
       <div class="control">
         <input
           class="input shadow-lg w-full m-top-input"

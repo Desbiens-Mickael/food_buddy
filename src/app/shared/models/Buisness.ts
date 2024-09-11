@@ -3,6 +3,7 @@ import { User } from './User';
 export interface Business {
   name: string;
   siren: string;
+  logoUrl?: string;
 }
 
 export interface Establishment {
