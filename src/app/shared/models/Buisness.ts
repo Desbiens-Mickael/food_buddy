@@ -7,6 +7,7 @@ export interface Business {
 }
 
 export interface Establishment {
+  id?: number;
   name: string;
   siret: string;
   email: string;

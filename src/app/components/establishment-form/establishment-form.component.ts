@@ -8,7 +8,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Establishment } from '../../shared/models/Buisness';
 import { EstablishmentService } from '../../shared/services/establishment.service';
@@ -23,49 +22,60 @@ import * as Valid from '../../shared/validator/validator';
 })
 export class EstablishmentFormComponent implements OnInit {
   establishmentForm!: FormGroup;
+  @Input() esstablishmentInfo?: Establishment;
   @Input() parentForm?: FormGroup;
 
   private formBuilder = inject(FormBuilder);
   private businessService = inject(EstablishmentService);
-  private router = inject(Router);
   private toastr = inject(ToastrService);
 
   formInit() {
     this.establishmentForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      siret: ['', [Validators.required, Valid.siretValidator()]],
-      email: ['', [Validators.required, Valid.emailValidator()]],
-      phoneNumber: ['', Validators.required],
+      name: [this.esstablishmentInfo?.name ?? '', [Validators.required]],
+      email: [
+        this.esstablishmentInfo?.email ?? '',
+        [Validators.required, Valid.emailValidator()],
+      ],
+      phoneNumber: [
+        this.esstablishmentInfo?.phoneNumber ?? '',
+        Validators.required,
+      ],
     });
+
+    // ajout du controle siret si les informations ne sont pas fournies
+    if (!this.esstablishmentInfo) {
+      this.establishmentForm.addControl(
+        'siret',
+        this.formBuilder.control('', [Validators.required]),
+      );
+    }
   }
 
   ngOnInit(): void {
     this.formInit();
 
+    // Ajout du du formulaire au formulaire parent si il est fourni
     if (this.parentForm) {
       this.parentForm.addControl('establishment', this.establishmentForm);
     }
   }
 
-  createEstablishment(): void {
-    if (this.establishmentForm.valid) {
-      const establishment: Establishment = {
-        name: this.establishmentForm.get('name')?.value,
-        siret: this.establishmentForm.get('siret')?.value,
-        email: this.establishmentForm.get('email')?.value,
-        phoneNumber: this.establishmentForm.get('phoneNumber')?.value,
-      };
+  handleSubmit(): void {
+    const id = String(this.esstablishmentInfo?.id);
+    const establishment: Establishment = {
+      name: this.establishmentForm.get('name')?.value,
+      siret: this.establishmentForm.get('siret')?.value,
+      email: this.establishmentForm.get('email')?.value,
+      phoneNumber: this.establishmentForm.get('phoneNumber')?.value,
+    };
 
-      this.businessService.createEstablishment(establishment).subscribe({
-        next: () => {
-          this.establishmentForm.reset();
-          void this.router.navigate(['/merchant/profile']);
-          this.toastr.success('Établissement créé avec succès');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastr.error(error.error as string);
-        },
-      });
-    }
+    this.businessService.updateEstablishment(establishment, id).subscribe({
+      next: () => {
+        this.toastr.success('Établissement mis à jour avec succès');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error(error.error as string);
+      },
+    });
   }
 }

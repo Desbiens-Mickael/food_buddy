@@ -13,17 +13,9 @@ input {
   padding: 0.5rem 1rem;
 }
 
-.buttons {
-  margin-top: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  width: 95%;
-  display: flex;
-}
-
 .btn-warning {
   background-color: #ffb054;
-  width: 200px;
+  width: 100%;
   border-radius: 5px;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;

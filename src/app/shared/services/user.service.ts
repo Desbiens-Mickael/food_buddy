@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User } from '../../shared/models/User';
 import { UpdateUser } from '../models/User';
@@ -29,8 +29,17 @@ export class UserService {
     );
   }
 
-  getUser(): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.apiUrluser}/me`);
+  getUser(): Observable<UserInfo | null> {
+    return this.http.get<UserInfo>(`${this.apiUrluser}/me`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Si l'utilisateur n'est pas authentifié (erreur 401), on renvoie null plutôt qu'une erreur
+        if (error.status === 401) {
+          return of(null);
+        }
+
+        return throwError(() => error);
+      }),
+    );
   }
 
   uploadAvatar(file: File, userEmail: string): Observable<User> {

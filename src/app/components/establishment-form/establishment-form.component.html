@@ -2,7 +2,7 @@
 <ng-container *ngIf="!parentForm">
   <form
     [formGroup]="establishmentForm"
-    (ngSubmit)="createEstablishment()"
+    (ngSubmit)="handleSubmit()"
     class="px-4"
   >
     <ng-container
@@ -15,7 +15,7 @@
       [ngClass]="establishmentForm.invalid ? 'cursor-not-allowed' : ''"
       type="submit"
     >
-      Créer l'etablissement
+      Mettre à jour l'etablissement
     </button>
   </form>
 </ng-container>
@@ -33,7 +33,7 @@
 <!-- Template réutilisable pour les différents cas d'utilisation -->
 <ng-template #form let-formGroupData="formGroupData">
   <div [formGroup]="formGroupData" class="px-4">
-    <h6>Informations Etablissement</h6>
+    <!-- <h6>Informations Etablissement</h6> -->
     <div class="field">
       <div class="control">
         <input
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="field">
+    <div *ngIf="formGroupData.get('siret')" class="field">
       <div class="control">
         <input
           class="input shadow-lg w-full m-top-input"

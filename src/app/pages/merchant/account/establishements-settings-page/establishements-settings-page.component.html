@@ -1,1 +1,43 @@
-<p>establishements-settings-page works!</p>
+<h1 class="text-center text-3xl font-main font-bold mb-8">
+  Paramètres des établissements
+</h1>
+
+<div class="w-full flex flex-col items-center gap-4 md:px-8">
+  <h2 class="text-xl font-main font-semibold">Choisissez un établissement</h2>
+  <select
+    name="establishments"
+    id="establishments"
+    class="font-main font-semibold text-center px-2 mt-1 rounded-md shadow-xl"
+    (change)="selectEstablishment($event)"
+  >
+    <option
+      *ngFor="let establishment of establishments"
+      [value]="establishment.id"
+    >
+      {{ establishment.name }}
+    </option>
+  </select>
+</div>
+
+<div class="w-full flex flex-col items-center gap-4 md:px-8">
+  <fieldset
+    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
+  >
+    <legend class="text-xl font-main font-semibold text-neutral-500 px-2">
+      Informations de l'établissement
+    </legend>
+    <app-establishment-form
+      *ngIf="selectedEstablishment"
+      [esstablishmentInfo]="selectedEstablishment"
+    ></app-establishment-form>
+  </fieldset>
+
+  <fieldset
+    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
+  >
+    <legend class="text-xl font-main font-semibold text-neutral-500 px-2">
+      Addresse de l'établissement
+    </legend>
+    <app-address-form></app-address-form>
+  </fieldset>
+</div>

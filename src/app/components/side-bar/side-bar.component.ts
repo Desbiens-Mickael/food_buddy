@@ -3,8 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { Business } from '../../shared/models/Buisness';
-import { InfosLinkEstablishment } from '../../shared/models/Establishment';
+import { Business, Establishment } from '../../shared/models/Buisness';
 import { UserInfo } from '../../shared/models/User-info.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { BuisnessService } from '../../shared/services/buisness.service';
@@ -27,8 +26,8 @@ import { LogoutButtonComponent } from '../ui/logout-button/logout-button.compone
 export class SideBarComponent implements OnInit {
   userInfos!: UserInfo | null;
   businessInfos!: Business | null;
-  establishments: InfosLinkEstablishment[] = [];
-  establishmentActive!: InfosLinkEstablishment;
+  establishments: Establishment[] = [];
+  establishmentActive!: Establishment;
   toggle = false;
   isLodding = true;
   baseUrl = environment.apiUrl;
@@ -47,7 +46,7 @@ export class SideBarComponent implements OnInit {
       this.businessInfos = businessInfo;
     });
 
-    this.establismentsService.getAllLinkEstablishments().subscribe(data => {
+    this.establismentsService.getEstablishments().subscribe(data => {
       this.establishments = data;
       this.establishmentActive = this.establishments[0];
       this.isLodding = false;

@@ -54,3 +54,18 @@ div.field {
 .m-top-input {
   margin-top: 2rem;
 }
+
+.btn-warning {
+  background-color: #ffb054;
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+  margin-right: auto;
+}
+
+.btn-warning:hover {
+  background: #fb9c2f;
+}
