@@ -17,11 +17,11 @@ import {
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import {
-  Address,
   Business,
   BusinessAccount,
   Establishment,
 } from '../../shared/models/Buisness';
+import { Address } from '../../shared/models/EstablishmentAdress';
 import { User } from '../../shared/models/User';
 import { UserInfo } from '../../shared/models/User-info.model';
 import { AuthService } from '../../shared/services/auth.service';

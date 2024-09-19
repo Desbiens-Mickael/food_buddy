@@ -28,7 +28,7 @@
     </legend>
     <app-establishment-form
       *ngIf="selectedEstablishment"
-      [esstablishmentInfo]="selectedEstablishment"
+      [establishmentInfo]="selectedEstablishment"
     ></app-establishment-form>
   </fieldset>
 
@@ -38,6 +38,8 @@
     <legend class="text-xl font-main font-semibold text-neutral-500 px-2">
       Addresse de l'établissement
     </legend>
-    <app-address-form></app-address-form>
+    <app-address-form
+      [addressInfos]="selectedEstablishmentAddress"
+    ></app-address-form>
   </fieldset>
 </div>

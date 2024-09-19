@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,9 +20,9 @@ import * as Valid from '../../shared/validator/validator';
   templateUrl: './establishment-form.component.html',
   styleUrl: './establishment-form.component.css',
 })
-export class EstablishmentFormComponent implements OnInit {
+export class EstablishmentFormComponent implements OnInit, OnChanges {
   establishmentForm!: FormGroup;
-  @Input() esstablishmentInfo?: Establishment;
+  @Input() establishmentInfo?: Establishment;
   @Input() parentForm?: FormGroup;
 
   private formBuilder = inject(FormBuilder);
@@ -31,19 +31,19 @@ export class EstablishmentFormComponent implements OnInit {
 
   formInit() {
     this.establishmentForm = this.formBuilder.group({
-      name: [this.esstablishmentInfo?.name ?? '', [Validators.required]],
+      name: [this.establishmentInfo?.name ?? '', [Validators.required]],
       email: [
-        this.esstablishmentInfo?.email ?? '',
+        this.establishmentInfo?.email ?? '',
         [Validators.required, Valid.emailValidator()],
       ],
       phoneNumber: [
-        this.esstablishmentInfo?.phoneNumber ?? '',
+        this.establishmentInfo?.phoneNumber ?? '',
         Validators.required,
       ],
     });
 
     // ajout du controle siret si les informations ne sont pas fournies
-    if (!this.esstablishmentInfo) {
+    if (!this.establishmentInfo) {
       this.establishmentForm.addControl(
         'siret',
         this.formBuilder.control('', [Validators.required]),
@@ -60,8 +60,13 @@ export class EstablishmentFormComponent implements OnInit {
     }
   }
 
+  // réinitialisation du formulaire si l'établissement est modifié
+  ngOnChanges(): void {
+    this.formInit();
+  }
+
   handleSubmit(): void {
-    const id = String(this.esstablishmentInfo?.id);
+    const id = String(this.establishmentInfo?.id);
     const establishment: Establishment = {
       name: this.establishmentForm.get('name')?.value,
       siret: this.establishmentForm.get('siret')?.value,

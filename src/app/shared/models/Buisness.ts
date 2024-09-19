@@ -1,3 +1,4 @@
+import { Address } from './EstablishmentAdress';
 import { User } from './User';
 
 export interface Business {
@@ -12,15 +13,6 @@ export interface Establishment {
   siret: string;
   email: string;
   phoneNumber: string;
-}
-
-export interface Address {
-  streetNumber: string;
-  streetName: string;
-  zipCode: string;
-  city: string;
-  latitude: number;
-  longitude: number;
 }
 
 export interface BusinessAccount {

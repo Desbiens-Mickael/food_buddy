@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,7 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
-import { Address } from '../../shared/models/Buisness';
+import { Address } from '../../shared/models/EstablishmentAdress';
 import { AdresseService } from '../../shared/services/adresse.service';
 import { EstablishmentAddressService } from '../../shared/services/establishment-address.service';
 
@@ -21,7 +22,7 @@ import { EstablishmentAddressService } from '../../shared/services/establishment
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css',
 })
-export class AddressFormComponent implements OnInit {
+export class AddressFormComponent implements OnInit, OnChanges {
   addressForm!: FormGroup;
   villes!: AdresseJson;
   filteredVilles: Feature[] = [];
@@ -30,6 +31,7 @@ export class AddressFormComponent implements OnInit {
   keepSuggestionsVisible = false;
 
   @Input() parentForm?: FormGroup;
+  @Input() addressInfos?: Address;
 
   private formBuilder = inject(FormBuilder);
   private establishmentAddressService = inject(EstablishmentAddressService);
@@ -39,12 +41,15 @@ export class AddressFormComponent implements OnInit {
 
   formInit() {
     this.addressForm = this.formBuilder.group({
-      streetNumber: ['', Validators.required],
-      streetName: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      city: ['', Validators.required],
-      latitude: [0, Validators.required],
-      longitude: [0, Validators.required],
+      streetNumber: [
+        this.addressInfos?.streetNumber ?? '',
+        Validators.required,
+      ],
+      streetName: [this.addressInfos?.streetName ?? '', Validators.required],
+      zipCode: [this.addressInfos?.zipCode ?? '', Validators.required],
+      city: [this.addressInfos?.city ?? '', Validators.required],
+      latitude: [this.addressInfos?.latitude ?? 0, Validators.required],
+      longitude: [this.addressInfos?.longitude ?? 0, Validators.required],
     });
   }
 
@@ -54,6 +59,10 @@ export class AddressFormComponent implements OnInit {
     if (this.parentForm) {
       this.parentForm.addControl('address', this.addressForm);
     }
+  }
+
+  ngOnChanges(): void {
+    this.formInit();
   }
 
   filter(event: Event): void {
@@ -96,7 +105,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   updateAddress(): void {
-    // updateAddress(establishmentId: number): void {
+    const establishmentId = this.addressInfos?.id;
     if (this.addressForm.valid) {
       const address: Address = {
         streetNumber: this.addressForm.get('streetNumber')?.value,
@@ -106,22 +115,19 @@ export class AddressFormComponent implements OnInit {
         latitude: this.addressForm.get('latitude')?.value,
         longitude: this.addressForm.get('longitude')?.value,
       };
-      console.log(address);
 
       // TODO: Create service to update address
 
-      // this.establishmentAddressService
-      //   .updateAddress(establishmentId, address)
-      //   .subscribe({
-      //     next: () => {
-      //       this.addressForm.reset();
-      //       void this.router.navigate(['/merchant/profile']);
-      //       this.toastr.success('Établissement créé avec succès');
-      //     },
-      //     error: (error: HttpErrorResponse) => {
-      //       this.toastr.error(error.error as string);
-      //     },
-      //   });
+      this.establishmentAddressService
+        .updateAddress(establishmentId ?? 0, address)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Addresse mise à jour avec succès');
+          },
+          error: (error: HttpErrorResponse) => {
+            this.toastr.error(error.error as string);
+          },
+        });
     }
   }
 }

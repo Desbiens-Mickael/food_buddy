@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { filter, switchMap, tap } from 'rxjs';
 import { AddressFormComponent } from '../../../../components/address-form/address-form.component';
 import { EstablishmentFormComponent } from '../../../../components/establishment-form/establishment-form.component';
 import { Establishment } from '../../../../shared/models/Buisness';
+import { Address } from '../../../../shared/models/EstablishmentAdress';
+import { EstablishmentAddressService } from '../../../../shared/services/establishment-address.service';
 import { EstablishmentService } from '../../../../shared/services/establishment.service';
 
 @Component({
@@ -15,14 +18,28 @@ import { EstablishmentService } from '../../../../shared/services/establishment.
 export class EstablishementsSettingsPageComponent implements OnInit {
   establishments: Establishment[] = [];
   selectedEstablishment!: Establishment;
+  selectedEstablishmentAddress!: Address;
 
   private establishmentService = inject(EstablishmentService);
+  private establishmentAddressService = inject(EstablishmentAddressService);
 
   ngOnInit(): void {
-    this.establishmentService.establishments$.subscribe(data => {
-      this.establishments = data;
-      this.selectedEstablishment = this.establishments[0];
-    });
+    this.establishmentService.establishments$
+      .pipe(
+        filter(data => data.length > 0),
+        tap(data => {
+          this.establishments = data;
+          this.selectedEstablishment = data[0];
+        }),
+        switchMap(data =>
+          this.establishmentAddressService.getAddressById(data[0].id ?? 0),
+        ),
+      )
+      .subscribe(addressData => {
+        if (addressData) {
+          this.selectedEstablishmentAddress = addressData;
+        }
+      });
   }
 
   selectEstablishment(event: Event): void {
@@ -30,6 +47,13 @@ export class EstablishementsSettingsPageComponent implements OnInit {
     const establishment = this.establishments.find(e => e.id === Number(id));
     if (establishment) {
       this.selectedEstablishment = establishment;
+      this.establishmentAddressService.getAddressById(Number(id)).subscribe({
+        next: addressData => {
+          if (addressData) {
+            this.selectedEstablishmentAddress = addressData;
+          }
+        },
+      });
     }
   }
 }
