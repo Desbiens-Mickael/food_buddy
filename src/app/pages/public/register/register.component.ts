@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { BuisnessRegisterFormComponent } from '../../../components/buisness-register-form/buisness-register-form.component';
-import { UserFormComponent } from '../../../components/user-form/user-form.component';
+import { BuisnessRegisterFormComponent } from '../../../components/form/buisness-register-form/buisness-register-form.component';
+import { UserFormComponent } from '../../../components/form/user-form/user-form.component';
 
 @Component({
   selector: 'app-register',

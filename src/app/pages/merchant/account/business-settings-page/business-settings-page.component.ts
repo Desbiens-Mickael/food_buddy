@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../../environments/environment';
-import { BuisnessFormComponent } from '../../../../components/buisness-form/buisness-form.component';
+import { BuisnessFormComponent } from '../../../../components/form/buisness-form/buisness-form.component';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { UploadFileComponent } from '../../../../components/upload-file/upload-file.component';
 import { Business } from '../../../../shared/models/Buisness';

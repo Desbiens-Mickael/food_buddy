@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Establishment } from '../models/Buisness';
+import {
+  Establishment,
+  EstablishmentWithAddress,
+} from '../models/Establishment';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +47,17 @@ export class EstablishmentService {
   }
 
   //TODO : add establishment
+  addEstablishment(
+    establishmentWithAddress: EstablishmentWithAddress,
+  ): Observable<Establishment> {
+    return this.http
+      .post<Establishment>(this.EstablishmentUrl, establishmentWithAddress)
+      .pipe(
+        tap(data => {
+          this.establishments.next([...this.establishments.getValue(), data]);
+        }),
+      );
+  }
 
   //TODO : delete establishment
 }

@@ -10,10 +10,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { AdresseJson, Feature } from '../../shared/models/AdresseJson';
-import { Address } from '../../shared/models/EstablishmentAdress';
-import { AdresseService } from '../../shared/services/adresse.service';
-import { EstablishmentAddressService } from '../../shared/services/establishment-address.service';
+import { AdresseJson, Feature } from '../../../shared/models/AdresseJson';
+import { Address } from '../../../shared/models/EstablishmentAdress';
+import { AdresseService } from '../../../shared/services/adresse.service';
+import { EstablishmentAddressService } from '../../../shared/services/establishment-address.service';
 
 @Component({
   selector: 'app-address-form',

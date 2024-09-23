@@ -16,20 +16,17 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import {
-  Business,
-  BusinessAccount,
-  Establishment,
-} from '../../shared/models/Buisness';
-import { Address } from '../../shared/models/EstablishmentAdress';
-import { User } from '../../shared/models/User';
-import { UserInfo } from '../../shared/models/User-info.model';
-import { AuthService } from '../../shared/services/auth.service';
-import { BuisnessService } from '../../shared/services/buisness.service';
+import { Business, BusinessAccount } from '../../../shared/models/Buisness';
+import { Establishment } from '../../../shared/models/Establishment';
+import { Address } from '../../../shared/models/EstablishmentAdress';
+import { User } from '../../../shared/models/User';
+import { UserInfo } from '../../../shared/models/User-info.model';
+import { AuthService } from '../../../shared/services/auth.service';
+import { BuisnessService } from '../../../shared/services/buisness.service';
+import { UploadFileComponent } from '../../upload-file/upload-file.component';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { BuisnessFormComponent } from '../buisness-form/buisness-form.component';
 import { EstablishmentFormComponent } from '../establishment-form/establishment-form.component';
-import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
@@ -44,7 +41,6 @@ import { UserFormComponent } from '../user-form/user-form.component';
     UserFormComponent,
     BuisnessFormComponent,
     EstablishmentFormComponent,
-    AddressFormComponent,
     AddressFormComponent,
   ],
   animations: [

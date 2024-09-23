@@ -1,3 +1,4 @@
+import { Establishment } from './Establishment';
 import { Address } from './EstablishmentAdress';
 import { User } from './User';
 
@@ -5,14 +6,6 @@ export interface Business {
   name: string;
   siren: string;
   logoUrl?: string;
-}
-
-export interface Establishment {
-  id?: number;
-  name: string;
-  siret: string;
-  email: string;
-  phoneNumber: string;
 }
 
 export interface BusinessAccount {

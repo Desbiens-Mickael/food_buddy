@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Business } from '../../shared/models/Buisness';
-import { BuisnessService } from '../../shared/services/buisness.service';
-import * as Valid from '../../shared/validator/validator';
+import { Business } from '../../../shared/models/Buisness';
+import { BuisnessService } from '../../../shared/services/buisness.service';
+import * as Valid from '../../../shared/validator/validator';
 
 @Component({
   selector: 'app-buisness-form',

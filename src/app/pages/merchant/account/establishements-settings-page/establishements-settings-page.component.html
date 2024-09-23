@@ -1,45 +1,90 @@
-<h1 class="text-center text-3xl font-main font-bold mb-8">
-  Paramètres des établissements
+<h1 class="text-center text-3xl font-main font-bold mb-16">
+  Mes établissements
 </h1>
 
 <div class="w-full flex flex-col items-center gap-4 md:px-8">
-  <h2 class="text-xl font-main font-semibold">Choisissez un établissement</h2>
-  <select
-    name="establishments"
-    id="establishments"
-    class="font-main font-semibold text-center px-2 mt-1 rounded-md shadow-xl"
-    (change)="selectEstablishment($event)"
+  <app-drawer
+    [icon]="'add_business'"
+    [iconTitle]="'Ajouter un établissement'"
+    class="self-end me-8"
   >
-    <option
-      *ngFor="let establishment of establishments"
-      [value]="establishment.id"
-    >
-      {{ establishment.name }}
-    </option>
-  </select>
-</div>
+    <app-full-establishment-form></app-full-establishment-form>
+  </app-drawer>
 
-<div class="w-full flex flex-col items-center gap-4 md:px-8">
-  <fieldset
-    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
-  >
-    <legend class="text-xl font-main font-semibold text-neutral-500 px-2">
-      Informations de l'établissement
-    </legend>
-    <app-establishment-form
-      *ngIf="selectedEstablishment"
-      [establishmentInfo]="selectedEstablishment"
-    ></app-establishment-form>
-  </fieldset>
-
-  <fieldset
-    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
-  >
-    <legend class="text-xl font-main font-semibold text-neutral-500 px-2">
-      Addresse de l'établissement
-    </legend>
-    <app-address-form
-      [addressInfos]="selectedEstablishmentAddress"
-    ></app-address-form>
-  </fieldset>
+  <div class="w-full shadow-lg">
+    <table class="w-full font-main">
+      <thead class="bg-neutral-600 text-neutral-50 uppercase">
+        <tr>
+          <th
+            class="px-4 py-2 border-b border-gray-300 text-left rounded-tl-md"
+          >
+            Nom
+          </th>
+          <th class="px-4 py-2 border-b border-gray-300 text-left">Email</th>
+          <th class="px-4 py-2 border-b border-gray-300 text-left">
+            Téléphone
+          </th>
+          <th class="px-4 py-2 border-b border-gray-300 text-left">Siret</th>
+          <th
+            class="px-4 py-2 border-b border-gray-300 text-left rounded-tr-md"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-white hover:bg-neutral-200 transition-colors duration-300 ease-in-out"
+          *ngFor="
+            let establishment of establishments;
+            let i = index;
+            let last = last
+          "
+        >
+          <td
+            class="px-4 py-2 border-b border-gray-300 font-bold"
+            [ngClass]="{ 'rounded-bl-md border-none': last }"
+          >
+            {{ establishment.name }}
+          </td>
+          <td
+            class="px-4 py-2 border-b border-gray-300"
+            [ngClass]="{ 'border-none': last }"
+          >
+            {{ establishment.email }}
+          </td>
+          <td
+            class="px-4 py-2 border-b border-gray-300"
+            [ngClass]="{ 'border-none': last }"
+          >
+            {{ establishment.phoneNumber }}
+          </td>
+          <td
+            class="px-4 py-2 border-b border-gray-300"
+            [ngClass]="{ 'border-none': last }"
+          >
+            {{ establishment.siret }}
+          </td>
+          <td
+            class="px-4 py-2 border-b border-gray-300 text-center"
+            [ngClass]="{ 'rounded-br-md border-none': last }"
+          >
+            <app-dropdown-menu>
+              <app-drawer [textButton]="'Modifier'">
+                <app-full-establishment-form
+                  [establishment]="establishment"
+                ></app-full-establishment-form>
+              </app-drawer>
+              <button
+                class="w-full text-red-600 font-main hover:bg-neutral-100"
+                (click)="deleteEstablishment(establishment.id ?? 0)"
+              >
+                Supprimer
+              </button>
+            </app-dropdown-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

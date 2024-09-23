@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -9,9 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Establishment } from '../../shared/models/Buisness';
-import { EstablishmentService } from '../../shared/services/establishment.service';
-import * as Valid from '../../shared/validator/validator';
+import { Establishment } from '../../../shared/models/Establishment';
+import { EstablishmentService } from '../../../shared/services/establishment.service';
+import * as Valid from '../../../shared/validator/validator';
 
 @Component({
   selector: 'app-establishment-form',
@@ -46,7 +45,10 @@ export class EstablishmentFormComponent implements OnInit, OnChanges {
     if (!this.establishmentInfo) {
       this.establishmentForm.addControl(
         'siret',
-        this.formBuilder.control('', [Validators.required]),
+        this.formBuilder.control('', [
+          Validators.required,
+          Valid.siretValidator(),
+        ]),
       );
     }
   }
@@ -78,8 +80,8 @@ export class EstablishmentFormComponent implements OnInit, OnChanges {
       next: () => {
         this.toastr.success('Établissement mis à jour avec succès');
       },
-      error: (error: HttpErrorResponse) => {
-        this.toastr.error(error.error as string);
+      error: () => {
+        this.toastr.error("Une erreur s'est produite lors de la mise à jour");
       },
     });
   }

@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UpdateUser, User } from '../../shared/models/User';
-import { UserService } from '../../shared/services/user.service';
-import * as Valid from '../../shared/validator/validator';
-import { UploadFileComponent } from '../upload-file/upload-file.component';
+import { UpdateUser, User } from '../../../shared/models/User';
+import { UserService } from '../../../shared/services/user.service';
+import * as Valid from '../../../shared/validator/validator';
+import { UploadFileComponent } from '../../upload-file/upload-file.component';
 
 @Component({
   selector: 'app-user-form',

@@ -1,3 +1,5 @@
+import { Establishment } from './Establishment';
+
 export interface Address {
   id?: number;
   streetNumber: number;
@@ -10,12 +12,7 @@ export interface Address {
 
 export interface EstablishmentAdress {
   address: Address;
-  establishment: {
-    id: number;
-    name: string;
-    email: string;
-    phoneNumber: string;
-  };
+  establishment: Establishment;
   business: {
     id: number;
     name: string;

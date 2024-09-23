@@ -1,59 +1,55 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { filter, switchMap, tap } from 'rxjs';
-import { AddressFormComponent } from '../../../../components/address-form/address-form.component';
-import { EstablishmentFormComponent } from '../../../../components/establishment-form/establishment-form.component';
-import { Establishment } from '../../../../shared/models/Buisness';
-import { Address } from '../../../../shared/models/EstablishmentAdress';
-import { EstablishmentAddressService } from '../../../../shared/services/establishment-address.service';
+import { ToastrService } from 'ngx-toastr';
+import { AddressFormComponent } from '../../../../components/form/address-form/address-form.component';
+import { EstablishmentFormComponent } from '../../../../components/form/establishment-form/establishment-form.component';
+import { FullEstablishmentFormComponent } from '../../../../components/form/full-establishment-form/full-establishment-form.component';
+import { DrawerComponent } from '../../../../components/ui/drawer/drawer.component';
+import { DropdownMenuComponent } from '../../../../components/ui/dropdown-menu/dropdown-menu.component';
+import { Establishment } from '../../../../shared/models/Establishment';
 import { EstablishmentService } from '../../../../shared/services/establishment.service';
 
 @Component({
   selector: 'app-establishements-settings-page',
   standalone: true,
-  imports: [CommonModule, EstablishmentFormComponent, AddressFormComponent],
+  imports: [
+    CommonModule,
+    EstablishmentFormComponent,
+    AddressFormComponent,
+    DropdownMenuComponent,
+    DrawerComponent,
+    FullEstablishmentFormComponent,
+  ],
   templateUrl: './establishements-settings-page.component.html',
   styleUrl: './establishements-settings-page.component.css',
 })
 export class EstablishementsSettingsPageComponent implements OnInit {
   establishments: Establishment[] = [];
-  selectedEstablishment!: Establishment;
-  selectedEstablishmentAddress!: Address;
 
   private establishmentService = inject(EstablishmentService);
-  private establishmentAddressService = inject(EstablishmentAddressService);
+  private toastr = inject(ToastrService);
 
   ngOnInit(): void {
-    this.establishmentService.establishments$
-      .pipe(
-        filter(data => data.length > 0),
-        tap(data => {
-          this.establishments = data;
-          this.selectedEstablishment = data[0];
-        }),
-        switchMap(data =>
-          this.establishmentAddressService.getAddressById(data[0].id ?? 0),
-        ),
-      )
-      .subscribe(addressData => {
-        if (addressData) {
-          this.selectedEstablishmentAddress = addressData;
-        }
-      });
+    this.establishmentService.establishments$.subscribe({
+      next: data => {
+        this.establishments = data;
+      },
+      error: error => {
+        console.error(error);
+        this.toastr.error(
+          "Une erreur s'est produite lors de la récupération des établissements, veuillez réessayer plus tard.",
+        );
+      },
+    });
   }
 
-  selectEstablishment(event: Event): void {
-    const id = (event.target as HTMLInputElement).value;
-    const establishment = this.establishments.find(e => e.id === Number(id));
-    if (establishment) {
-      this.selectedEstablishment = establishment;
-      this.establishmentAddressService.getAddressById(Number(id)).subscribe({
-        next: addressData => {
-          if (addressData) {
-            this.selectedEstablishmentAddress = addressData;
-          }
-        },
-      });
+  deleteEstablishment(establishmentId: number) {
+    if (
+      confirm(
+        'Etes-vous sûr de vouloir supprimer cet établissement ? Cette action est irréversible.',
+      )
+    ) {
+      console.log(establishmentId);
     }
   }
 }
