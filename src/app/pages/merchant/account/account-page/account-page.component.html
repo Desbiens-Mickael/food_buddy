@@ -1,0 +1,24 @@
+<h1 class="text-center text-3xl font-bold">Mon compte</h1>
+
+<div class="flex justify-center flex-wrap gap-6 mt-16 px-8">
+  <app-account-settings-card
+    [iconName]="'manage_accounts'"
+    [title]="'Mon compte utilisateur'"
+    [link]="'/merchant/account/user-settings'"
+  ></app-account-settings-card>
+  <app-account-settings-card
+    [iconName]="'account_balance'"
+    [title]="'Gérer mon entrprise'"
+    [link]="'/merchant/account/business-settings'"
+  ></app-account-settings-card>
+  <app-account-settings-card
+    [iconName]="'store'"
+    [title]="'Gérer mes établissements'"
+    [link]="'/merchant/account/establishments-settings'"
+  ></app-account-settings-card>
+  <app-account-settings-card
+    [iconName]="'shield_lock'"
+    [title]="'Sécurité de mon compte'"
+    [link]="'/merchant/account/security-settings'"
+  ></app-account-settings-card>
+</div>

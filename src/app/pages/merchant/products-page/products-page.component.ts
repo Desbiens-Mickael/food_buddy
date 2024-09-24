@@ -16,17 +16,27 @@ import { ProductService } from '../../../shared/services/product.service';
 export class ProductsPageComponent implements OnInit {
   productList: FullProduct[] = [];
   establishmentId!: string;
-  loading = true;
+  loading = false;
 
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
 
   ngOnInit() {
-    this.establishmentId = this.route.snapshot.paramMap.get('id') ?? '';
+    // S'abonner aux changements de paramètres
+    this.route.params.subscribe(params => {
+      this.establishmentId = params['id'] ?? '';
+      this.loadProducts(); // Charger les produits lorsque l'ID change
+    });
+  }
+
+  loadProducts() {
+    this.loading = true;
+    // Appel au service pour récupérer les produits
     this.productService.getAllProductsByEstablishmentId(this.establishmentId);
+    // S'abonner au flux des produits
     this.productService.productList$.subscribe(data => {
       this.productList = data ?? [];
+      this.loading = false;
     });
-    this.loading = false;
   }
 }

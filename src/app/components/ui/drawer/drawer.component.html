@@ -1,0 +1,30 @@
+<button
+  *ngIf="textButton"
+  title="{{ textButtonTitle }}"
+  class="w-full text-orange-400 font-main hover:bg-neutral-100"
+  (click)="handleToggle()"
+>
+  {{ textButton }}
+</button>
+<button *ngIf="icon" (click)="handleToggle()" title="{{ iconTitle }}">
+  <span
+    class="material-symbols-outlined text-3xl text-white bg-secondary hover:bg-secondary-light rounded-full py-2 px-3 transition-colors duration-200 ease-in-out"
+    >{{ icon }}</span
+  >
+</button>
+<div
+  *ngIf="toggle"
+  [ngClass]="{
+    'animate-slide-in-right': !leaving,
+    'animate-slide-out-right': leaving,
+  }"
+  class="fixed top-0 bottom-0 right-0 z-50 w-full flex flex-col items-center gap-4 lg:w-[60%] p-4 bg-white shadow-lg overflow-y-auto"
+>
+  <button
+    class="absolute top-0 left-0 m-4 px-4 py-2 rounded-md text-xl font-main font bold text-red-600 cursor-pointer hover:bg-red-600 hover:text-white transition-colors duration-300 ease-in-out"
+    (click)="handleToggle()"
+  >
+    X
+  </button>
+  <ng-content></ng-content>
+</div>

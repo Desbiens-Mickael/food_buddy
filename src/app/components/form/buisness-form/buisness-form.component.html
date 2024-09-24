@@ -1,0 +1,97 @@
+<!-- Utilisation en autonome -->
+<ng-container *ngIf="!parentForm">
+  <form [formGroup]="businessForm" (ngSubmit)="createBuisness()" class="px-4">
+    <ng-container
+      *ngTemplateOutlet="form; context: { formGroupData: businessForm }"
+    ></ng-container>
+    <button
+      *ngIf="!parentForm && businessName"
+      [disabled]="businessForm.invalid"
+      class="w-full button btn-warning shadow-lg m-top-input font-main"
+      [ngClass]="businessForm.invalid ? 'cursor-not-allowed' : ''"
+      type="submit"
+    >
+      Modifier l'entreprise
+    </button>
+  </form>
+</ng-container>
+
+<!-- Utilisation dans un parent -->
+<ng-container *ngIf="parentForm">
+  <ng-container
+    *ngTemplateOutlet="
+      form;
+      context: { formGroupData: parentForm.get('business') }
+    "
+  ></ng-container>
+</ng-container>
+
+<!-- Template réutilisable pour les différents cas d'utilisation -->
+<ng-template #form let-formGroupData="formGroupData">
+  <div [formGroup]="formGroupData" class="w-full h-full px-4">
+    <h6>Informations Entreprise</h6>
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Nom de l'entreprise"
+          formControlName="name"
+          [ngClass]="
+            formGroupData.get('name')?.invalid &&
+            (formGroupData.get('name')?.dirty ||
+              formGroupData.get('name')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+        <div
+          *ngIf="
+            formGroupData.get('name')?.invalid &&
+            (formGroupData.get('name')?.dirty ||
+              formGroupData.get('name')?.touched)
+          "
+          class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+        >
+          <small
+            class="error"
+            *ngIf="formGroupData.get('name')?.errors?.['required']"
+            >Nom de l'entreprise requis.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="formGroupData.get('siren')" class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="N° Siren"
+          formControlName="siren"
+          [ngClass]="
+            formGroupData.get('siren')?.invalid &&
+            (formGroupData.get('siren')?.dirty ||
+              formGroupData.get('siren')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+        <div
+          *ngIf="
+            formGroupData.get('siren')?.invalid &&
+            (formGroupData.get('siren')?.dirty ||
+              formGroupData.get('siren')?.touched)
+          "
+          class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+        >
+          <small
+            class="error"
+            *ngIf="formGroupData.get('siren')?.errors?.['invalidSiren']"
+            >Siren invalide (9 Chiffres)</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

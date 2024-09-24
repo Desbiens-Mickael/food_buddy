@@ -110,13 +110,14 @@
     >
     </ng-multiselect-dropdown>
   </div>
-
-  <app-upload-file
-    [multiple]="false"
-    [isStandalone]="false"
-    acceptedTypes="image/*"
-    (fileSubmitted)="onFileDropped($event)"
-  ></app-upload-file>
+  <div class="w-full flex justify-center items-center">
+    <app-upload-file
+      [multiple]="false"
+      [isStandaloneMode]="false"
+      acceptedTypes="image/*"
+      (fileSubmitted)="onFileDropped($event)"
+    ></app-upload-file>
+  </div>
 
   <button
     type="submit"

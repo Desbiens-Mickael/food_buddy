@@ -26,8 +26,10 @@ export function initializeApp(
   return () => {
     // Appel à getUser pour vérifier et récupérer les informations utilisateur
     return lastValueFrom(userService.getUser())
-      .then((user: UserInfo) => {
-        authService.setUserInfo(user);
+      .then((user: UserInfo | null) => {
+        if (user) {
+          authService.setUserInfo(user);
+        }
       })
       .catch((error: unknown) => {
         console.error('Error during app initialization:', error);

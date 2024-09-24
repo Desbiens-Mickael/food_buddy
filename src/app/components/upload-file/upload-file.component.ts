@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,12 +26,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './upload-file.component.html',
   styleUrl: './upload-file.component.css',
 })
-export class UploadFileComponent implements OnDestroy {
-  @Input() isStandalone = true;
-  @Input() isProfilePicture = false;
+export class UploadFileComponent implements OnDestroy, OnInit {
+  @Input() isStandaloneMode = true;
+  @Input() isProfilePictureMode = false;
   @Input() multiple = true;
   @Input() acceptedTypes = '';
   @Output() fileSubmitted = new EventEmitter<File[]>();
+  @Input() image? = '';
+  toggle!: boolean;
 
   // Tableau contenant les fichiers et leurs URL de prévisualisation
   files: { file: File; url: string }[] = [];
@@ -39,6 +42,10 @@ export class UploadFileComponent implements OnDestroy {
 
   // Injection du ChangeDetectorRef pour gérer manuellement la détection des changements
   constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.toggle = !!this.image;
+  }
 
   /**
    * Gère le dépôt de fichiers (drag & drop)
@@ -110,14 +117,19 @@ export class UploadFileComponent implements OnDestroy {
     } else {
       this.files = [...this.files, ...newFiles]; // Sinon, ajoute les nouveaux fichiers à la liste existante
     }
-    if (!this.isStandalone && this.files.length > 0) {
+    if (!this.isStandaloneMode && this.files.length > 0) {
       this.fileSubmitted.emit(this.files.map(file => file.file));
     }
     this.cdr.detectChanges(); // Déclenche manuellement la détection des changements
   }
 
+  handleToggle() {
+    this.toggle = !this.toggle;
+  }
+
   submit() {
     this.fileSubmitted.emit(this.files.map(file => file.file));
+    this.handleToggle();
     this.files = [];
   }
 
