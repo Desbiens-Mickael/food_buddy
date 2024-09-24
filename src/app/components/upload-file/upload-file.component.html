@@ -1,10 +1,11 @@
 <div class="mb-8 relative w-fit">
   <div
-    class="absolute top-0 -right-4 z-50 size-10 rounded-full flex justify-center items-center text-6xl cursor-pointer hover:bg-primary hover:text-white transition-colors"
+    *ngIf="image"
+    class="absolute -top-6 -right-6 z-50 size-10 rounded-full flex justify-center items-center text-6xl cursor-pointer hover:bg-primary hover:text-white transition-colors"
     (click)="handleToggle()"
     [attr.aria-hidden]="true"
   >
-    <span *ngIf="image" class="material-symbols-outlined text-2xl">
+    <span class="material-symbols-outlined text-2xl">
       {{ !toggle ? 'close' : 'edit' }}
     </span>
   </div>

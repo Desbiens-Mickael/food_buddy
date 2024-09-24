@@ -63,7 +63,7 @@
                 (formGroupData.get('firstName')?.dirty ||
                   formGroupData.get('firstName')?.touched)
               "
-              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
             >
               <small
                 *ngIf="formGroupData.get('firstName')?.errors?.['required']"
@@ -96,7 +96,7 @@
                 (formGroupData.get('lastName')?.dirty ||
                   formGroupData.get('lastName')?.touched)
               "
-              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+              class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
             >
               <small *ngIf="formGroupData.get('lastName')?.errors?.['required']"
                 >Nom Requis.</small
@@ -128,7 +128,7 @@
             (formGroupData.get('email')?.dirty ||
               formGroupData.get('email')?.touched)
           "
-          class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+          class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
         >
           <small *ngIf="formGroupData.get('email')?.errors?.['required']"
             >Email Requis.</small
@@ -205,7 +205,7 @@
                   (formGroupData.get('passwordGroup.password')?.dirty ||
                     formGroupData.get('passwordGroup.password')?.touched)
                 "
-                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
               >
                 <small
                   *ngIf="
@@ -278,7 +278,7 @@
                   (formGroupData.get('passwordGroup.confirmPassword')?.dirty ||
                     formGroupData.get('passwordGroup.confirmPassword')?.touched)
                 "
-                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1"
+                class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
               >
                 <small
                   *ngIf="

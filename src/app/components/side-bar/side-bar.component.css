@@ -6,7 +6,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 9;
+  z-index: 50;
   box-shadow: 5px 0 3px -3px #00000030;
 }
 
@@ -86,13 +86,14 @@ h4 {
   color: var(--secondary-color);
 }
 
+/* Burger Menu */
 .hamburger {
   position: absolute;
   top: 10px;
-  right: -15%;
+  left: 10px;
   z-index: 1000;
   border: none;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
   cursor: pointer;
   background-color: var(--secondary-color);
   border-radius: 7px;
@@ -100,9 +101,44 @@ h4 {
   color: white;
   transition: all 0.3s ease;
 }
-.hamburger:hover {
-  background-color: var(--secondary-dark-color);
+
+/* SVG du burger menu */
+.line {
+  fill: none;
+  stroke: white;
+  stroke-width: 6;
+  transition:
+    stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.line1 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+.line2 {
+  stroke-dasharray: 60 60;
+  stroke-width: 6;
+}
+.line3 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+  stroke-width: 6;
+}
+.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+
 @media screen and (min-width: 1020px) {
   .sidebar {
     width: 350px;
