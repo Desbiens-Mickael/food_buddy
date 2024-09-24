@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AddressFormComponent } from '../../../../components/form/address-form/address-form.component';
 import { EstablishmentFormComponent } from '../../../../components/form/establishment-form/establishment-form.component';
 import { FullEstablishmentFormComponent } from '../../../../components/form/full-establishment-form/full-establishment-form.component';
+import { BackButtonComponent } from '../../../../components/ui/back-button/back-button.component';
 import { DrawerComponent } from '../../../../components/ui/drawer/drawer.component';
 import { DropdownMenuComponent } from '../../../../components/ui/dropdown-menu/dropdown-menu.component';
 import { Establishment } from '../../../../shared/models/Establishment';
@@ -19,6 +20,7 @@ import { EstablishmentService } from '../../../../shared/services/establishment.
     DropdownMenuComponent,
     DrawerComponent,
     FullEstablishmentFormComponent,
+    BackButtonComponent,
   ],
   templateUrl: './establishements-settings-page.component.html',
   styleUrl: './establishements-settings-page.component.css',
@@ -49,7 +51,22 @@ export class EstablishementsSettingsPageComponent implements OnInit {
         'Etes-vous sûr de vouloir supprimer cet établissement ? Cette action est irréversible.',
       )
     ) {
-      console.log(establishmentId);
+      this.establishmentService
+        .deleteEstablishment(String(establishmentId))
+        .subscribe({
+          next: () => {
+            this.toastr.success('Établissement supprimé avec succès');
+            this.establishments = this.establishments.filter(
+              establishment => establishment.id !== establishmentId,
+            );
+          },
+          error: error => {
+            console.error(error);
+            this.toastr.error(
+              "Une erreur s'est produite lors de la suppression de l'établissement",
+            );
+          },
+        });
     }
   }
 }

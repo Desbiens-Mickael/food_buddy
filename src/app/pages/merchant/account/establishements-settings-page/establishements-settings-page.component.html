@@ -3,14 +3,15 @@
 </h1>
 
 <div class="w-full flex flex-col items-center gap-4 md:px-8">
-  <app-drawer
-    [icon]="'add_business'"
-    [iconTitle]="'Ajouter un établissement'"
-    class="self-end me-8"
-  >
-    <app-full-establishment-form></app-full-establishment-form>
-  </app-drawer>
-
+  <div class="w-full flex justify-between items-center px-4">
+    <app-back-button></app-back-button>
+    <app-drawer
+      [icon]="'add_business'"
+      [iconTitle]="'Ajouter un établissement'"
+    >
+      <app-full-establishment-form></app-full-establishment-form>
+    </app-drawer>
+  </div>
   <div class="w-full shadow-lg">
     <table class="w-full font-main">
       <thead class="bg-neutral-600 text-neutral-50 uppercase">

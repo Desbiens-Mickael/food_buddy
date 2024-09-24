@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../../environments/environment';
 import { BuisnessFormComponent } from '../../../../components/form/buisness-form/buisness-form.component';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
+import { BackButtonComponent } from '../../../../components/ui/back-button/back-button.component';
 import { UploadFileComponent } from '../../../../components/upload-file/upload-file.component';
 import { Business } from '../../../../shared/models/Buisness';
 import { BuisnessService } from '../../../../shared/services/buisness.service';
@@ -16,6 +17,7 @@ import { BuisnessService } from '../../../../shared/services/buisness.service';
     BuisnessFormComponent,
     UploadFileComponent,
     LoaderComponent,
+    BackButtonComponent,
   ],
   templateUrl: './business-settings-page.component.html',
   styleUrl: './business-settings-page.component.css',

@@ -46,7 +46,6 @@ export class EstablishmentService {
       );
   }
 
-  //TODO : add establishment
   addEstablishment(
     establishmentWithAddress: EstablishmentWithAddress,
   ): Observable<Establishment> {
@@ -60,4 +59,17 @@ export class EstablishmentService {
   }
 
   //TODO : delete establishment
+  deleteEstablishment(establishmentId: string): Observable<Establishment> {
+    return this.http
+      .delete<Establishment>(this.EstablishmentUrl + `/${establishmentId}`)
+      .pipe(
+        tap(data => {
+          this.establishments.next(
+            this.establishments
+              .getValue()
+              .filter(establishment => establishment.id !== data.id),
+          );
+        }),
+      );
+  }
 }

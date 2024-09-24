@@ -1,6 +1,7 @@
 <h1 class="text-center text-3xl font-bold mb-8">Paramètres de l'entreprise</h1>
 
 <div class="w-full flex flex-col items-center gap-4 md:px-8">
+  <app-back-button class="self-start ps-4"></app-back-button>
   <app-loader *ngIf="isLoading"></app-loader>
   <app-upload-file
     *ngIf="!isLoading"
