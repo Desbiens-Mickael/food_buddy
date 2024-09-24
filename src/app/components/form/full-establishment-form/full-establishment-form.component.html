@@ -1,0 +1,41 @@
+<div class="w-full mt-12">
+  <fieldset
+    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
+  >
+    <legend
+      class="text-start text-xl font-main font-semibold text-neutral-500 px-2"
+    >
+      Informations de l'établissement
+    </legend>
+    <app-establishment-form
+      [parentForm]="fullEstablishmentForm"
+      [establishmentInfo]="establishment"
+    ></app-establishment-form>
+  </fieldset>
+
+  <fieldset
+    class="w-full border-2 border-dashed border-neutral-400 rounded-md p-4 mt-8"
+  >
+    <legend
+      class="text-start text-xl font-main font-semibold text-neutral-500 px-2"
+    >
+      Addresse de l'établissement
+    </legend>
+    <app-address-form
+      [parentForm]="fullEstablishmentForm"
+      [addressInfos]="address"
+    ></app-address-form>
+  </fieldset>
+
+  <div class="flex justify-end mt-8"></div>
+  <button
+    *ngIf="fullEstablishmentForm"
+    [ngClass]="fullEstablishmentForm.invalid ? 'cursor-not-allowed' : ''"
+    [disabled]="fullEstablishmentForm.invalid"
+    type="submit"
+    class="w-full bg-secondary text-white font-main px-4 py-2 rounded-md hover:bg-secondary-light transition-colors duration-300 ease-in-out"
+    (click)="handleSubmit()"
+  >
+    Créer l'établissement
+  </button>
+</div>

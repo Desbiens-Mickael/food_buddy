@@ -9,30 +9,33 @@
   <div
     class="registerComponent shadow-lg bg-white/10 backdrop-blur-lg rounded-xl py-4"
   >
-    <div class="choiceAccount mx-auto mb-6">
+    <div class="choiceAccount mx-auto px-2 mb-6">
       <button
-        [disabled]="!buisnessChoice"
-        (click)="buisnessChoice()"
+        [disabled]="toggle"
+        (click)="handleToggle()"
         class="btn-warning shadow-lg"
       >
         Commerçant
       </button>
       <button
-        [disabled]="!clientChoice"
-        (click)="clientChoice()"
+        [disabled]="!toggle"
+        (click)="handleToggle()"
         class="btn-valid shadow-lg"
       >
         Donateur/Utilisateur
       </button>
     </div>
 
-    <div class="allForms">
-      <div *ngIf="!choiceBuisness" id="userForm">
+    <div class="min-h-[450px] flex flex-col">
+      <div *ngIf="!toggle" id="userForm">
         <app-user-form class="component"></app-user-form>
       </div>
-      <div *ngIf="choiceBuisness" id="buisnessForm">
-        <app-buisness-form class="component"></app-buisness-form>
-      </div>
+      <!-- <div  id="buisnessForm"> -->
+      <app-buisness-register-form
+        *ngIf="toggle"
+        class="component"
+      ></app-buisness-register-form>
+      <!-- </div> -->
     </div>
   </div>
 </div>

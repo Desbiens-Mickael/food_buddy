@@ -1,0 +1,61 @@
+<!-- Informations utilisateur form#1-->
+<form
+  *ngIf="businessAccountForm"
+  [formGroup]="businessAccountForm"
+  #myForm="ngForm"
+  novalidate
+  class="px-4"
+>
+  <div *ngIf="currentStep === 1" @fadeInOut>
+    <app-user-form [parentForm]="businessAccountForm"></app-user-form>
+  </div>
+
+  <!-- Informations entreprise form#2 -->
+  <div *ngIf="currentStep === 2" @fadeInOut>
+    <app-buisness-form [parentForm]="businessAccountForm"></app-buisness-form>
+  </div>
+
+  <!-- Informations etablissement form#3 -->
+  <div *ngIf="currentStep === 3" @fadeInOut>
+    <app-establishment-form
+      [parentForm]="businessAccountForm"
+    ></app-establishment-form>
+  </div>
+
+  <!-- Informations adresse form#4 -->
+  <div *ngIf="currentStep === 4" @fadeInOut>
+    <app-address-form [parentForm]="businessAccountForm"></app-address-form>
+  </div>
+</form>
+
+<div class="buttons">
+  <button
+    *ngIf="currentStep !== 1"
+    class="button btn-warning"
+    (click)="prevStep()"
+  >
+    Précédent
+  </button>
+
+  <button
+    class="button btn-valid"
+    (click)="currentStep === 4 ? createBuisness() : nextStep()"
+    [ngClass]="{
+      'cursor-not-allowed':
+        (businessAccountForm.get('user')?.invalid && currentStep === 1) ||
+        (businessAccountForm.get('business')?.invalid && currentStep === 2) ||
+        (businessAccountForm.get('establishment')?.invalid &&
+          currentStep === 3) ||
+        (businessAccountForm.get('address')?.invalid && currentStep === 4),
+    }"
+    [disabled]="
+      (businessAccountForm.get('user')?.invalid && currentStep === 1) ||
+      (businessAccountForm.get('business')?.invalid && currentStep === 2) ||
+      (businessAccountForm.get('establishment')?.invalid &&
+        currentStep === 3) ||
+      (businessAccountForm.get('address')?.invalid && currentStep === 4)
+    "
+  >
+    {{ currentStep === 4 ? 'Créer mon compte' : 'Suivant' }}
+  </button>
+</div>

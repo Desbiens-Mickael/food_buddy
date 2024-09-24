@@ -3,17 +3,18 @@
 </h1>
 
 <div class="main">
-  <div class="h-[150px] w-[150px] rounded-full overflow-hidden">
-    <img
-      class="h-full w-full object-cover"
-      src="{{
-        user.profileImageUrl
-          ? baseUrl + '/users/avatar/' + user.profileImageUrl
-          : 'assets/avatar-user.png'
-      }}"
-      alt="avatar"
-    />
-  </div>
+  <app-back-button
+    *ngIf="userRole === 'MERCHANT'"
+    class="self-start ms-4 md:ms-32"
+  />
+  <app-upload-file
+    image="{{ avatarUrl ?? 'assets/avatar-user.png' }}"
+    [multiple]="false"
+    [isProfilePictureMode]="true"
+    acceptedTypes="image/*"
+    (fileSubmitted)="onUploadFile($event)"
+  ></app-upload-file>
+
   <div class="w-full md:w-[70%]">
     <app-user-form [userInfos]="user"></app-user-form>
   </div>

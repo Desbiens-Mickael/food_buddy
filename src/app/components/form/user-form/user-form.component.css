@@ -1,13 +1,6 @@
 :host {
   width: 100%;
 }
-.main {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 h1 {
   text-align: center;
   color: #3f3d3d;
@@ -32,7 +25,6 @@ form {
   flex-direction: column;
   text-align: center;
   margin: auto;
-  padding-top: 5px;
   align-items: center;
 }
 
@@ -125,13 +117,6 @@ button {
 }
 
 @media (min-width: 410px) and (max-width: 676px) {
-  .main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
   input {
     /* border: solid 1px rgba(153, 153, 153, 0.194); */
     border-radius: 5px;

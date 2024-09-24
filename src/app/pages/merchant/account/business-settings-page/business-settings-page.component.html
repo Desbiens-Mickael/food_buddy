@@ -1,0 +1,22 @@
+<h1 class="text-center text-3xl font-bold mb-8">Paramètres de l'entreprise</h1>
+
+<div class="w-full flex flex-col items-center gap-4 md:px-8">
+  <app-back-button class="self-start ps-4" />
+  <app-loader *ngIf="isLoading"></app-loader>
+  <app-upload-file
+    *ngIf="!isLoading"
+    image="{{
+      businessInfos?.logoUrl
+        ? baseLogoUrl + businessInfos?.logoUrl
+        : 'assets/default-busines.png'
+    }}"
+    [multiple]="false"
+    [isProfilePictureMode]="true"
+    acceptedTypes="image/*"
+    (fileSubmitted)="onUploadFile($event)"
+  ></app-upload-file>
+  <app-buisness-form
+    *ngIf="!isLoading && businessInfos"
+    [businessName]="businessInfos.name"
+  ></app-buisness-form>
+</div>

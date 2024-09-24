@@ -1,0 +1,15 @@
+<div class="relative w-[100px]">
+  <span
+    class="material-symbols-outlined text-neutral-500 hover:bg-neutral-100 rounded-md cursor-pointer transition-colors px-2 py-1"
+    (click)="handleToggle()"
+    [attr.aria-hidden]="true"
+  >
+    more_horiz
+  </span>
+  <div
+    *ngIf="toggle"
+    class="absolute top-9 left-0 w-[100px] h-auto z-50 bg-white rounded-md shadow-lg overflow-hidden divide-y divide-neutral-200"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+<!-- Utilisation en autonome -->
+<ng-container *ngIf="!parentForm">
+  <form [formGroup]="addressForm" (ngSubmit)="updateAddress()" class="px-4">
+    <ng-container
+      *ngTemplateOutlet="form; context: { formGroupData: addressForm }"
+    ></ng-container>
+    <button
+      *ngIf="!parentForm"
+      [disabled]="addressForm.invalid"
+      class="button btn-warning shadow-lg m-top-input font-main"
+      [ngClass]="addressForm.invalid ? 'cursor-not-allowed' : ''"
+      type="submit"
+    >
+      Mettre à jour l'adresse
+    </button>
+  </form>
+</ng-container>
+
+<!-- Utilisation dans un parent -->
+<ng-container *ngIf="parentForm">
+  <ng-container
+    *ngTemplateOutlet="
+      form;
+      context: { formGroupData: parentForm.get('address') }
+    "
+  ></ng-container>
+</ng-container>
+
+<!-- Template réutilisable pour les différents cas d'utilisation -->
+<ng-template #form let-formGroupData="formGroupData">
+  <div [formGroup]="formGroupData" class="w-full px-4">
+    <!-- <h6>Adresse de l'établissement</h6> -->
+    <div class="field relative">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          autocomplete="off"
+          type="text"
+          id="adresse-input"
+          placeholder="Recherchez votre adresse"
+          name="adresse-input"
+          (input)="filter($event)"
+          (focus)="showSuggestions()"
+          (blur)="hideSuggestions()"
+        />
+        <div class="absolute bottom-[-5px] left-0 w-full">
+          <ul
+            *ngIf="suggestionsVisible"
+            (mousedown)="keepSuggestionsVisible = true"
+            (mouseup)="keepSuggestionsVisible = false"
+          >
+            <li
+              *ngFor="let ville of filteredVilles"
+              (click)="selectAdress(ville)"
+              (keydown.enter)="selectAdress(ville)"
+              tabindex="0"
+            >
+              {{ ville.properties.label }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="N° rue"
+          formControlName="streetNumber"
+          [ngClass]="
+            formGroupData.get('streetNumber')?.invalid &&
+            (formGroupData.get('streetNumber')?.dirty ||
+              formGroupData.get('streetNumber')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('streetNumber')?.invalid &&
+          (formGroupData.get('streetNumber')?.dirty ||
+            formGroupData.get('streetNumber')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('streetNumber')?.errors?.['required']"
+          >Numéro de rue requis.</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Nom de la rue"
+          formControlName="streetName"
+          [ngClass]="
+            formGroupData.get('streetName')?.invalid &&
+            (formGroupData.get('streetName')?.dirty ||
+              formGroupData.get('streetName')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('streetName')?.invalid &&
+          (formGroupData.get('streetName')?.dirty ||
+            formGroupData.get('streetName')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('streetName')?.errors?.['required']"
+          >Nom de la rue requis.</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          placeholder="Code postal"
+          formControlName="zipCode"
+          [ngClass]="
+            formGroupData.get('zipCode')?.invalid &&
+            (formGroupData.get('zipCode')?.dirty ||
+              formGroupData.get('zipCode')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('zipCode')?.invalid &&
+          (formGroupData.get('zipCode')?.dirty ||
+            formGroupData.get('zipCode')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('zipCode')?.errors?.['required']"
+          >Code postal requis.</small
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input
+          class="input shadow-lg w-full m-top-input"
+          type="text"
+          name="city"
+          placeholder="Ville"
+          formControlName="city"
+          [ngClass]="
+            formGroupData.get('city')?.invalid &&
+            (formGroupData.get('city')?.dirty ||
+              formGroupData.get('city')?.touched)
+              ? 'text-red-600 placeholder:text-red-600 ring-2 ring-red-600 outline-offset-2 focus-visible:outline-none focus:outline-none'
+              : 'outline-offset-2 focus-visible:outline-neutral-500 focus:outline-none'
+          "
+        />
+      </div>
+      <div
+        *ngIf="
+          formGroupData.get('city')?.invalid &&
+          (formGroupData.get('city')?.dirty ||
+            formGroupData.get('city')?.touched)
+        "
+        class="text-white bg-red-600 text-lg text-main font-semibold mt-1 rounded-md py-1 flex flex-col justify-center items-center"
+      >
+        <small
+          class="error"
+          *ngIf="formGroupData.get('city')?.errors?.['required']"
+          >Ville requise.</small
+        >
+      </div>
+    </div>
+  </div>
+</ng-template>

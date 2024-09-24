@@ -113,12 +113,8 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
     return this.productForm.value.allergens;
   }
 
-  onFileDropped(fileList: FileList) {
-    this.productimage = fileList[0];
-  }
-
-  onErrorOccurred(error: string) {
-    console.log(error);
+  onFileDropped(files: File[]) {
+    this.productimage = files[0];
   }
 
   submit() {
